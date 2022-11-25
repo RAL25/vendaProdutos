@@ -88,7 +88,7 @@ public class Produto extends Entity{
 //</editor-fold>
     }
     
-    public void calcularValorProduto() {
-        valorProduto = precoBase.add(recheio.getPreco());
+    public BigDecimal calcularValorProduto() {
+        return valorProduto = precoBase.add(recheio.getPreco());
     }
 }

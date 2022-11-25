@@ -5,6 +5,11 @@
 
 package io.github.gabrielsizilio.sabordecasa;
 
+import io.github.gabrielsizilio.sabordecasa.produto.Item;
+import io.github.gabrielsizilio.sabordecasa.produto.Produto;
+import io.github.gabrielsizilio.sabordecasa.produto.Recheio;
+import java.math.BigDecimal;
+
 /**
  *
  * @author Gabriel Sizilio <Gabriel at IFNMG>
@@ -12,6 +17,14 @@ package io.github.gabrielsizilio.sabordecasa;
 public class SaborDeCasa {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        
+        Recheio recheio = new Recheio(1L, "Recheio de carne", "Carne com molho", new BigDecimal("2"));
+        Produto produto = new Produto(2L, "Mineirinho", new BigDecimal("10"), recheio);
+        Item item = new Item(produto, 3);
+        
+        System.out.println(">>" + item);
+        System.out.println(">>" + item.calcularTotal());
+        
+
     }
 }
