@@ -13,23 +13,26 @@ import java.util.List;
  */  
 public class Cliente {
     private String nome;
-    private ArrayList<Telefone> telefone;
-    private List<Endereco> endereco;
-    
+//    private ArrayList<Telefone> telefone;
+    private ArrayList<Telefone> telefones;
+//    private List<Endereco> endereco;
+    private ArrayList<Endereco> enderecos;
     //todo criar classes abstratas pessoa fisica e juridica?
 
     //<editor-fold defaultstate="collapsed" desc="construtor">
     
     public Cliente() {
+        enderecos = new ArrayList<>();
+        telefones = new ArrayList<>();
     }
     
-    public Cliente(String nome, List<Telefone> telefone, List<Endereco> endereco) {
+    public Cliente(String nome) {
+        this();
         this.nome = nome;
-        this.telefone = (ArrayList<Telefone>) telefone;
-        this.endereco = endereco;
     }
-    //</editor-fold>
 
+    //</editor-fold>
+    
     //<editor-fold defaultstate="collapsed" desc="getters e setters">
     public String getNome() {
         return nome;
@@ -42,23 +45,40 @@ public class Cliente {
         this.nome = nome;
     }
 
-    public ArrayList<Telefone> getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(List<Telefone> telefone) {
-        this.telefone = (ArrayList<Telefone>) telefone;
-    }
-
-    public List<Endereco> getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(List<Endereco> endereco) {
-        this.endereco = endereco;
-    }
+//    public ArrayList<Telefone> getTelefone() {
+//        return telefones;
+//    }
+//
+//    public void setTelefone(List<Telefone> telefone) {
+//        this.telefone = (ArrayList<Telefone>) telefone;
+//    }
+//
+//    public List<Endereco> getEndereco() {
+//        return endereco;
+//    }
+//
+//    public void setEndereco(List<Endereco> endereco) {
+//        this.endereco = endereco;
+//    }
     //</editor-fold>
     
+    public void addTelefone(Telefone telefone) {
+        
+        if(telefones.size() <= 2) {
+            telefones.add(telefone);
+        }
+    }
     
+    public void addEndereco(Endereco endereco) {
+        enderecos.add(endereco);
+    }
+    
+    @Override
+    public String toString() {
+        return "Cliente{" + "nome=" + nome 
+                + ", telefone=" + telefones
+                + ", endereco=" + enderecos
+                + '}';
+    }
     
 } 
