@@ -5,6 +5,7 @@
 
 package Yodemis;
 
+import io.github.gabrielsizilio.sabordecasa.entity.Entity;
 import io.github.gabrielsizilio.sabordecasa.produto.Item;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
  * Classe Pedido
  * @author yodem
  */
-public class Pedido {
+public class Pedido extends Entity {
     private Funcionario funcionario;
     private ArrayList<Item> itens;
     private BigDecimal valorTotal;

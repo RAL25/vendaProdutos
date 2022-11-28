@@ -5,11 +5,13 @@
 
 package Yodemis;
 
+import io.github.gabrielsizilio.sabordecasa.entity.Entity;
+
 /**
  * Classe Funcionario
  * @author yodem
  */
-public class Funcionario {
+public class Funcionario extends Entity {
     private Long matricula;
     private String nome;
     private Credencial credencial;

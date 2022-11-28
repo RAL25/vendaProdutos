@@ -1,11 +1,13 @@
 
 package Yodemis;
 
+import io.github.gabrielsizilio.sabordecasa.entity.Entity;
+
 /**
  * Classe Credencial
  * @author yodem
  */
-public class Credencial {
+public class Credencial extends Entity{
     private String email;
     private String senha;
 
