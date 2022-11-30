@@ -5,9 +5,9 @@
 
 package io.github.gabrielsizilio.sabordecasa;
 
-import io.github.gabrielsizilio.sabordecasa.cliente.Cliente;
-import io.github.gabrielsizilio.sabordecasa.cliente.Endereco;
-import io.github.gabrielsizilio.sabordecasa.cliente.Telefone;
+import io.github.rianal25.sabordecasa.cliente.Cliente;
+import io.github.rianal25.sabordecasa.cliente.Endereco;
+import io.github.rianal25.sabordecasa.cliente.Telefone;
 import io.github.gabrielsizilio.sabordecasa.produto.Item;
 import io.github.gabrielsizilio.sabordecasa.produto.Produto;
 import io.github.gabrielsizilio.sabordecasa.produto.Recheio;

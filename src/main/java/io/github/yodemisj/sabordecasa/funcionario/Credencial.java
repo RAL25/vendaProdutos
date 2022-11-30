@@ -1,5 +1,5 @@
 
-package Yodemis;
+package io.github.yodemisj.sabordecasa.funcionario;
 
 import io.github.gabrielsizilio.sabordecasa.entity.Entity;
 
