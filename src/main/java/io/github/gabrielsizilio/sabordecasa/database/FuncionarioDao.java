@@ -8,9 +8,18 @@ package io.github.gabrielsizilio.sabordecasa.database;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-/**
+/** 
+ * <pre>CREATE TABLE `funcionario` (
+    `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+    `matricula` bigint(20) unsigned DEFAULT NULL,
+    `ativo` tinyint(1) DEFAULT '1',
+    `administrador` tinyint(1) DEFAULT '1',
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `id` (`id`)
+  ) ENGINE=MyISAM DEFAULT CHARSET=latin1</pre>
+ * 
  * Classe FuncionarioDao
- * @author yodem
+ * @author yodemis
  */
 public class FuncionarioDao extends Dao {
 

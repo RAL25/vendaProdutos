@@ -9,6 +9,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 /**
+ * <pre> CREATE TABLE `credencial` (
+    `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+    `email` varchar(150) NOT NULL,
+    `senha` varchar(45) NOT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `id` (`id`)
+  ) ENGINE=MyISAM DEFAULT CHARSET=latin1</pre>
+ * 
  * Classe CredencialDao
  * @author yodem
  */

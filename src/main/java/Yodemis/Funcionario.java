@@ -9,7 +9,8 @@ import io.github.gabrielsizilio.sabordecasa.entity.Entity;
 
 /**
  * Classe Funcionario
- * @author yodem
+ * @author yodemis
+ * 
  */
 public class Funcionario extends Entity {
     private Long matricula;

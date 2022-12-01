@@ -9,6 +9,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 /**
+ * <pre> CREATE TABLE `pedido` (
+    `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+    `funcionario_id` bigint(20) unsigned DEFAULT NULL,
+    `valor_total` float DEFAULT NULL,
+    `delivery` tinyint(1) DEFAULT '0',
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `id` (`id`),
+    KEY `funcionario_id` (`funcionario_id`)
+  ) ENGINE=MyISAM DEFAULT CHARSET=latin1</pre>
+* 
  * Classe PedidoDao
  * @author yodem
  */
