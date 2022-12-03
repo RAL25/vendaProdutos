@@ -10,6 +10,7 @@ import io.github.rianal25.sabordecasa.cliente.Endereco;
 import io.github.rianal25.sabordecasa.cliente.Telefone;
 import io.github.gabrielsizilio.sabordecasa.produto.Item;
 import io.github.gabrielsizilio.sabordecasa.produto.Produto;
+import io.github.gabrielsizilio.sabordecasa.produto.ProdutoDao;
 import io.github.gabrielsizilio.sabordecasa.produto.Recheio;
 import io.github.gabrielsizilio.sabordecasa.produto.RecheioDao;
 import java.math.BigDecimal;
@@ -27,23 +28,69 @@ public class SaborDeCasa {
 //=================================================================================================================
 //        TESTE PARA PRODUTOS
         
-        Recheio recheio1 = new Recheio(null, "Recheio de goiabada", "Carne com molho", new BigDecimal("2"));
-        Produto produto = new Produto(null, "Mineirinho", new BigDecimal("10"), recheio1);
-        Item item = new Item(produto, 1);
+//        Recheio recheio1 = new Recheio(null, "Recheio de goiabada", "Carne com molho", new BigDecimal("2"));
+//        Produto produto = new Produto(null, "Mineirinho", new BigDecimal("10"), recheio1);
+//        Item item = new Item(produto, 1);
+//        
+//        System.out.println(">>" + item);
+//        System.out.println(">>" + item.calcularTotal());
+//        
+//        Long recheio1Id = new RecheioDao().saveOrUpdate(recheio1);
+//        recheio1.setId(recheio1Id);
+//        
+//        System.out.println(">>>"+recheio1.getId());
+//        
+//        
+//        recheio1.setNome("Mineirinho II");
+//        new RecheioDao().saveOrUpdate(recheio1);        
+//        new RecheioDao().moveToTrash(recheio1);
+            
+
+        Recheio recheioGoiaba = new Recheio(null, "goiaba", "Goiabada com creme de leite", new BigDecimal("1.5"));
+//        Produto produtoPãoDeQueijo = new Produto(null, "Pão de queijo", new BigDecimal("2"), recheioGoiaba);
         
-        System.out.println(">>" + item);
-        System.out.println(">>" + item.calcularTotal());
+//        SAVE
+        Long idRecheioGoiaba = new RecheioDao().saveOrUpdate(recheioGoiaba);
+        recheioGoiaba.setId(idRecheioGoiaba);
         
-        Long recheio1Id = new RecheioDao().saveOrUpdate(recheio1);
-        recheio1.setId(recheio1Id);
+//        FIND
+        Recheio recheioRecuperado = new RecheioDao().findById(idRecheioGoiaba);
+        System.out.println(">> RecheioRecuperado(pré-atualização): " + recheioRecuperado);
         
-        System.out.println(">>>"+recheio1.getId());
+//        UPDATE
+        recheioRecuperado.setDescricao(recheioRecuperado.getDescricao() + ", SÓ VEM!!!");
+        new RecheioDao().saveOrUpdate(recheioRecuperado);
+        
+        System.out.println(">> RecheioRecuperado(pós-atualização): " + recheioRecuperado);
+        
+//        FIND ALL
+        List<Recheio> recheios = new RecheioDao().findAll();
+        System.out.println(">> Lista de todos os recheios: "+recheios);
+        
+//        MOVE TO TRASH
+        new RecheioDao().moveToTrash(recheioGoiaba);
+        List<Recheio> recheioRecuperadoDaLixeira = new RecheioDao().findAllOnTrashStatement();
+        System.out.println(">> Movido para lixeira: " + recheioRecuperadoDaLixeira);
+
+//        RESTORE FROM TO TRASH
+        new RecheioDao().restoreFromTrash(recheioGoiaba);
+        
+//        FIND BY DESCRIPTION
+        recheios = new RecheioDao().findByDescription("VEM");
+        System.out.println(">> Lista com a descricao: " + recheios);
         
         
-        recheio1.setNome("Mineirinho II");
-        new RecheioDao().saveOrUpdate(recheio1);
+
+//        Long idPãoDeQueijo = new ProdutoDao().saveOrUpdate(produtoPãoDeQueijo);
+//        produtoPãoDeQueijo.setId(idPãoDeQueijo);
         
-        new RecheioDao().moveToTrash(recheio1);
+//        List<Produto> produtos = new ProdutoDao().findAll();
+//        System.out.println(">>>" + produtos);
+        
+        
+        
+        
+
 //        Cliente cliente = new Cliente();
 //        cliente.setNome("Rian");
 //        
