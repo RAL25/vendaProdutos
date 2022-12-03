@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 /**
  * Classe Pedido
- * @author yodem
+ * @author yodemis
  */
 public class Pedido extends Entity {
     private Funcionario funcionario;
@@ -21,10 +21,11 @@ public class Pedido extends Entity {
     private Boolean delivery;
     
     public Pedido() {
-        itens = new ArrayList<>(2);
+        itens = new ArrayList<>();
     }
 
     public Pedido(Funcionario funcionario, ArrayList<Item> itens, BigDecimal valorTotal, Boolean delivery) {
+        this();
         this.funcionario = funcionario;
         this.itens = itens;
         this.valorTotal = valorTotal;
@@ -45,6 +46,10 @@ public class Pedido extends Entity {
 
     public void setItens(ArrayList<Item> itens) {
         this.itens = itens;
+    }
+    
+    public void addItem(Item item) {
+        itens.add(item);
     }
 
     public BigDecimal getValorTotal() {

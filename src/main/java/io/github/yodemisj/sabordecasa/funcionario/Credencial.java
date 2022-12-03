@@ -5,7 +5,7 @@ import io.github.gabrielsizilio.sabordecasa.entity.Entity;
 
 /**
  * Classe Credencial
- * @author yodem
+ * @author yodemis
  */
 public class Credencial extends Entity{
     private String email;

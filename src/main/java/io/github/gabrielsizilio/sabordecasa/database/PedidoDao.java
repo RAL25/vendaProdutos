@@ -5,68 +5,88 @@
 
 package io.github.gabrielsizilio.sabordecasa.database;
 
+import io.github.yodemisj.sabordecasa.funcionario.Funcionario;
+import io.github.yodemisj.sabordecasa.funcionario.Pedido;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
- * <pre> CREATE TABLE `pedido` (
-    `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-    `funcionario_id` bigint(20) unsigned DEFAULT NULL,
-    `valor_total` float DEFAULT NULL,
-    `delivery` tinyint(1) DEFAULT '0',
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `id` (`id`),
-    KEY `funcionario_id` (`funcionario_id`)
-  ) ENGINE=MyISAM DEFAULT CHARSET=latin1</pre>
+ * <pre>CREATE TABLE `funcionario` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `nome` varchar(45) NOT NULL,
+  `matricula` bigint(20) NOT NULL,
+  `ativo` tinyint(1) DEFAULT '1',
+  `administrador` tinyint(1) DEFAULT '0',
+  `excluido` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</pre>
 * 
  * Classe PedidoDao
- * @author yodem
+ * @author yodemis
  */
-public class PedidoDao extends Dao {
+public class PedidoDao extends Dao<Pedido> {
+    public static final String TABLE = "pedido";
 
     @Override
     public String getSaveStatement() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "insert into "+ TABLE +" (funcionario_id, valorTotal, delivery) values (?, ?, ?)";
     }
 
     @Override
     public String getUpdateStatement() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "update "+ TABLE + " set funcionario_id = ?, valorTotal = ?, delivery = ? where id = ?";
     }
 
     @Override
-    public void composeSaveOrUpdateStatement(PreparedStatement pstmt, Object e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void composeSaveOrUpdateStatement(PreparedStatement pstmt, Pedido e) {
+        try{
+            //pstmt.setObject(1,f.getId());                 
+            pstmt.setObject(2,e.getValorTotal());      
+            pstmt.setObject(3,e.getDelivery());      
+    
+            if(e.getId() != null) {
+                pstmt.setObject(5, e.getId());
+            }
+
+        } catch(SQLException ex){
+            Logger.getLogger(CredencialDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
     public String getFindByIdStatement() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "select * from "+ TABLE + " where id = ?";
     }
 
     @Override
     public String getFindAllStatement() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "select * from "+ TABLE + " where excluido = 0";
     }
 
     @Override
     public String getMoveToTrashStatement() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "update "+ TABLE + " set excluido = 1 where id = ?";
     }
 
     @Override
     public String getRestoreFromTrashStatement() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "update " + TABLE + " set excluido = 0 where id = ?";
     }
 
     @Override
     public String getFindAllOnTrashStatement() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "select * from "+ TABLE + " where excluido = 1";
     }
 
     @Override
-    public Object extractObject(ResultSet resultSet) {
+    public Pedido extractObject(ResultSet resultSet) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+    
+    
 
 }
