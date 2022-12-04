@@ -28,24 +28,6 @@ public class SaborDeCasa {
 //=================================================================================================================
 //        TESTE PARA PRODUTOS
         
-//        Recheio recheio1 = new Recheio(null, "Recheio de goiabada", "Carne com molho", new BigDecimal("2"));
-//        Produto produto = new Produto(null, "Mineirinho", new BigDecimal("10"), recheio1);
-//        Item item = new Item(produto, 1);
-//        
-//        System.out.println(">>" + item);
-//        System.out.println(">>" + item.calcularTotal());
-//        
-//        Long recheio1Id = new RecheioDao().saveOrUpdate(recheio1);
-//        recheio1.setId(recheio1Id);
-//        
-//        System.out.println(">>>"+recheio1.getId());
-//        
-//        
-//        recheio1.setNome("Mineirinho II");
-//        new RecheioDao().saveOrUpdate(recheio1);        
-//        new RecheioDao().moveToTrash(recheio1);
-            
-
         Recheio recheioGoiaba = new Recheio(null, "goiaba", "Goiabada com creme de leite", new BigDecimal("1.5"));
         Produto produtoPaoDeQueijo = new Produto(null, "Pão de queijo", new BigDecimal("2"), recheioGoiaba);
         

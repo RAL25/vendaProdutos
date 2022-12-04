@@ -52,7 +52,7 @@ public class Item extends Entity{
     }
 //</editor-fold>
         
-    public BigDecimal calcularTotal() {
+    public BigDecimal calcularTotal() throws Exception {
         return produto.calcularValorProduto().multiply(new BigDecimal(quantidade));
     }
     

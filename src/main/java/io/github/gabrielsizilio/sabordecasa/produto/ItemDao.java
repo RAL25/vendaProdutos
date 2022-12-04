@@ -6,8 +6,13 @@
 package io.github.gabrielsizilio.sabordecasa.produto;
 
 import io.github.gabrielsizilio.sabordecasa.database.Dao;
+import io.github.gabrielsizilio.sabordecasa.database.DbConnection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Classe $(Gabriel)
@@ -15,49 +20,104 @@ import java.sql.ResultSet;
  */
 public class ItemDao extends Dao<Item>{
 
+    public static final String TABLE = "item";
+    
     @Override
     public String getSaveStatement() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "INSERT INTO "
+                + TABLE
+                + " (nome, precoBase, recheio_id, valorProduto)"
+                + " VALUES (?, ?, ?, ?)";    
     }
 
     @Override
     public String getUpdateStatement() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "UPDATE " 
+            + TABLE 
+            + " SET nome = ?, precoBase = ?, recheio_id = ?, valorProduto = ?"
+            + " WHERE id = ?"; 
     }
 
     @Override
     public void composeSaveOrUpdateStatement(PreparedStatement pstmt, Item e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            pstmt.setString(1, e.getNome());
+            
+            pstmt.setObject(2, e.getPrecoBase(), java.sql.Types.DECIMAL);
+            
+            pstmt.setObject(3, e.getRecheio().getId(), java.sql.Types.BIGINT);
+            
+            pstmt.setObject(4, e.calcularValorProduto(), java.sql.Types.DECIMAL);
+
+            // Just for the update
+            if (e.getId() != null) {
+                pstmt.setLong(5, e.getId());
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
     public String getFindByIdStatement() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "SELECT id, nome, precoBase, recheio_id, valorProduto, excluido FROM "
+            + TABLE
+            + " WHERE id = ?";
     }
 
     @Override
     public String getFindAllStatement() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "SELECT * FROM "
+            + TABLE
+            + " WHERE excluido = false";
     }
-
+    
     @Override
     public String getMoveToTrashStatement() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "UPDATE " 
+            + TABLE 
+            + " SET excluido = true"
+            + " WHERE id = ?"; 
     }
 
     @Override
     public String getRestoreFromTrashStatement() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "UPDATE " 
+            + TABLE 
+            + " SET excluido = false"
+            + " WHERE id = ?"; 
     }
 
     @Override
     public String getFindAllOnTrashStatement() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "SELECT * FROM "
+            + TABLE
+            + " WHERE excluido = true";
     }
 
     @Override
     public Item extractObject(ResultSet resultSet) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+        Produto produto = null;
+        Recheio recheio = null;
+        
+        try {
+            produto = new Produto();
+            recheio = new Recheio();
 
+            produto.setId(resultSet.getLong("id"));
+            produto.setNome(resultSet.getString("nome"));
+            produto.setPrecoBase(resultSet.getBigDecimal("precoBase"));
+            
+            recheio = new RecheioDao().findById(resultSet.getLong("recheio_id"));
+            produto.setRecheio(recheio);
+            
+            produto.setValorProduto(resultSet.getBigDecimal("valorProduto"));
+            produto.setExcluido(resultSet.getBoolean("excluido"));
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return produto;
+    }
 }
