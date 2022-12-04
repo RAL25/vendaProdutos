@@ -4,12 +4,7 @@
  */
 
 package io.github.yodemisj.sabordecasa.funcionario;
-
-<<<<<<< HEAD:src/main/java/io/github/gabrielsizilio/sabordecasa/database/FuncionarioDao.java
-import io.github.yodemisj.sabordecasa.funcionario.Funcionario;
-=======
 import io.github.gabrielsizilio.sabordecasa.database.Dao;
->>>>>>> Produto:src/main/java/io/github/yodemisj/sabordecasa/funcionario/FuncionarioDao.java
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -88,7 +83,23 @@ public class FuncionarioDao extends Dao<Funcionario> {
 
     @Override
     public Funcionario extractObject(ResultSet resultSet) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Funcionario funcionario = null;
+
+        try {
+            funcionario = new Funcionario();
+            funcionario.setId(resultSet.getLong("id"));
+            funcionario.setNome(resultSet.getString("nome"));
+            funcionario.setMatricula(resultSet.getLong("matricula"));
+            funcionario.setCredencial(resultSet.getObject("credencial", Credencial.class));
+            funcionario.setAtivo(resultSet.getBoolean("ativo"));
+            funcionario.setAdministrador(resultSet.getBoolean("ativo"));
+            funcionario.setExcluido(resultSet.getBoolean("excluido"));
+
+        } catch (SQLException ex) {
+            Logger.getLogger(FuncionarioDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return funcionario;
     }
     
 }

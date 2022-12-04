@@ -5,28 +5,30 @@
 
 package io.github.yodemisj.sabordecasa.funcionario;
 
-<<<<<<< HEAD:src/main/java/io/github/gabrielsizilio/sabordecasa/database/PedidoDao.java
-import io.github.yodemisj.sabordecasa.funcionario.Funcionario;
-import io.github.yodemisj.sabordecasa.funcionario.Pedido;
-=======
 import io.github.gabrielsizilio.sabordecasa.database.Dao;
->>>>>>> Produto:src/main/java/io/github/yodemisj/sabordecasa/funcionario/PedidoDao.java
+import io.github.gabrielsizilio.sabordecasa.produto.Item;
+import io.github.rianal25.sabordecasa.cliente.Cliente;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * <pre>CREATE TABLE `funcionario` (
+ * <pre>CREATE TABLE `pedido` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `nome` varchar(45) NOT NULL,
-  `matricula` bigint(20) NOT NULL,
-  `ativo` tinyint(1) DEFAULT '1',
-  `administrador` tinyint(1) DEFAULT '0',
+  `funcionario_id` bigint(20) unsigned NOT NULL,
+  `cliente_id` bigint(20) unsigned NOT NULL,
+  `valorTotal` decimal(5,2) DEFAULT NULL,
+  `delivery` tinyint(1) DEFAULT '0',
   `excluido` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `id` (`id`)
+  UNIQUE KEY `id` (`id`),
+  KEY `funcionario_id` (`funcionario_id`),
+  KEY `cliente_id` (`cliente_id`),
+  CONSTRAINT `pedido_ibfk_1` FOREIGN KEY (`funcionario_id`) REFERENCES `funcionario` (`id`),
+  CONSTRAINT `pedido_ibfk_2` FOREIGN KEY (`cliente_id`) REFERENCES `cliente` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1</pre>
 * 
  * Classe PedidoDao
@@ -37,12 +39,12 @@ public class PedidoDao extends Dao<Pedido> {
 
     @Override
     public String getSaveStatement() {
-        return "insert into "+ TABLE +" (funcionario_id, valorTotal, delivery) values (?, ?, ?)";
+        return "insert into "+ TABLE +" (funcionario_id, cliente_id, valorTotal, delivery) values (?, ?, ?, ?)";
     }
 
     @Override
     public String getUpdateStatement() {
-        return "update "+ TABLE + " set funcionario_id = ?, valorTotal = ?, delivery = ? where id = ?";
+        return "update "+ TABLE + " set funcionario_id = ?, cliente_id = ?, valorTotal = ?, delivery = ? where id = ?";
     }
 
     @Override
@@ -88,7 +90,22 @@ public class PedidoDao extends Dao<Pedido> {
 
     @Override
     public Pedido extractObject(ResultSet resultSet) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Pedido pedido = null;
+
+        try {
+            pedido = new Pedido();
+            pedido.setId(resultSet.getLong("id"));
+            pedido.setFuncionario(resultSet.getObject("funcionario",Funcionario.class));
+            pedido.setCliente(resultSet.getObject("cliente",Cliente.class));  
+            pedido.setItens((ArrayList<Item>) resultSet.getArray("itens"));
+            pedido.setDelivery(resultSet.getBoolean("delivery"));
+            pedido.setExcluido(resultSet.getBoolean("excluido"));
+
+        } catch (SQLException ex) {
+            Logger.getLogger(PedidoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return pedido;
     }
     
     

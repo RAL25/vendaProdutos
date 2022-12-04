@@ -7,6 +7,7 @@ package io.github.yodemisj.sabordecasa.funcionario;
 
 import io.github.gabrielsizilio.sabordecasa.entity.Entity;
 import io.github.gabrielsizilio.sabordecasa.produto.Item;
+import io.github.rianal25.sabordecasa.cliente.Cliente;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
@@ -19,18 +20,23 @@ public class Pedido extends Entity {
     private ArrayList<Item> itens;
     private BigDecimal valorTotal;
     private Boolean delivery;
+    private Cliente cliente;
     
     public Pedido() {
         itens = new ArrayList<>();
+        cliente = new Cliente();
     }
 
-    public Pedido(Funcionario funcionario, ArrayList<Item> itens, BigDecimal valorTotal, Boolean delivery) {
+    public Pedido(Funcionario funcionario, ArrayList<Item> itens, BigDecimal valorTotal, Boolean delivery, Cliente cliente) {
         this();
         this.funcionario = funcionario;
         this.itens = itens;
         this.valorTotal = valorTotal;
         this.delivery = delivery;
+        this.cliente = cliente;
     }
+
+    
 
     public Funcionario getFuncionario() {
         return funcionario;
@@ -67,8 +73,19 @@ public class Pedido extends Entity {
     public void setDelivery(Boolean delivery) {
         this.delivery = delivery;
     }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
     
-    public void calcularTotal() {
-        
+    
+    public void calcularTotal() throws Exception {
+        for(Item item:itens) {
+            valorTotal.add(item.calcularTotal());
+        }
     }
 }

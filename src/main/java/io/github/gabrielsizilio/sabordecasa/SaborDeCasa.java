@@ -5,8 +5,8 @@
 
 package io.github.gabrielsizilio.sabordecasa;
 
-import io.github.gabrielsizilio.sabordecasa.database.CredencialDao;
-import io.github.gabrielsizilio.sabordecasa.database.FuncionarioDao;
+import io.github.yodemisj.sabordecasa.funcionario.CredencialDao;
+import io.github.yodemisj.sabordecasa.funcionario.FuncionarioDao;
 import io.github.rianal25.sabordecasa.cliente.Cliente;
 import io.github.rianal25.sabordecasa.cliente.Endereco;
 import io.github.rianal25.sabordecasa.cliente.Telefone;
@@ -14,12 +14,9 @@ import io.github.gabrielsizilio.sabordecasa.produto.Item;
 import io.github.gabrielsizilio.sabordecasa.produto.Produto;
 import io.github.gabrielsizilio.sabordecasa.produto.ProdutoDao;
 import io.github.gabrielsizilio.sabordecasa.produto.Recheio;
-<<<<<<< HEAD
+import io.github.yodemisj.sabordecasa.funcionario.Credencial;
 import io.github.yodemisj.sabordecasa.funcionario.Credencial;
 import io.github.yodemisj.sabordecasa.funcionario.Funcionario;
-=======
-import io.github.gabrielsizilio.sabordecasa.produto.RecheioDao;
->>>>>>> Produto
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +32,6 @@ public class SaborDeCasa {
         Funcionario func = new Funcionario(1l,"Yodemis",cred,true,true);
         Long id;
         
-<<<<<<< HEAD
         System.out.println(">> " + func);
         
         id = new FuncionarioDao().saveOrUpdate(func);
@@ -108,7 +104,7 @@ public class SaborDeCasa {
 <<<<<<< HEAD
         System.out.println(">>" + cliente1);
 */        
-=======
+/*        
 //        FIND ALL
         List<Produto> produtos = new ProdutoDao().findAll();
         System.out.println("--- Lista de todos os produtos: "+produtos);
@@ -157,9 +153,6 @@ public class SaborDeCasa {
 //        System.out.println(">>" + cliente1);
 
 //=================================================================================================================
-        
-
-
->>>>>>> Produto
+*/        
     }
 }
