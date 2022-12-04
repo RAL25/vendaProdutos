@@ -6,8 +6,6 @@
 package io.github.gabrielsizilio.sabordecasa;
 
 
-import io.github.yodemisj.sabordecasa.funcionario.CredencialDao;
-import io.github.yodemisj.sabordecasa.funcionario.FuncionarioDao;
 import io.github.rianal25.sabordecasa.cliente.Cliente;
 import io.github.rianal25.sabordecasa.cliente.Endereco;
 import io.github.rianal25.sabordecasa.cliente.Telefone;
@@ -15,12 +13,9 @@ import io.github.gabrielsizilio.sabordecasa.produto.Item;
 import io.github.gabrielsizilio.sabordecasa.produto.Produto;
 import io.github.gabrielsizilio.sabordecasa.produto.ProdutoDao;
 import io.github.gabrielsizilio.sabordecasa.produto.Recheio;
-import io.github.yodemisj.sabordecasa.funcionario.Credencial;
-import io.github.yodemisj.sabordecasa.funcionario.Funcionario;
 import io.github.gabrielsizilio.sabordecasa.produto.RecheioDao;
 import io.github.yodemisj.sabordecasa.funcionario.CredencialDao;
 import io.github.yodemisj.sabordecasa.funcionario.FuncionarioDao;
-import io.github.yodemisj.sabordecasa.funcionario.Credencial;
 import io.github.yodemisj.sabordecasa.funcionario.Credencial;
 import io.github.yodemisj.sabordecasa.funcionario.Funcionario;
 import java.math.BigDecimal;
