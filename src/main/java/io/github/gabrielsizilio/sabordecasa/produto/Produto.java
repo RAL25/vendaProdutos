@@ -7,6 +7,7 @@ package io.github.gabrielsizilio.sabordecasa.produto;
 
 import io.github.gabrielsizilio.sabordecasa.entity.Entity;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 
 /**
  * Classe $(Gabriel)
@@ -23,13 +24,13 @@ public class Produto extends Entity{
     public Produto() {
     }
     
-    public Produto(Long id, String nome, BigDecimal precoBase, Recheio recheio) {
+    public Produto(Long id, String nome, BigDecimal precoBase, Recheio recheio) throws Exception {
         setId(id);
         
         this.nome = nome;
         this.precoBase = precoBase;
         this.recheio = recheio;
-        calcularValorProduto();
+        this.valorProduto = calcularValorProduto();
     }
 //</editor-fold>
     
@@ -40,10 +41,9 @@ public class Produto extends Entity{
     }
 
     public void setNome(String nome) throws Exception {
-        if(nome==null) {
-            throw new Exception("Nome não pode ser vazio");
+        if(nome==null || nome.length()>50) {
+            throw new Exception("Nome precisa de no mínimo 50 caracteres!");
         }
-        
         this.nome = nome;
     }
 
@@ -53,9 +53,10 @@ public class Produto extends Entity{
 
     public void setPrecoBase(BigDecimal precoBase) throws Exception {
         
-        if(precoBase==BigDecimal.ZERO && recheio.getPreco()==BigDecimal.ZERO) {
-            throw new Exception("Produto não pode ser gratuito");
-        }
+//        EQUALS NÃO ESTA FUNCIONANDO. TODA VEZ QUE ELE CHEGA AQUI DA ERRO!
+//        if(calcularValorProduto().equals(BigDecimal.ZERO)) {
+//            throw new IllegalArgumentException("Produto não pode ser gratuito!");
+//        }
         this.precoBase = precoBase;
     }
 
@@ -71,8 +72,11 @@ public class Produto extends Entity{
         return valorProduto;
     }
 
-    public void setValorProduto() {
-        this.valorProduto = precoBase.add(recheio.getPreco());
+    public void setValorProduto(BigDecimal valorProduto) throws Exception {
+        if(precoBase.equals(BigDecimal.ZERO) && recheio.getPreco().equals(BigDecimal.ZERO)) {
+            throw new Exception("Valor produto não pode ser 0!");
+        }
+        this.valorProduto = valorProduto;
     }
 //</editor-fold>
     
@@ -88,7 +92,10 @@ public class Produto extends Entity{
 //</editor-fold>
     }
     
-    public BigDecimal calcularValorProduto() {
-        return valorProduto = precoBase.add(recheio.getPreco());
+    public BigDecimal calcularValorProduto() throws Exception {
+        if(precoBase.equals(BigDecimal.ZERO) && recheio.getPreco().equals(BigDecimal.ZERO)) {
+            throw new Exception("Valor produto não pode ser 0!");
+        }
+        return precoBase.add(recheio.getPreco());
     }
 }

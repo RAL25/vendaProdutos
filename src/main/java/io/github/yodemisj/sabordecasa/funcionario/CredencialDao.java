@@ -3,9 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-package io.github.gabrielsizilio.sabordecasa.database;
+package io.github.yodemisj.sabordecasa.funcionario;
 
-import io.github.yodemisj.sabordecasa.funcionario.Credencial;
+//<<<<<<< HEAD:src/main/java/io/github/gabrielsizilio/sabordecasa/database/CredencialDao.java
+//import io.github.yodemisj.sabordecasa.funcionario.Credencial;
+//=======
+import io.github.gabrielsizilio.sabordecasa.database.Dao;
+//>>>>>>> Produto:src/main/java/io/github/yodemisj/sabordecasa/funcionario/CredencialDao.java
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

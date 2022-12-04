@@ -11,7 +11,7 @@ package io.github.gabrielsizilio.sabordecasa.entity;
  */
 public class Entity {
     private Long id;
-    private boolean excluded;
+    private boolean excluido;
 
     //<editor-fold defaultstate="collapsed" desc="getters/setters">
         public Long getId() {
@@ -22,19 +22,19 @@ public class Entity {
         this.id = id;
     }
 
-    public boolean isExcluded() {
-        return excluded;
+    public boolean isExcluido() {
+        return excluido;
     }
 
-    public void setExcluded(boolean excluded) {
-        this.excluded = excluded;
+    public void setExcluido(boolean excluded) {
+        this.excluido = excluded;
     }
 //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="toStringo">
     @Override
     public String toString() {
-        return "Entity{" + "id=" + id + ", excluded=" + excluded + '}';
+        return "Entity{" + "id=" + id + ", excluded=" + excluido + '}';
     }
 //</editor-fold>
     

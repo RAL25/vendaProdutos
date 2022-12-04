@@ -3,9 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-package io.github.gabrielsizilio.sabordecasa.database;
+package io.github.yodemisj.sabordecasa.funcionario;
 
 import io.github.yodemisj.sabordecasa.funcionario.Funcionario;
+import io.github.gabrielsizilio.sabordecasa.database.Dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
