@@ -23,7 +23,8 @@ public class Funcionario extends Entity {
         
     }
 
-    public Funcionario(Long matricula, String nome, Credencial credencial, Boolean ativo, Boolean Administrador) {
+    public Funcionario(Long id, Long matricula, String nome, Credencial credencial, Boolean ativo, Boolean Administrador) {
+        this.setId(id);
         this.matricula = matricula;
         this.nome = nome;
         this.credencial = credencial;

@@ -14,7 +14,8 @@ public class Credencial extends Entity{
     public Credencial() {
     }
     
-    public Credencial(String email, String senha) {
+    public Credencial(Long id, String email, String senha) {
+        this.setId(id);
         this.email = email;
         this.senha = senha;
     }

@@ -5,11 +5,15 @@
 
 package io.github.yodemisj.sabordecasa.funcionario;
 
+<<<<<<< HEAD
 //<<<<<<< HEAD:src/main/java/io/github/gabrielsizilio/sabordecasa/database/CredencialDao.java
 //import io.github.yodemisj.sabordecasa.funcionario.Credencial;
 //=======
 import io.github.gabrielsizilio.sabordecasa.database.Dao;
 //>>>>>>> Produto:src/main/java/io/github/yodemisj/sabordecasa/funcionario/CredencialDao.java
+=======
+import io.github.gabrielsizilio.sabordecasa.database.Dao;
+>>>>>>> funcionario
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -86,7 +90,20 @@ public class CredencialDao extends Dao<Credencial>{
 
     @Override
     public Credencial extractObject(ResultSet resultSet) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Credencial credencial = null;
+
+        try {
+            credencial = new Credencial();
+            credencial.setId(resultSet.getLong("id"));
+            credencial.setEmail(resultSet.getString("email"));
+            credencial.setSenha(resultSet.getString("senha"));
+            credencial.setExcluido(resultSet.getBoolean("excluido"));
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CredencialDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return credencial;
     }
 
     
