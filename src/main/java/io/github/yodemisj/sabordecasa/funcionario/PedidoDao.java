@@ -92,13 +92,19 @@ public class PedidoDao extends Dao<Pedido> {
     @Override
     public Pedido extractObject(ResultSet resultSet) {
         Pedido pedido = null;
-
+        Funcionario funcionario = null;
+        Cliente cliente = null;
+        ArrayList<Item> itens =  new ArrayList<>();
+        
         try {
             pedido = new Pedido();
             pedido.setId(resultSet.getLong("id"));
-            pedido.setFuncionario(resultSet.getObject("funcionario",Funcionario.class));
-            pedido.setCliente(resultSet.getObject("cliente",Cliente.class));  
-            pedido.setItens((ArrayList<Item>) resultSet.getArray("itens"));
+            funcionario = new FuncionarioDao().findById(resultSet.getLong("funcionario_id"));
+            pedido.setFuncionario(funcionario);
+            cliente = new ClienteDao().findById(resultSet.getLong("cliente_id"));            
+            pedido.setCliente(cliente); 
+          //  itens = new ItemDao().findByPedidoId(resultSet.getLong("id"));
+            pedido.setItens(itens);
             pedido.setDelivery(resultSet.getBoolean("delivery"));
             pedido.setExcluido(resultSet.getBoolean("excluido"));
 
