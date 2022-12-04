@@ -27,8 +27,9 @@ public class Pedido extends Entity {
         cliente = new Cliente();
     }
 
-    public Pedido(Funcionario funcionario, ArrayList<Item> itens, BigDecimal valorTotal, Boolean delivery, Cliente cliente) {
+    public Pedido(Long id, Funcionario funcionario, ArrayList<Item> itens, BigDecimal valorTotal, Boolean delivery, Cliente cliente) {
         this();
+        this.setId(id);
         this.funcionario = funcionario;
         this.itens = itens;
         this.valorTotal = valorTotal;
