@@ -43,7 +43,7 @@ public abstract class Dao<T> implements IDao<T> {
                 composeSaveOrUpdateStatement(preparedStatement, e);
 
                 // Show the full sentence
-                System.out.println(">> SQL: " + preparedStatement);
+                System.out.println(">>SAVE SQL: " + preparedStatement);
 
                 // Performs insertion into the database
                 preparedStatement.executeUpdate();
@@ -72,7 +72,7 @@ public abstract class Dao<T> implements IDao<T> {
                 composeSaveOrUpdateStatement(preparedStatement, e);
 
                 // Show the full sentence
-                System.out.println(">> SQL: " + preparedStatement);
+                System.out.println(">>UPDATE SQL: " + preparedStatement);
 
                 // Performs the update on the database
                 preparedStatement.executeUpdate();
@@ -84,7 +84,7 @@ public abstract class Dao<T> implements IDao<T> {
                 System.out.println("Exception: " + ex);
             }
         }
-
+        
         return id;
     }
 
@@ -98,7 +98,7 @@ public abstract class Dao<T> implements IDao<T> {
             preparedStatement.setLong(1, id);
 
             // Show the full sentence
-            System.out.println(">> SQL: " + preparedStatement);
+            System.out.println(">>FINDBYID SQL: " + preparedStatement);
 
             // Performs the query on the database
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -122,7 +122,7 @@ public abstract class Dao<T> implements IDao<T> {
                         getFindAllStatement())) {
 
             // Show the full sentence
-            System.out.println(">> SQL: " + preparedStatement);
+            System.out.println(">>FINDALL SQL: " + preparedStatement);
 
             // Performs the query on the database
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -146,7 +146,7 @@ public abstract class Dao<T> implements IDao<T> {
             preparedStatement.setLong(1, ((Entity) e).getId());
 
             // Show the full sentence
-            System.out.println(">> TRASH SQL: " + preparedStatement);
+            System.out.println(">>MOVETOTRASH SQL: " + preparedStatement);
 
             // Performs the update on the database
             preparedStatement.executeUpdate();
@@ -163,7 +163,7 @@ public abstract class Dao<T> implements IDao<T> {
                         getFindAllOnTrashStatement())) {
 
             // Show the full sentence
-            System.out.println(">>TRASH SQL: " + preparedStatement);
+            System.out.println(">>FINDALLONTRASH SQL: " + preparedStatement);
 
             // Performs the query on the database
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -186,10 +186,11 @@ public abstract class Dao<T> implements IDao<T> {
                         getRestoreFromTrashStatement())) {
 
             // Assemble the SQL statement with the data (->?)
-            composeSaveOrUpdateStatement(preparedStatement, findById(((Entity) e).getId()));
+            preparedStatement.setLong(1, ((Entity) e).getId());
+//            composeSaveOrUpdateStatement(preparedStatement, findById(((Entity) e).getId()));
 
             // Show the full sentence
-            System.out.println(">> SQL: " + preparedStatement);
+            System.out.println(">>RESTOREFROMTRASH SQL: " + preparedStatement);
 
             // Performs the update on the database
             preparedStatement.executeUpdate();

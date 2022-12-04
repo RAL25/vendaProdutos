@@ -38,10 +38,12 @@ public class Recheio extends Entity{
     }
 
     public void setNome(String nome) throws Exception {
-        if(nome==null) {
-            throw new Exception("Nome não pode ser vazio");
+        if(nome == null) {
+            throw new IllegalArgumentException("Nome não pode ser vazio");
+        } else if(nome.length() > 30) {
+            throw new IllegalArgumentException("Nome não pode ultrapassar 30 caracteres!");
         }
-        this.nome = nome;
+            this.nome = nome;
     }
 
     public String getDescricao() {
@@ -50,8 +52,10 @@ public class Recheio extends Entity{
 
     public void setDescricao(String descricao) throws Exception {
         
-        if(descricao==null) {
-            throw new Exception("Descricao não pode ser vazia");
+        if(descricao == null) {
+            throw new IllegalArgumentException("Descricao não pode ser vazia");
+        } else if(descricao.length() > 150) {
+            throw new IllegalArgumentException("Descrição não pode ultrapassar 150 caracteres!");
         }
         this.descricao = descricao;
     }
@@ -61,6 +65,11 @@ public class Recheio extends Entity{
     }
 
     public void setPreco(BigDecimal preco) {
+        
+        if(preco == null) {
+            throw new IllegalArgumentException("Preço mínimo 0,00 reais! Não pode ser vazio");
+        }
+        
         this.preco = preco;
     }
 //</editor-fold>
