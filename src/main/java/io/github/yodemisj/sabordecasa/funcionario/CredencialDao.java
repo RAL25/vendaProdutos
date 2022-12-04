@@ -3,57 +3,59 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-package io.github.gabrielsizilio.sabordecasa.database;
+package io.github.yodemisj.sabordecasa.funcionario;
 
-import io.github.yodemisj.sabordecasa.funcionario.Funcionario;
+<<<<<<< HEAD:src/main/java/io/github/gabrielsizilio/sabordecasa/database/CredencialDao.java
+import io.github.yodemisj.sabordecasa.funcionario.Credencial;
+=======
+import io.github.gabrielsizilio.sabordecasa.database.Dao;
+>>>>>>> Produto:src/main/java/io/github/yodemisj/sabordecasa/funcionario/CredencialDao.java
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/** 
- * <pre>CREATE TABLE `funcionario` (
+/**
+ * <pre>CREATE TABLE `credencial` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `nome` varchar(45) NOT NULL,
-  `matricula` bigint(20) NOT NULL,
-  `ativo` tinyint(1) DEFAULT '1',
-  `administrador` tinyint(1) DEFAULT '0',
+  `email` varchar(100) NOT NULL,
+  `senha` varchar(45) NOT NULL,
   `excluido` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `id` (`id`)
+  UNIQUE KEY `id` (`id`),
+  UNIQUE KEY `email` (`email`),
+  CONSTRAINT `credencial_ibfk_1` FOREIGN KEY (`id`) REFERENCES `funcionario` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1</pre>
  * 
- * Classe FuncionarioDao
- * @author yodemis
+ * Classe CredencialDao
+ * @author yodem
  */
-public class FuncionarioDao extends Dao<Funcionario> {
-    public static final String TABLE = "funcionario";
+public class CredencialDao extends Dao<Credencial>{
+    public static final String TABLE = "credencial";
 
     @Override
     public String getSaveStatement() {
-        return "insert into "+ TABLE +" (nome, matricula, ativo, administrador) values (?,?,?,?)";
+        return "insert into "+ TABLE + " (email, senha) values (?, ?)";
     }
 
     @Override
     public String getUpdateStatement() {
-        return "update "+ TABLE +" set nome = ?, matricula = ?, ativo = ?, administrador = ? where id = ?";
+        return "update "+ TABLE + " set email = ?, senha = ? where id = ?";
     }
 
     @Override
-    public void composeSaveOrUpdateStatement(PreparedStatement pstmt, Funcionario e) {
+    public void composeSaveOrUpdateStatement(PreparedStatement pstmt, Credencial e) {
         try{
-            pstmt.setString(1, e.getNome());       
-            pstmt.setObject(2, e.getMatricula());
-            pstmt.setObject(3, e.getAtivo());
-            pstmt.setObject(4, e.getAdministrador());
+            pstmt.setString(1, e.getEmail());       
+            pstmt.setString(2, e.getSenha());
             
             if(e.getId() != null) {
                 pstmt.setObject(5, e.getId());
             }
 
         } catch(SQLException ex){
-            Logger.getLogger(FuncionarioDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CredencialDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -83,8 +85,9 @@ public class FuncionarioDao extends Dao<Funcionario> {
     }
 
     @Override
-    public Funcionario extractObject(ResultSet resultSet) {
+    public Credencial extractObject(ResultSet resultSet) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
     
 }
