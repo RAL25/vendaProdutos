@@ -28,17 +28,18 @@ import java.util.List;
 public class SaborDeCasa {
 
     public static void main(String[] args) throws Exception {
-        Credencial cred = new Credencial("Yodemis@gmail.com","12345");
-        Funcionario func = new Funcionario(1l,"Yodemis",cred,true,true);
+        Credencial cred = new Credencial(null,"Yodemis@gmail.com","12345");
         Long id;
+        id = new CredencialDao().saveOrUpdate(cred);
+        cred.setId(id);
         
+        Funcionario func = new Funcionario(null,cred.getId(),"Yodemis",cred,true,true);
         System.out.println(">> " + func);
         
         id = new FuncionarioDao().saveOrUpdate(func);
         func.setId(id);
         
-        id = new CredencialDao().saveOrUpdate(cred);
-        cred.setId(id);
+        
         //System.out.println(">> "+ new FuncionarioDao().findById(1l));
         /*Recheio recheio = new Recheio(1L, "Recheio de carne", "Carne com molho", new BigDecimal("2"));
         Produto produto = new Produto(2L, "Mineirinho", new BigDecimal("10"), recheio);
