@@ -15,6 +15,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * <pre></pre>
+ * 
  * Classe $(Gabriel)
  * @author Gabriel Sizilio <Gabriel at IFNMG>
  */
