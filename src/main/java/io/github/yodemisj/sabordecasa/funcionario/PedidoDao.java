@@ -5,15 +5,9 @@
 
 package io.github.yodemisj.sabordecasa.funcionario;
 
-<<<<<<< HEAD
-import io.github.yodemisj.sabordecasa.funcionario.Funcionario;
-import io.github.yodemisj.sabordecasa.funcionario.Pedido;
-import io.github.gabrielsizilio.sabordecasa.database.Dao;
-=======
 import io.github.gabrielsizilio.sabordecasa.database.Dao;
 import io.github.gabrielsizilio.sabordecasa.produto.Item;
 import io.github.rianal25.sabordecasa.cliente.Cliente;
->>>>>>> funcionario
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

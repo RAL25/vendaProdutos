@@ -4,11 +4,6 @@
  */
 
 package io.github.yodemisj.sabordecasa.funcionario;
-<<<<<<< HEAD
-
-import io.github.yodemisj.sabordecasa.funcionario.Funcionario;
-=======
->>>>>>> funcionario
 import io.github.gabrielsizilio.sabordecasa.database.Dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
