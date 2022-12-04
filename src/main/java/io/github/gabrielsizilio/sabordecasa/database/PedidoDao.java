@@ -59,7 +59,7 @@ public class PedidoDao extends Dao<Pedido> {
 
     @Override
     public String getFindByIdStatement() {
-        return "select * from "+ TABLE + " where id = ?";
+        return "select * from "+ TABLE + " where id = ? and excluido = 0";
     }
 
     @Override

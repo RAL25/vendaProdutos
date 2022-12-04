@@ -5,6 +5,7 @@
 
 package io.github.gabrielsizilio.sabordecasa;
 
+import io.github.gabrielsizilio.sabordecasa.database.CredencialDao;
 import io.github.gabrielsizilio.sabordecasa.database.FuncionarioDao;
 import io.github.rianal25.sabordecasa.cliente.Cliente;
 import io.github.rianal25.sabordecasa.cliente.Endereco;
@@ -33,6 +34,10 @@ public class SaborDeCasa {
         
         id = new FuncionarioDao().saveOrUpdate(func);
         func.setId(id);
+        
+        id = new CredencialDao().saveOrUpdate(cred);
+        cred.setId(id);
+        //System.out.println(">> "+ new FuncionarioDao().findById(1l));
         /*Recheio recheio = new Recheio(1L, "Recheio de carne", "Carne com molho", new BigDecimal("2"));
         Produto produto = new Produto(2L, "Mineirinho", new BigDecimal("10"), recheio);
         Item item = new Item(produto, 3);
