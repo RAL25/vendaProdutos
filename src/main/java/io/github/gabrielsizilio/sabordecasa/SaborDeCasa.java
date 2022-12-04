@@ -5,7 +5,7 @@
 
 package io.github.gabrielsizilio.sabordecasa;
 
-import io.github.gabrielsizilio.sabordecasa.database.FuncionarioDao;
+import io.github.yodemisj.sabordecasa.funcionario.FuncionarioDao;
 import io.github.rianal25.sabordecasa.cliente.Cliente;
 import io.github.rianal25.sabordecasa.cliente.Endereco;
 import io.github.rianal25.sabordecasa.cliente.Telefone;
@@ -13,12 +13,12 @@ import io.github.gabrielsizilio.sabordecasa.produto.Item;
 import io.github.gabrielsizilio.sabordecasa.produto.Produto;
 import io.github.gabrielsizilio.sabordecasa.produto.ProdutoDao;
 import io.github.gabrielsizilio.sabordecasa.produto.Recheio;
-<<<<<<< HEAD
+import java.util.List;
 import io.github.yodemisj.sabordecasa.funcionario.Credencial;
 import io.github.yodemisj.sabordecasa.funcionario.Funcionario;
-=======
 import io.github.gabrielsizilio.sabordecasa.produto.RecheioDao;
->>>>>>> Produto
+import io.github.rianal25.sabordecasa.cliente.ClienteDao;
+import io.github.rianal25.sabordecasa.cliente.TelefoneDao;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,11 +30,10 @@ import java.util.List;
 public class SaborDeCasa {
 
     public static void main(String[] args) throws Exception {
-        Credencial cred = new Credencial("Yodemis@gmail.com","12345");
+        /*Credencial cred = new Credencial("Yodemis@gmail.com","12345");
         Funcionario func = new Funcionario(1l,"Yodemis",cred,true,true);
         Long id;
         
-<<<<<<< HEAD
         System.out.println(">> " + func);
         
         id = new FuncionarioDao().saveOrUpdate(func);
@@ -103,9 +102,8 @@ public class SaborDeCasa {
 <<<<<<< HEAD
         System.out.println(">>" + cliente1);
 */        
-=======
 //        FIND ALL
-        List<Produto> produtos = new ProdutoDao().findAll();
+       /* List<Produto> produtos = new ProdutoDao().findAll();
         System.out.println("--- Lista de todos os produtos: "+produtos);
         
 //        MOVE TO TRASH
@@ -119,7 +117,7 @@ public class SaborDeCasa {
         
 //        FIND BY NAME
          produtos = new ProdutoDao().findProdutoByName("ES");
-        System.out.println("--- Lista com o nome: " + produtos);
+        System.out.println("--- Lista com o nome: " + produtos);*/
 
 //        UPDATE
 
@@ -153,8 +151,18 @@ public class SaborDeCasa {
 
 //=================================================================================================================
         
-
-
->>>>>>> Produto
+        /*Cliente cliente = new Cliente (null,"Rian");
+        Long id = new ClienteDao().saveOrUpdate(cliente);
+        Cliente c1 = new ClienteDao().findById(id);*/
+        
+        
+        Telefone telefone = new Telefone (null, (byte)38, (int)123456, false);
+        Long id =new TelefoneDao().saveOrUpdate(telefone);
+        telefone.setId(id);
+        Telefone t1 = new TelefoneDao().findById(id);
+        
+//        System.out.println(">>"+c1);
+        System.out.println(">>"+t1);
+//>>>>>>> Produto
     }
 }

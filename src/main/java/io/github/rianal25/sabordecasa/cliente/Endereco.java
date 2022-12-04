@@ -4,11 +4,13 @@
  */
 package io.github.rianal25.sabordecasa.cliente;
 
+import io.github.gabrielsizilio.sabordecasa.entity.Entity;
+
 /**
  *
- * @author User
+ * @author Rian Alves <Rian at IFNMG>
  */
-public class Endereco {
+public class Endereco extends Entity{
     private String rua;
     private Short numero;
     private String bairro;
@@ -19,7 +21,8 @@ public class Endereco {
     public Endereco() {
     }
     
-    public Endereco(String rua, Short numero, String bairro, String complemento) {
+    public Endereco(Long id,String rua, Short numero, String bairro, String complemento) {
+        setId(id);
         this.rua = rua;
         this.numero = numero;
         this.bairro = bairro;

@@ -4,20 +4,20 @@
  */
 package io.github.rianal25.sabordecasa.cliente;
 
+import io.github.gabrielsizilio.sabordecasa.entity.Entity;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
- * @author User
- */  
-public class Cliente {
+ * @author Rian Alves <Rian at IFNMG>
+ */
+public class Cliente extends Entity{
     private String nome;
 //    private ArrayList<Telefone> telefone;
     private ArrayList<Telefone> telefones;
 //    private List<Endereco> endereco;
     private ArrayList<Endereco> enderecos;
-    //todo criar classes abstratas pessoa fisica e juridica?
 
     //<editor-fold defaultstate="collapsed" desc="construtor">
     
@@ -26,8 +26,10 @@ public class Cliente {
         telefones = new ArrayList<>();
     }
     
-    public Cliente(String nome) {
+    public Cliente(Long id,String nome){
         this();
+        setId(id);
+        
         this.nome = nome;
     }
 
@@ -62,15 +64,19 @@ public class Cliente {
 //    }
     //</editor-fold>
     
-    public void addTelefone(Telefone telefone) {
+    public void addTelefone(Telefone telefone) {    //cada cliente tem no máximo 2 telefones
         
         if(telefones.size() <= 2) {
             telefones.add(telefone);
         }
     }
     
-    public void addEndereco(Endereco endereco) {
-        enderecos.add(endereco);
+    public void addEndereco(Endereco endereco) {    //cada cliente tem no máximo 2 endereços
+        
+        if(enderecos.size() <= 2) {
+           enderecos.add(endereco);
+        }
+        
     }
     
     @Override

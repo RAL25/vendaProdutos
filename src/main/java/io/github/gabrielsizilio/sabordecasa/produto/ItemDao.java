@@ -43,13 +43,13 @@ public class ItemDao extends Dao<Item>{
     @Override
     public void composeSaveOrUpdateStatement(PreparedStatement pstmt, Item e) {
         try {
-            pstmt.setString(1, e.getNome());
+           /* pstmt.setString(1, e.getNome());
             
             pstmt.setObject(2, e.getPrecoBase(), java.sql.Types.DECIMAL);
             
             pstmt.setObject(3, e.getRecheio().getId(), java.sql.Types.BIGINT);
             
-            pstmt.setObject(4, e.calcularValorProduto(), java.sql.Types.DECIMAL);
+            pstmt.setObject(4, e.calcularValorProduto(), java.sql.Types.DECIMAL);*/
 
             // Just for the update
             if (e.getId() != null) {
