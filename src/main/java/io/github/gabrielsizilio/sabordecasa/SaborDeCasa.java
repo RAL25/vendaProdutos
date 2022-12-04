@@ -47,57 +47,82 @@ public class SaborDeCasa {
             
 
         Recheio recheioGoiaba = new Recheio(null, "goiaba", "Goiabada com creme de leite", new BigDecimal("1.5"));
-//        Produto produtoPãoDeQueijo = new Produto(null, "Pão de queijo", new BigDecimal("2"), recheioGoiaba);
+        Produto produtoPaoDeQueijo = new Produto(null, "Pão de queijo", new BigDecimal("2"), recheioGoiaba);
         
 //        SAVE
         Long idRecheioGoiaba = new RecheioDao().saveOrUpdate(recheioGoiaba);
         recheioGoiaba.setId(idRecheioGoiaba);
         
 //        FIND
-        Recheio recheioRecuperado = new RecheioDao().findById(idRecheioGoiaba);
-        System.out.println(">> RecheioRecuperado(pré-atualização): " + recheioRecuperado);
+//        Recheio recheioRecuperado = new RecheioDao().findById(idRecheioGoiaba);
+//        System.out.println("--- RecheioRecuperado(pré-atualização): " + recheioRecuperado);
+//        
+////        UPDATE
+//        recheioRecuperado.setDescricao(recheioRecuperado.getDescricao() + ", SÓ VEM!!!");
+//        new RecheioDao().saveOrUpdate(recheioRecuperado);
+//        
+//        System.out.println("--- RecheioRecuperado(pós-atualização): " + recheioRecuperado);
+//        
+////        FIND ALL
+//        List<Recheio> recheios = new RecheioDao().findAll();
+//        System.out.println("--- Lista de todos os recheios: "+recheios);
+//        
+////        MOVE TO TRASH
+//        new RecheioDao().moveToTrash(recheioGoiaba);
+//        List<Recheio> recheioRecuperadoDaLixeira = new RecheioDao().findAllOnTrashStatement();
+//        System.out.println("--- Movido para lixeira: " + recheioRecuperadoDaLixeira);
+//
+////        RESTORE FROM TO TRASH
+//        new RecheioDao().restoreFromTrash(recheioGoiaba);
+//        
+////        FIND BY DESCRIPTION
+//        recheios = new RecheioDao().findByDescription("VEM");
+//        System.out.println("--- Lista com a descricao: " + recheios);
+
+//        SAVE
+        Long idProdutoPaoDeQueijo = new ProdutoDao().saveOrUpdate(produtoPaoDeQueijo);
+        produtoPaoDeQueijo.setId(idRecheioGoiaba);
+
+//        FIND
+        Produto produtoRecuperado = new ProdutoDao().findById(idProdutoPaoDeQueijo);
+        System.out.println("--- Recuperado(pré-atualização): " + produtoRecuperado);
         
 //        UPDATE
-        recheioRecuperado.setDescricao(recheioRecuperado.getDescricao() + ", SÓ VEM!!!");
-        new RecheioDao().saveOrUpdate(recheioRecuperado);
+        produtoRecuperado.setNome("TESTE ");
+        produtoRecuperado.setPrecoBase(new BigDecimal("5"));
+        new ProdutoDao().saveOrUpdate(produtoRecuperado);
         
-        System.out.println(">> RecheioRecuperado(pós-atualização): " + recheioRecuperado);
+        System.out.println("--- Recuperado(pós-atualização): " + produtoRecuperado);
         
 //        FIND ALL
-        List<Recheio> recheios = new RecheioDao().findAll();
-        System.out.println(">> Lista de todos os recheios: "+recheios);
+        List<Produto> produtos = new ProdutoDao().findAll();
+        System.out.println("--- Lista de todos os produtos: "+produtos);
         
 //        MOVE TO TRASH
-        new RecheioDao().moveToTrash(recheioGoiaba);
-        List<Recheio> recheioRecuperadoDaLixeira = new RecheioDao().findAllOnTrashStatement();
-        System.out.println(">> Movido para lixeira: " + recheioRecuperadoDaLixeira);
+        System.out.println(">>>" + produtoPaoDeQueijo.getId());
+        new ProdutoDao().moveToTrash(produtoPaoDeQueijo);
+        List<Produto> produtoRecuperadoDaLixeira = new ProdutoDao().findAllOnTrashStatement();
+        System.out.println("--- Movido para lixeira: " + produtoRecuperadoDaLixeira);
 
 //        RESTORE FROM TO TRASH
-        new RecheioDao().restoreFromTrash(recheioGoiaba);
+        new ProdutoDao().restoreFromTrash(produtoPaoDeQueijo);
         
+//        FIND BY NAME
+         produtos = new ProdutoDao().findProdutoByName("ES");
+        System.out.println("--- Lista com o nome: " + produtos);
+
+//        UPDATE
+
+//        FIND ALL
+
+//        MOVE TO TRASH
+
+//        RESTORE FROM TRASH
+
 //        FIND BY DESCRIPTION
-        recheios = new RecheioDao().findByDescription("VEM");
-        System.out.println(">> Lista com a descricao: " + recheios);
-        
-        
-
-//        Long idPãoDeQueijo = new ProdutoDao().saveOrUpdate(produtoPãoDeQueijo);
-//        produtoPãoDeQueijo.setId(idPãoDeQueijo);
-        
-//        List<Produto> produtos = new ProdutoDao().findAll();
-//        System.out.println(">>>" + produtos);
         
         
         
-        
-
-//        Cliente cliente = new Cliente();
-//        cliente.setNome("Rian");
-//        
-//        Endereco e = new Endereco("18",(short)80,"village","c");
-//        cliente.setEndereco((List<Endereco>) e);
-//        
-//        System.out.println(">> "+ e);
 
 //=================================================================================================================
 //        TESTE PARA CLIENTES

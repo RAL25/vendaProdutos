@@ -40,11 +40,10 @@ public class Produto extends Entity{
         return nome;
     }
 
-    public void setNome(String nome) /*throws Exception*/ {
-//        if(nome==null || nome.length()>50) {
-//            throw new Exception("Nome precisa de no mínimo 50 caracteres!");
-//        }
-        
+    public void setNome(String nome) throws Exception {
+        if(nome==null || nome.length()>50) {
+            throw new Exception("Nome precisa de no mínimo 50 caracteres!");
+        }
         this.nome = nome;
     }
 
@@ -52,9 +51,10 @@ public class Produto extends Entity{
         return precoBase;
     }
 
-    public void setPrecoBase(BigDecimal precoBase) /*throws Exception*/ {
+    public void setPrecoBase(BigDecimal precoBase) throws Exception {
         
-//        if(calcularValorProduto().equals(0)) {
+//        EQUALS NÃO ESTA FUNCIONANDO. TODA VEZ QUE ELE CHEGA AQUI DA ERRO!
+//        if(calcularValorProduto().equals(BigDecimal.ZERO)) {
 //            throw new IllegalArgumentException("Produto não pode ser gratuito!");
 //        }
         this.precoBase = precoBase;
@@ -72,7 +72,10 @@ public class Produto extends Entity{
         return valorProduto;
     }
 
-    public void setValorProduto(BigDecimal valorProduto) {
+    public void setValorProduto(BigDecimal valorProduto) throws Exception {
+        if(precoBase.equals(BigDecimal.ZERO) && recheio.getPreco().equals(BigDecimal.ZERO)) {
+            throw new Exception("Valor produto não pode ser 0!");
+        }
         this.valorProduto = valorProduto;
     }
 //</editor-fold>
@@ -89,10 +92,10 @@ public class Produto extends Entity{
 //</editor-fold>
     }
     
-    public BigDecimal calcularValorProduto() /*throws Exception*/ {
-//        if(precoBase.equals(0) && recheio.getPreco().equals(0)) {
-//            throw new Exception("Valor produto não pode ser 0!");
-//        }
+    public BigDecimal calcularValorProduto() throws Exception {
+        if(precoBase.equals(BigDecimal.ZERO) && recheio.getPreco().equals(BigDecimal.ZERO)) {
+            throw new Exception("Valor produto não pode ser 0!");
+        }
         return precoBase.add(recheio.getPreco());
     }
 }

@@ -17,15 +17,15 @@ import java.util.logging.Logger;
 
 /**
  * <pre>CREATE TABLE `recheio` (
- * `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
- * `nome` varchar(30) NOT NULL,
- * `descricao` varchar(150) NOT NULL,
- * `preco` decimal(4,2) NOT NULL,
- * `excluido` tinyint(1) DEFAULT '0',
- * PRIMARY KEY (`id`),
- * UNIQUE KEY `id` (`id`),
- * UNIQUE KEY `nome` (`nome`)
- * ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1</pre>
+ `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+ `nome` varchar(30) NOT NULL,
+ `descricao` varchar(150) NOT NULL,
+ `preco` decimal(4,2) NOT NULL,
+ `excluido` tinyint(1) DEFAULT '0',
+ PRIMARY KEY (`id`),
+ UNIQUE KEY `id` (`id`),
+ UNIQUE KEY `nome` (`nome`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=latin1</pre>
  * 
  * 
  * Classe $(Gabriel)
@@ -110,7 +110,7 @@ public class RecheioDao extends Dao<Recheio>{
             preparedStatement.setString(1, "%" + description + "%");
 
             // Show the full sentence
-            System.out.println(">> SQL: " + preparedStatement);
+            System.out.println(">>FINDBYDESCRIPTION SQL: " + preparedStatement);
 
             // Performs the query on the database
             ResultSet resultSet = preparedStatement.executeQuery();
