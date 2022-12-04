@@ -5,11 +5,8 @@
 
 package io.github.yodemisj.sabordecasa.funcionario;
 
-<<<<<<< HEAD:src/main/java/io/github/gabrielsizilio/sabordecasa/database/FuncionarioDao.java
 import io.github.yodemisj.sabordecasa.funcionario.Funcionario;
-=======
 import io.github.gabrielsizilio.sabordecasa.database.Dao;
->>>>>>> Produto:src/main/java/io/github/yodemisj/sabordecasa/funcionario/FuncionarioDao.java
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
