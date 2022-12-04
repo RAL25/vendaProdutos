@@ -154,15 +154,19 @@ public class SaborDeCasa {
         /*Cliente cliente = new Cliente (null,"Rian");
         Long id = new ClienteDao().saveOrUpdate(cliente);
         Cliente c1 = new ClienteDao().findById(id);*/
+        Cliente cliente1 = new Cliente(null,"TU");
+        Long id1 = new ClienteDao().saveOrUpdate(cliente1);
+        cliente1.setId(id1);
         
+        Telefone telefone = new Telefone (null, (byte)38, (int)123456, false, cliente1);
         
-        Telefone telefone = new Telefone (null, (byte)38, (int)123456, false);
+        Telefone telefone1 = new Telefone();
         Long id =new TelefoneDao().saveOrUpdate(telefone);
         telefone.setId(id);
-        Telefone t1 = new TelefoneDao().findById(id);
+//        telefone1 = new TelefoneDao().extractObject(telefone.find);
         
 //        System.out.println(">>"+c1);
-        System.out.println(">>"+t1);
+        System.out.println(">>"+new TelefoneDao().findById(id));
 //>>>>>>> Produto
     }
 }

@@ -14,23 +14,33 @@ public class Telefone extends Entity{
     private Byte ddd;
     private Integer numero;
     private Boolean mensageiro;
-    //private Cliente cliente = new Cliente();
+    private Cliente cliente = new Cliente();
 
     //<editor-fold defaultstate="collapsed" desc="construtor">
     public Telefone(){
         
     }
     
-    public Telefone(Long id,Byte ddd, Integer numero, Boolean mensageiro) {
+    public Telefone(Long id,Byte ddd, Integer numero, Boolean mensageiro, Cliente cliente) {
         setId(id);
         this.ddd = ddd;
         this.numero = numero;
         this.mensageiro = mensageiro;
+        this.cliente = cliente;
     }
 //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="getters e setters">
 
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    
     public Byte getDdd() {
         return ddd;
     }

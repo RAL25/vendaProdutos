@@ -5,9 +5,6 @@
 package io.github.rianal25.sabordecasa.cliente;
 
 import io.github.gabrielsizilio.sabordecasa.database.Dao;
-import io.github.rianal25.sabordecasa.cliente.Cliente;
-import static io.github.rianal25.sabordecasa.cliente.ClienteDao.TABLE;
-import io.github.yodemisj.sabordecasa.funcionario.FuncionarioDao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -34,12 +31,12 @@ public class TelefoneDao extends Dao<Telefone> {
 
     @Override
     public String getSaveStatement() {
-        return "insert into "+ TABLE +" (ddd,numero,mensageiro) values (?,?,?,?)";
+        return "insert into "+ TABLE +" (ddd,numero,mensageiro,cliente_id) values (?,?,?,?)";
     }
 
     @Override
     public String getUpdateStatement() {
-        return "update "+ TABLE +" set ddd = ?, numero = ?, mensageiro = ?, cliente where id = ?";
+        return "update "+ TABLE +" set ddd = ?, numero = ?, mensageiro = ?, cliente_id = ?, where id = ?";
     }
 
     @Override
@@ -48,9 +45,10 @@ public class TelefoneDao extends Dao<Telefone> {
             pstmt.setByte(1, e.getDdd());
             pstmt.setInt(2, e.getNumero());
             pstmt.setBoolean(3, e.getMensageiro());
+            pstmt.setLong(4, e.getCliente().getId());
             
             if(e.getId() != null) {
-                pstmt.setObject(4, e.getId());
+                pstmt.setObject(5, e.getId());
                 
             }
 
@@ -61,7 +59,7 @@ public class TelefoneDao extends Dao<Telefone> {
 
     @Override
     public String getFindByIdStatement() {
-        return "select (ddd,numero,mensageiro,excluido) from "+ TABLE + " where id = ?";
+        return "select * from "+ TABLE + " where id = ?";
     }
 
     @Override

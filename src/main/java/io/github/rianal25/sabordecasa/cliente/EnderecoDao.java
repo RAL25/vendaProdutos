@@ -5,7 +5,6 @@
 package io.github.rianal25.sabordecasa.cliente;
 
 import io.github.gabrielsizilio.sabordecasa.database.Dao;
-import io.github.rianal25.sabordecasa.cliente.Cliente;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -28,50 +27,77 @@ import java.sql.ResultSet;
 public class EnderecoDao extends Dao<Endereco> {
     
     public static final String TABLE = "endereco";
-    
+
     @Override
     public String getSaveStatement() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "insert into "+ TABLE +" (ddd,numero,mensageiro,cliente_id) values (?,?,?,?)";
     }
 
     @Override
     public String getUpdateStatement() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "update "+ TABLE +" set ddd = ?, numero = ?, mensageiro = ?, cliente_id = ?, where id = ?";
     }
 
     @Override
-    public void composeSaveOrUpdateStatement(PreparedStatement pstmt, Cliente e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void composeSaveOrUpdateStatement(PreparedStatement pstmt, Endereco e) {
+        try{
+            pstmt.setByte(1, e.getDdd());
+            pstmt.setInt(2, e.getNumero());
+            pstmt.setBoolean(3, e.getMensageiro());
+            pstmt.setLong(4, e.getCliente().getId());
+            
+            if(e.getId() != null) {
+                pstmt.setObject(5, e.getId());
+                
+            }
+
+        } catch(SQLException ex){
+            Logger.getLogger(TelefoneDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
     public String getFindByIdStatement() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "select * from "+ TABLE + " where id = ?";
     }
 
     @Override
     public String getFindAllStatement() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "select * from "+ TABLE + " where excluido = 0";
     }
 
     @Override
     public String getMoveToTrashStatement() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "update "+ TABLE + " set excluido = 1 where id = ?";
     }
 
     @Override
     public String getRestoreFromTrashStatement() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "update " + TABLE + " set excluido = 0 where id = ?";
     }
 
     @Override
     public String getFindAllOnTrashStatement() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "select * from "+ TABLE + " where excluido = 1";
     }
 
     @Override
-    public Cliente extractObject(ResultSet resultSet) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Endereco extractObject(ResultSet resultSet) {
+        Telefone telefone = null;
+
+        try {
+            telefone = new Telefone();
+            telefone.setId(resultSet.getLong("id"));
+            telefone.setDdd(resultSet.getByte("ddd"));
+            telefone.setNumero(resultSet.getInt("numero"));
+            telefone.setMensageiro(resultSet.getBoolean("mensageiro"));
+            telefone.setExcluido(resultSet.getBoolean("excluido"));
+            
+        } catch (SQLException ex) {
+                Logger.getLogger(TelefoneDao.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+            Logger.getLogger(TelefoneDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return telefone;
     }
-    
 }

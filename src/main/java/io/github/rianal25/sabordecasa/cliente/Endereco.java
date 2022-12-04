@@ -15,22 +15,32 @@ public class Endereco extends Entity{
     private Short numero;
     private String bairro;
     private String complemento;
+    private Cliente cliente = new Cliente();
 
     //<editor-fold defaultstate="collapsed" desc="contrutor">
     
     public Endereco() {
     }
     
-    public Endereco(Long id,String rua, Short numero, String bairro, String complemento) {
+    public Endereco(Long id,String rua, Short numero, String bairro, String complemento, Cliente cliente) {
         setId(id);
         this.rua = rua;
         this.numero = numero;
         this.bairro = bairro;
         this.complemento = complemento;
+        this.cliente = cliente;
     }
 //</editor-fold>    
 
     //<editor-fold defaultstate="collapsed" desc="getters e setters">
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
     
     public String getRua() {
         return rua;
