@@ -50,9 +50,10 @@ public class PedidoDao extends Dao<Pedido> {
     @Override
     public void composeSaveOrUpdateStatement(PreparedStatement pstmt, Pedido e) {
         try{
-            //pstmt.setObject(1,f.getId());                 
-            pstmt.setObject(2,e.getValorTotal());      
-            pstmt.setObject(3,e.getDelivery());      
+            pstmt.setObject(1,e.getFuncionario().getId());
+            pstmt.setObject(2,e.getCliente().getId());                 
+            pstmt.setObject(3,e.getValorTotal());      
+            pstmt.setObject(4,e.getDelivery());      
     
             if(e.getId() != null) {
                 pstmt.setObject(5, e.getId());
