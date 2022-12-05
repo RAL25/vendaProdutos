@@ -90,13 +90,19 @@ public class FuncionarioDao extends Dao<Funcionario> {
     @Override
     public Funcionario extractObject(ResultSet resultSet) {
         Funcionario funcionario = null;
+        Credencial credencial = null;
 
         try {
             funcionario = new Funcionario();
+            credencial = new Credencial();
+            
             funcionario.setId(resultSet.getLong("id"));
             funcionario.setNome(resultSet.getString("nome"));
             funcionario.setMatricula(resultSet.getLong("matricula"));
-            funcionario.setCredencial(resultSet.getObject("credencial", Credencial.class));
+            
+            credencial = new CredencialDao().findById(resultSet.getLong("id"));
+            funcionario.setCredencial(credencial);
+
             funcionario.setAtivo(resultSet.getBoolean("ativo"));
             funcionario.setAdministrador(resultSet.getBoolean("ativo"));
             funcionario.setExcluido(resultSet.getBoolean("excluido"));
@@ -107,9 +113,4 @@ public class FuncionarioDao extends Dao<Funcionario> {
 
         return funcionario;
     }
-
-    public Long saveOrUpdate(Funcionario func) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-    
 }

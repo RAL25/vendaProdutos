@@ -7,6 +7,7 @@ package io.github.yodemisj.sabordecasa.funcionario;
 
 import io.github.gabrielsizilio.sabordecasa.database.Dao;
 import io.github.gabrielsizilio.sabordecasa.produto.Item;
+import io.github.gabrielsizilio.sabordecasa.produto.ItemDao;
 import io.github.rianal25.sabordecasa.cliente.Cliente;
 import io.github.rianal25.sabordecasa.cliente.ClienteDao;
 
@@ -108,7 +109,9 @@ public class PedidoDao extends Dao<Pedido> {
             pedido.setFuncionario(funcionario);
             cliente = new ClienteDao().findById(resultSet.getLong("cliente_id"));            
             pedido.setCliente(cliente); 
-          //  itens = new ItemDao().findByPedidoId(resultSet.getLong("id"));
+            
+            itens = new ItemDao().findByPedidoId(resultSet.getLong("id"));
+            
             pedido.setItens(itens);
             pedido.setDelivery(resultSet.getBoolean("delivery"));
             pedido.setExcluido(resultSet.getBoolean("excluido"));

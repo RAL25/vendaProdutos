@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 public abstract class Dao<T> implements IDao<T> {
 
     public static final String DB = "sabordecasa";
-
+    
     @Override
     public Long saveOrUpdate(T e) {
 

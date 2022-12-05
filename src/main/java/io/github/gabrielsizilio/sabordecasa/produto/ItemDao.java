@@ -10,12 +10,24 @@ import io.github.gabrielsizilio.sabordecasa.database.DbConnection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * <pre></pre>
+ * <pre>CREATE TABLE `item` (
+  `produto_id` bigint(20) unsigned NOT NULL,
+  `pedido_id` bigint(20) unsigned NOT NULL,
+  `excluido` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`produto_id`,`pedido_id`),
+  KEY `pedido_id` (`pedido_id`),
+  CONSTRAINT `produto_pedido_ibfk_1` FOREIGN KEY (`produto_id`) REFERENCES `produto` (`id`),
+  CONSTRAINT `produto_pedido_ibfk_2` FOREIGN KEY (`pedido_id`) REFERENCES `pedido` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</pre>
+ * 
+ *
  * 
  * Classe $(Gabriel)
  * @author Gabriel Sizilio <Gabriel at IFNMG>
@@ -24,47 +36,140 @@ public class ItemDao extends Dao<Item>{
 
     public static final String TABLE = "item";
     
+    public Long SaveOrUpdateItem (Item item, Long fk) {
+        
+        Long id = 0L;
+
+        if (item.getId() == null || item.getId() == 0) {
+
+            // Insert a new register
+            // try-with-resources
+            try ( PreparedStatement preparedStatement
+                    = DbConnection.getConnection().prepareStatement(
+                            getSaveStatement(),Statement.RETURN_GENERATED_KEYS)) {
+
+                // Assemble the SQL statement with the data (->?)
+                composeSaveOrUpdateWithFkStatement(preparedStatement, item, fk);
+
+                // Show the full sentence
+                System.out.println(">>SAVE SQL: " + preparedStatement);
+
+                // Performs insertion into the database
+                preparedStatement.executeUpdate();
+
+                // Retrieve the generated primary key
+                ResultSet resultSet = preparedStatement.getGeneratedKeys();
+
+                // Moves to first retrieved data
+                if (resultSet.next()) {
+
+                    // Retrieve the returned primary key
+                    id = resultSet.getLong(1);
+                }
+
+            } catch (Exception ex) {
+                System.out.println(">> " + ex);
+            }
+
+        } else {
+            // Update existing record
+            try ( PreparedStatement preparedStatement
+                    = DbConnection.getConnection().prepareStatement(
+                            getUpdateStatement())) {
+
+                // Assemble the SQL statement with the data (->?)
+                composeSaveOrUpdateWithFkStatement(preparedStatement, item, fk);
+
+                // Show the full sentence
+                System.out.println(">>UPDATE SQL: " + preparedStatement);
+
+                // Performs the update on the database
+                preparedStatement.executeUpdate();
+
+                // Keep the primary key
+                id = (item.getId());
+
+            } catch (Exception ex) {
+                System.out.println("Exception: " + ex);
+            }
+        }
+        
+        return id;
+        
+       }
+    
     @Override
     public String getSaveStatement() {
-        return "INSERT INTO "
-                + TABLE
-                + " (nome, precoBase, recheio_id, valorProduto)"
-                + " VALUES (?, ?, ?, ?)";    
+        return "INSERT INTO " + TABLE
+                + " (produto_id, quantidade, pedido_id)"
+                + " VALUES (?, ?, ?)";
     }
 
     @Override
     public String getUpdateStatement() {
-        return "UPDATE " 
-            + TABLE 
-            + " SET nome = ?, precoBase = ?, recheio_id = ?, valorProduto = ?"
-            + " WHERE id = ?"; 
+        return "UPDATE " + TABLE 
+            + " SET produto_id = ?, quantidade = ?"
+            + " WHERE pedido_id = ?"; 
     }
 
+    public void composeSaveOrUpdateWithFkStatement(PreparedStatement pstmt, Item e, Long fk) {
+        try {
+            pstmt.setObject(1, e.getProduto().getId(), java.sql.Types.INTEGER);
+            pstmt.setObject(2, e.getQuantidade(), java.sql.Types.INTEGER);
+            pstmt.setObject(3, fk, java.sql.Types.DECIMAL);
+
+            // Just for the update
+//            if (fk != null) {
+//                pstmt.setLong(5, e.getId());
+//            }
+        } catch (Exception ex) {
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, "Erro no composeSaveOrUpdateWithFk", ex);
+        }
+    }
+    
     @Override
     public void composeSaveOrUpdateStatement(PreparedStatement pstmt, Item e) {
         try {
-           /* pstmt.setString(1, e.getNome());
-            
-            pstmt.setObject(2, e.getPrecoBase(), java.sql.Types.DECIMAL);
-            
-            pstmt.setObject(3, e.getRecheio().getId(), java.sql.Types.BIGINT);
-            
-            pstmt.setObject(4, e.calcularValorProduto(), java.sql.Types.DECIMAL);*/
+            pstmt.setObject(1, e.getProduto().getId(), java.sql.Types.INTEGER);
+            pstmt.setObject(2, e.getQuantidade(), java.sql.Types.INTEGER);
 
             // Just for the update
-            if (e.getId() != null) {
-                pstmt.setLong(5, e.getId());
-            }
+//            if (fk != null) {
+//                pstmt.setLong(5, e.getId());
+//            }
         } catch (Exception ex) {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public ArrayList<Item> findByPedidoId (Long pedido_id) {
+        
+        try ( PreparedStatement preparedStatement
+                = DbConnection.getConnection().prepareStatement(
+                        getFindByIdStatement())) {
+            
+            preparedStatement.setLong(1, pedido_id);
 
+            // Show the full sentence
+            System.out.println(">>FINDALL SQL: " + preparedStatement);
+
+            // Performs the query on the database
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            // Returns the respective object
+            return (ArrayList<Item>) extractObjects(resultSet);
+
+        } catch (Exception ex) {
+            System.out.println("Exception: " + ex);
+        }
+
+        return null;
+    }
+    
     @Override
     public String getFindByIdStatement() {
-        return "SELECT id, nome, precoBase, recheio_id, valorProduto, excluido FROM "
-            + TABLE
-            + " WHERE id = ?";
+        return "SELECT * FROM " + TABLE
+            + " WHERE pedido_id = ?";
     }
 
     @Override
@@ -79,7 +184,7 @@ public class ItemDao extends Dao<Item>{
         return "UPDATE " 
             + TABLE 
             + " SET excluido = true"
-            + " WHERE id = ?"; 
+            + " WHERE produto_id = ?"; 
     }
 
     @Override
@@ -87,7 +192,7 @@ public class ItemDao extends Dao<Item>{
         return "UPDATE " 
             + TABLE 
             + " SET excluido = false"
-            + " WHERE id = ?"; 
+            + " WHERE produto_id = ?"; 
     }
 
     @Override
@@ -96,30 +201,28 @@ public class ItemDao extends Dao<Item>{
             + TABLE
             + " WHERE excluido = true";
     }
-
+    
     @Override
     public Item extractObject(ResultSet resultSet) {
+        Item item = null;
         Produto produto = null;
-        Recheio recheio = null;
         
         try {
+            item = new Item();
             produto = new Produto();
-            recheio = new Recheio();
-
-            produto.setId(resultSet.getLong("id"));
-            produto.setNome(resultSet.getString("nome"));
-            produto.setPrecoBase(resultSet.getBigDecimal("precoBase"));
             
-            recheio = new RecheioDao().findById(resultSet.getLong("recheio_id"));
-            produto.setRecheio(recheio);
+            item.setId(resultSet.getLong("pedido_id"));
             
-            produto.setValorProduto(resultSet.getBigDecimal("valorProduto"));
-            produto.setExcluido(resultSet.getBoolean("excluido"));
+            produto = new ProdutoDao().findById(resultSet.getLong("produto_id"));
+            item.setProduto(produto);
+            
+            item.setQuantidade(resultSet.getInt("quantidade"));
+            
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) { 
+            Logger.getLogger(ItemDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return produto;
+        return item;
     }
 }

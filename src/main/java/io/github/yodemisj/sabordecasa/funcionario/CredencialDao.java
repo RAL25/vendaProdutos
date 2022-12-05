@@ -52,7 +52,7 @@ public class CredencialDao extends Dao<Credencial>{
             pstmt.setString(2, e.getSenha());
             
             if(e.getId() != null) {
-                pstmt.setObject(5, e.getId());
+                pstmt.setObject(3, e.getId());
             }
 
         } catch(SQLException ex){
