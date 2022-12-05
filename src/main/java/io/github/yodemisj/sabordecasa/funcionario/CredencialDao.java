@@ -5,7 +5,12 @@
 
 package io.github.yodemisj.sabordecasa.funcionario;
 import io.github.gabrielsizilio.sabordecasa.database.Dao;
+
+
+import io.github.yodemisj.sabordecasa.funcionario.Credencial;
+
 import io.github.gabrielsizilio.sabordecasa.database.Dao;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

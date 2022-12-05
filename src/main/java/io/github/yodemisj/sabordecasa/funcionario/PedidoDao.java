@@ -8,6 +8,11 @@ package io.github.yodemisj.sabordecasa.funcionario;
 import io.github.gabrielsizilio.sabordecasa.database.Dao;
 import io.github.gabrielsizilio.sabordecasa.produto.Item;
 import io.github.rianal25.sabordecasa.cliente.Cliente;
+import io.github.rianal25.sabordecasa.cliente.ClienteDao;
+
+import io.github.yodemisj.sabordecasa.funcionario.Funcionario;
+import io.github.yodemisj.sabordecasa.funcionario.Pedido;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

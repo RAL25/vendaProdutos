@@ -5,6 +5,12 @@
 
 package io.github.yodemisj.sabordecasa.funcionario;
 import io.github.gabrielsizilio.sabordecasa.database.Dao;
+
+
+import io.github.yodemisj.sabordecasa.funcionario.Funcionario;
+
+import io.github.gabrielsizilio.sabordecasa.database.Dao;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -100,6 +106,10 @@ public class FuncionarioDao extends Dao<Funcionario> {
         }
 
         return funcionario;
+    }
+
+    public Long saveOrUpdate(Funcionario func) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
 }

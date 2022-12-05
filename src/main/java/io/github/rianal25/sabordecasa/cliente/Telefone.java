@@ -4,25 +4,43 @@
  */
 package io.github.rianal25.sabordecasa.cliente;
 
+import io.github.gabrielsizilio.sabordecasa.entity.Entity;
+
 /**
  *
- * @author User
+ * @author Rian Alves <Rian at IFNMG>
  */
-public class Telefone {
+public class Telefone extends Entity{
     private Byte ddd;
     private Integer numero;
     private Boolean mensageiro;
+    private Cliente cliente = new Cliente();
 
     //<editor-fold defaultstate="collapsed" desc="construtor">
-    public Telefone(Byte ddd, Integer numero, Boolean mensageiro) {
+    public Telefone(){
+        
+    }
+    
+    public Telefone(Long id,Byte ddd, Integer numero, Boolean mensageiro, Cliente cliente) {
+        setId(id);
         this.ddd = ddd;
         this.numero = numero;
         this.mensageiro = mensageiro;
+        this.cliente = cliente;
     }
 //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="getters e setters">
 
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    
     public Byte getDdd() {
         return ddd;
     }
