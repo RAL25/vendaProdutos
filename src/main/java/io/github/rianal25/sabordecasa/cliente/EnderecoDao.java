@@ -7,12 +7,15 @@ package io.github.rianal25.sabordecasa.cliente;
 import io.github.gabrielsizilio.sabordecasa.database.Dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *<pre>endereco | CREATE TABLE `endereco` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `rua` varchar(45) NOT NULL,
   `numero` smallint(6) NOT NULL,
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `bairro` varchar(45) NOT NULL,
   `complemento` varchar(45) NOT NULL,
   `excluido` tinyint(1) DEFAULT '0',
@@ -30,29 +33,30 @@ public class EnderecoDao extends Dao<Endereco> {
 
     @Override
     public String getSaveStatement() {
-        return "insert into "+ TABLE +" (ddd,numero,mensageiro,cliente_id) values (?,?,?,?)";
+        return "insert into "+ TABLE +" (rua,numero,bairro,complemento,cliente_id) values (?,?,?,?,?)";
     }
 
     @Override
     public String getUpdateStatement() {
-        return "update "+ TABLE +" set ddd = ?, numero = ?, mensageiro = ?, cliente_id = ?, where id = ?";
+        return "update "+ TABLE +" set rua = ?, numero = ?, bairro = ?, complemento = ?, cliente_id = ?, where id = ?";
     }
 
     @Override
     public void composeSaveOrUpdateStatement(PreparedStatement pstmt, Endereco e) {
         try{
-            pstmt.setByte(1, e.getDdd());
+            pstmt.setString(1, e.getRua());
             pstmt.setInt(2, e.getNumero());
-            pstmt.setBoolean(3, e.getMensageiro());
-            pstmt.setLong(4, e.getCliente().getId());
+            pstmt.setString(3, e.getBairro());
+            pstmt.setString(4, e.getComplemento());
+            pstmt.setLong(5, e.getCliente().getId());
             
             if(e.getId() != null) {
-                pstmt.setObject(5, e.getId());
+                pstmt.setObject(6, e.getId());
                 
             }
 
         } catch(SQLException ex){
-            Logger.getLogger(TelefoneDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EnderecoDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -83,21 +87,22 @@ public class EnderecoDao extends Dao<Endereco> {
 
     @Override
     public Endereco extractObject(ResultSet resultSet) {
-        Telefone telefone = null;
+        Endereco endereco = null;
 
         try {
-            telefone = new Telefone();
-            telefone.setId(resultSet.getLong("id"));
-            telefone.setDdd(resultSet.getByte("ddd"));
-            telefone.setNumero(resultSet.getInt("numero"));
-            telefone.setMensageiro(resultSet.getBoolean("mensageiro"));
-            telefone.setExcluido(resultSet.getBoolean("excluido"));
+            endereco = new Endereco();
+            endereco.setId(resultSet.getLong("id"));
+            endereco.setRua(resultSet.getString("rua"));
+            endereco.setNumero(resultSet.getShort("numero"));
+            endereco.setBairro(resultSet.getString("bairro"));
+            endereco.setComplemento(resultSet.getString("complemento"));
+            endereco.setExcluido(resultSet.getBoolean("excluido"));
             
         } catch (SQLException ex) {
-                Logger.getLogger(TelefoneDao.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(EnderecoDao.class.getName()).log(Level.SEVERE, null, ex);
             } catch (Exception ex) {
-            Logger.getLogger(TelefoneDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EnderecoDao.class.getName()).log(Level.SEVERE, null, ex);
             }
-            return telefone;
+            return endereco;
     }
 }

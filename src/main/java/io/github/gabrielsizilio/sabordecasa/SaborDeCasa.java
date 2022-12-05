@@ -18,6 +18,7 @@ import io.github.yodemisj.sabordecasa.funcionario.Credencial;
 import io.github.yodemisj.sabordecasa.funcionario.Funcionario;
 import io.github.gabrielsizilio.sabordecasa.produto.RecheioDao;
 import io.github.rianal25.sabordecasa.cliente.ClienteDao;
+import io.github.rianal25.sabordecasa.cliente.EnderecoDao;
 import io.github.rianal25.sabordecasa.cliente.TelefoneDao;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -150,23 +151,35 @@ public class SaborDeCasa {
 //        System.out.println(">>" + cliente1);
 
 //=================================================================================================================
-        
+        //Teste com cliente, telefone e endereço
         /*Cliente cliente = new Cliente (null,"Rian");
         Long id = new ClienteDao().saveOrUpdate(cliente);
         Cliente c1 = new ClienteDao().findById(id);*/
-        Cliente cliente1 = new Cliente(null,"TU");
-        Long id1 = new ClienteDao().saveOrUpdate(cliente1);
-        cliente1.setId(id1);
+        Cliente cliente = new Cliente(null,"PaO");
+        Long id1 = new ClienteDao().saveOrUpdate(cliente);
+        cliente.setId(id1);
         
-        Telefone telefone = new Telefone (null, (byte)38, (int)123456, false, cliente1);
-        
-        Telefone telefone1 = new Telefone();
+        Telefone telefone = new Telefone (null, (byte)38, (int)123456, false, cliente);
+        Telefone telefone1 = new Telefone (null, (byte)37, (int)654321, false, cliente);
+//        Telefone telefone1 = new Telefone();
         Long id =new TelefoneDao().saveOrUpdate(telefone);
-        telefone.setId(id);
-//        telefone1 = new TelefoneDao().extractObject(telefone.find);
+        Long id3 =new TelefoneDao().saveOrUpdate(telefone1);
+//        telefone.setId(id);
         
-//        System.out.println(">>"+c1);
-        System.out.println(">>"+new TelefoneDao().findById(id));
-//>>>>>>> Produto
+        Endereco enedereco = new Endereco(null, "rua 18", (short)80, "village", "c", cliente);
+        Endereco enedereco1 = new Endereco(null, "rua 17", (short)28, "village 1", "apertamento", cliente);
+        Long id2 = new EnderecoDao().saveOrUpdate(enedereco);
+        Long id5 = new EnderecoDao().saveOrUpdate(enedereco1);
+//        endereco.setId(id2);
+        
+        cliente.addEndereco(enedereco);
+        cliente.addEndereco(enedereco1);
+        cliente.addTelefone(telefone);
+        cliente.addTelefone(telefone1);
+        System.out.println(">> "+ cliente);
+        /*System.out.println(">>"+new TelefoneDao().findById(id));
+        System.out.println(">>"+new EnderecoDao().findById(id2));*/
+        
+//>>>>>>> Cliente
     }
 }
