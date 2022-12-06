@@ -18,7 +18,6 @@ import io.github.gabrielsizilio.sabordecasa.produto.Produto;
 import io.github.gabrielsizilio.sabordecasa.produto.ProdutoDao;
 import io.github.gabrielsizilio.sabordecasa.produto.Recheio;
 import io.github.gabrielsizilio.sabordecasa.produto.RecheioDao;
-import io.github.gabrielsizilio.sabordecasa.produto.RecheioDao;
 
 import io.github.yodemisj.sabordecasa.funcionario.CredencialDao;
 import io.github.yodemisj.sabordecasa.funcionario.FuncionarioDao;
@@ -66,14 +65,16 @@ public class SaborDeCasa {
         ArrayList<Item> itens = new ArrayList<>();
         itens.add(item1);
         
-        Pedido pedido1 = new Pedido(null, funcionario1, itens, item1.calcularTotal(), Boolean.FALSE, cliente1);
+        Pedido pedido1 = new Pedido(null, funcionario1, itens, BigDecimal.ZERO, Boolean.FALSE, cliente1);
+        pedido1.calcularTotal();
         id = new PedidoDao().saveOrUpdate(pedido1);
         pedido1.setId(id);
         
-        id = new ItemDao().SaveOrUpdateItem(item1, pedido1.getId());
+        new ItemDao().SaveOrUpdateItem(item1, pedido1.getId());
 
+        Pedido p2 = new PedidoDao().findById(pedido1.getId());
         
-        System.out.println(">>"+ new PedidoDao().findById(pedido1.getId()));
+        System.out.println(">>"+ p2);
         
         
         
