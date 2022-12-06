@@ -20,12 +20,14 @@ import java.util.logging.Logger;
  * <pre>CREATE TABLE `item` (
   `produto_id` bigint(20) unsigned NOT NULL,
   `pedido_id` bigint(20) unsigned NOT NULL,
-  `excluido` tinyint(1) DEFAULT '0',
+  `quantidade` int(11) NOT NULL,
   PRIMARY KEY (`produto_id`,`pedido_id`),
   KEY `pedido_id` (`pedido_id`),
-  CONSTRAINT `produto_pedido_ibfk_1` FOREIGN KEY (`produto_id`) REFERENCES `produto` (`id`),
-  CONSTRAINT `produto_pedido_ibfk_2` FOREIGN KEY (`pedido_id`) REFERENCES `pedido` (`id`)
+  CONSTRAINT `item_ibfk_1` FOREIGN KEY (`produto_id`) REFERENCES `produto` (`id`),
+  CONSTRAINT `item_ibfk_2` FOREIGN KEY (`pedido_id`) REFERENCES `pedido` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1</pre>
+* 
+* 
  * 
  *
  * 
@@ -36,9 +38,7 @@ public class ItemDao extends Dao<Item>{
 
     public static final String TABLE = "item";
     
-    public Long SaveOrUpdateItem (Item item, Long fk) {
-        
-        Long id = 0L;
+    public void SaveOrUpdateItem (Item item, Long fk) {
 
         if (item.getId() == null || item.getId() == 0) {
 
@@ -64,7 +64,7 @@ public class ItemDao extends Dao<Item>{
                 if (resultSet.next()) {
 
                     // Retrieve the returned primary key
-                    id = resultSet.getLong(1);
+                    // id = resultSet.getLong(1);
                 }
 
             } catch (Exception ex) {
@@ -87,14 +87,12 @@ public class ItemDao extends Dao<Item>{
                 preparedStatement.executeUpdate();
 
                 // Keep the primary key
-                id = (item.getId());
+                //id = (item.getId());
 
             } catch (Exception ex) {
                 System.out.println("Exception: " + ex);
             }
         }
-        
-        return id;
         
        }
     

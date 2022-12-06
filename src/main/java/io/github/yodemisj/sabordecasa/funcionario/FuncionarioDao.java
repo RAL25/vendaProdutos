@@ -4,13 +4,9 @@
  */
 
 package io.github.yodemisj.sabordecasa.funcionario;
-import io.github.gabrielsizilio.sabordecasa.database.Dao;
 
-
-import io.github.yodemisj.sabordecasa.funcionario.Funcionario;
 
 import io.github.gabrielsizilio.sabordecasa.database.Dao;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -100,7 +96,7 @@ public class FuncionarioDao extends Dao<Funcionario> {
             funcionario.setNome(resultSet.getString("nome"));
             funcionario.setMatricula(resultSet.getLong("matricula"));
             
-            credencial = new CredencialDao().findById(resultSet.getLong("id"));
+            credencial = new CredencialDao().findById(funcionario.getId());
             funcionario.setCredencial(credencial);
 
             funcionario.setAtivo(resultSet.getBoolean("ativo"));

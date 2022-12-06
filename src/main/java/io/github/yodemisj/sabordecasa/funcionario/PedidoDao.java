@@ -11,9 +11,6 @@ import io.github.gabrielsizilio.sabordecasa.produto.ItemDao;
 import io.github.rianal25.sabordecasa.cliente.Cliente;
 import io.github.rianal25.sabordecasa.cliente.ClienteDao;
 
-import io.github.yodemisj.sabordecasa.funcionario.Funcionario;
-import io.github.yodemisj.sabordecasa.funcionario.Pedido;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -100,7 +97,7 @@ public class PedidoDao extends Dao<Pedido> {
         Pedido pedido = null;
         Funcionario funcionario = null;
         Cliente cliente = null;
-        ArrayList<Item> itens =  new ArrayList<>();
+        ArrayList<Item> itens = new ArrayList<>();
         
         try {
             pedido = new Pedido();
@@ -110,8 +107,8 @@ public class PedidoDao extends Dao<Pedido> {
             cliente = new ClienteDao().findById(resultSet.getLong("cliente_id"));            
             pedido.setCliente(cliente); 
             
-            itens = new ItemDao().findByPedidoId(resultSet.getLong("id"));
-            
+            itens = new ItemDao().findByPedidoId(pedido.getId());
+            pedido.setValorTotal(resultSet.getBigDecimal("valorTotal"));
             pedido.setItens(itens);
             pedido.setDelivery(resultSet.getBoolean("delivery"));
             pedido.setExcluido(resultSet.getBoolean("excluido"));

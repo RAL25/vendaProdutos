@@ -4,10 +4,6 @@
  */
 
 package io.github.yodemisj.sabordecasa.funcionario;
-import io.github.gabrielsizilio.sabordecasa.database.Dao;
-
-
-import io.github.yodemisj.sabordecasa.funcionario.Credencial;
 
 import io.github.gabrielsizilio.sabordecasa.database.Dao;
 
