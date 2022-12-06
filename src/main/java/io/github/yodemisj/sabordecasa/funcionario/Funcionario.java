@@ -68,6 +68,13 @@ public class Funcionario extends Entity {
         return Administrador;
     }
 
+    @Override
+    public String toString() {
+        return "Funcionario{" + "matricula=" + matricula + ", nome=" + nome + ", credencial=" + credencial + ", ativo=" + ativo + ", Administrador=" + Administrador + '}';
+    }
+    
+    
+    
     public void setAdministrador(Boolean Administrador) {
         this.Administrador = Administrador;
     }

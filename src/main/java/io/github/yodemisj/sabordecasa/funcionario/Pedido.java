@@ -82,6 +82,13 @@ public class Pedido extends Entity {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
+
+    @Override
+    public String toString() {
+        return "Pedido{" + "funcionario=" + funcionario + ", itens=" + itens + ", valorTotal=" + valorTotal + ", delivery=" + delivery + ", cliente=" + cliente + '}';
+    }
+    
+    
     
     
     public void calcularTotal() throws Exception {

@@ -35,5 +35,12 @@ public class Credencial extends Entity{
     public void setSenha(String senha) {
         this.senha = senha;
     }
+
+    @Override
+    public String toString() {
+        return "Credencial{" + "email=" + email + ", senha=" + senha + '}';
+    }
+    
+    
     
 }
