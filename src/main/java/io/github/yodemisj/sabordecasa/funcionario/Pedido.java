@@ -10,6 +10,7 @@ import io.github.gabrielsizilio.sabordecasa.produto.Item;
 import io.github.rianal25.sabordecasa.cliente.Cliente;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Classe Pedido
@@ -85,7 +86,13 @@ public class Pedido extends Entity {
 
     @Override
     public String toString() {
-        return "Pedido{" + "funcionario=" + funcionario + ", itens=" + itens + ", valorTotal=" + valorTotal + ", delivery=" + delivery + ", cliente=" + cliente + '}';
+        return "Pedido{" 
+                + "funcionario=" + funcionario 
+                        + ", itens=" + itens
+                        + ", valorTotal=" + valorTotal 
+                        + ", delivery=" + delivery 
+                        + ", cliente=" + cliente 
+                        + '}';
     }
     
     
