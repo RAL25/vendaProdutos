@@ -70,7 +70,12 @@ public class Funcionario extends Entity {
 
     @Override
     public String toString() {
-        return "Funcionario{" + "matricula=" + matricula + ", nome=" + nome + ", credencial=" + credencial + ", ativo=" + ativo + ", Administrador=" + Administrador + '}';
+        return "Funcionario{" 
+                + "matricula=" + matricula 
+                + ", nome=" + nome 
+                + ", credencial=" + credencial 
+                + ", ativo=" + ativo 
+                + ", Administrador=" + Administrador + '}';
     }
     
     

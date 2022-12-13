@@ -85,7 +85,12 @@ public class Pedido extends Entity {
 
     @Override
     public String toString() {
-        return "Pedido{" + "funcionario=" + funcionario + ", itens=" + itens + ", valorTotal=" + valorTotal + ", delivery=" + delivery + ", cliente=" + cliente + '}';
+        return "Pedido{" 
+                + "funcionario=" + funcionario 
+                + ", itens=" + itens 
+                + ", valorTotal=" + valorTotal 
+                + ", delivery" + delivery 
+                + ", cliente=" + cliente + '}';
     }
     
     
