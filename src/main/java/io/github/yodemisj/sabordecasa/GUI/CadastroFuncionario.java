@@ -4,11 +4,16 @@
  */
 package io.github.yodemisj.sabordecasa.GUI;
 
+import io.github.yodemisj.sabordecasa.funcionario.Credencial;
+import io.github.yodemisj.sabordecasa.funcionario.CredencialDao;
+import io.github.yodemisj.sabordecasa.funcionario.Funcionario;
+import io.github.yodemisj.sabordecasa.funcionario.FuncionarioDao;
+
 /**
  *
  * @author yodem
  */
-public class CadastroFuncionario extends javax.swing.JFrame {
+public class CadastroFuncionario extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form CadastroFuncionario
@@ -39,9 +44,9 @@ public class CadastroFuncionario extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
         btnCadastrar = new javax.swing.JButton();
         pwdSenha = new javax.swing.JPasswordField();
-        pdwConfimarSenha = new javax.swing.JPasswordField();
+        pwdConfirmarSenha = new javax.swing.JPasswordField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Nome:");
@@ -69,13 +74,28 @@ public class CadastroFuncionario extends javax.swing.JFrame {
 
         btnCancelar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         btnCadastrar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnCadastrar.setText("Cadastrar");
+        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarActionPerformed(evt);
+            }
+        });
 
         pwdSenha.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        pdwConfimarSenha.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        pwdConfirmarSenha.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        pwdConfirmarSenha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pwdConfirmarSenhaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -103,7 +123,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(pwdSenha)
-                                    .addComponent(pdwConfimarSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE))
+                                    .addComponent(pwdConfirmarSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE))
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(18, 18, 18)
@@ -136,7 +156,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(chkAdministrador)
-                    .addComponent(pdwConfimarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pwdConfirmarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
@@ -164,6 +184,46 @@ public class CadastroFuncionario extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+    dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        Funcionario funcionario = new Funcionario();
+        Credencial credencial = new Credencial();
+        funcionario.setNome(txtNome.getText());
+        funcionario.setMatricula(Long.parseLong(txtMatricula.getText()));
+        credencial.setEmail(txtEmail.getText());
+        credencial.setSenha(String.valueOf(pwdSenha.getPassword()));
+        funcionario.setCredencial(credencial);
+        funcionario.setAdministrador(chkAdministrador.isSelected());
+        funcionario.setAtivo(true);
+        Long id;
+        id = new FuncionarioDao().saveOrUpdate(funcionario);
+        funcionario.setId(id);
+        id = new CredencialDao().saveOrUpdate(credencial);
+        credencial.setId(id);
+        
+        txtNome.setText(null);
+        txtEmail.setText(null);
+        txtMatricula.setText(null);
+        pwdSenha.setText(null);
+        pwdConfirmarSenha.setText(null);
+        chkAdministrador.setSelected(false);
+        txtNome.requestFocus();
+    }//GEN-LAST:event_btnCadastrarActionPerformed
+
+    private void pwdConfirmarSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pwdConfirmarSenhaActionPerformed
+        if (String.valueOf(pwdSenha.getPassword())
+                .equals(String.valueOf(pwdConfirmarSenha.getPassword()))
+                && !txtNome.getText().trim().isEmpty()
+                && !txtEmail.getText().trim().isEmpty() ) {
+            btnCadastrar.setEnabled(true);
+        } else {
+            btnCadastrar.setEnabled(false);
+        }
+    }//GEN-LAST:event_pwdConfirmarSenhaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -178,7 +238,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField pdwConfimarSenha;
+    private javax.swing.JPasswordField pwdConfirmarSenha;
     private javax.swing.JPasswordField pwdSenha;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtMatricula;
