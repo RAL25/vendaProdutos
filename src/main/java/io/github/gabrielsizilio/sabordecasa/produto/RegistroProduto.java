@@ -6,10 +6,15 @@ package io.github.gabrielsizilio.sabordecasa.produto;
 
 import java.awt.Component;
 import java.awt.SystemColor;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.ListCellRenderer;
 
 /**
@@ -22,27 +27,7 @@ public class RegistroProduto extends javax.swing.JFrame {
     
     private static final DefaultComboBoxModel<Recheio> boxModel = new DefaultComboBoxModel<>();
     
-    private class RecheioRender extends JLabel implements ListCellRenderer<Recheio> {
-        @Override
-        public Component getListCellRendererComponent(JList<? extends Recheio> list, Recheio value, int index, boolean isSelected, boolean cellHasFocus) {
-            if(value == null) {
-                return this;
-            }
-            
-            setOpaque(true);
-            setForeground(SystemColor.textText);
-            setBackground(SystemColor.text);
-            if(isSelected) {
-                setForeground(SystemColor.textHighlightText);
-                setBackground(SystemColor.textHighlight);
-            }
-            
-            setText(value.getNome());
-            setBorder(BorderFactory.createEmptyBorder(0, 5, 1, 1));
-            return this;
-        }
-        
-    }
+    //<editor-fold defaultstate="collapsed" desc="Constructor">
     
     /**
      * Creates new form RegistroProdutos
@@ -50,6 +35,12 @@ public class RegistroProduto extends javax.swing.JFrame {
     private RegistroProduto() {
         initComponents();
         
+        if(ckbRecheio.isSelected()){
+            System.out.println("Esta ativoS");
+        }
+        
+        
+        recheioReload();
         cboRecheio.setModel(boxModel);
         cboRecheio.setRenderer(new RecheioRender());
         
@@ -59,6 +50,7 @@ public class RegistroProduto extends javax.swing.JFrame {
             System.out.println(">> " + ex.getMessage());
         }
     }
+//</editor-fold>
     
     public static RegistroProduto getInstance() {
         if(instance == null) {
@@ -73,8 +65,6 @@ public class RegistroProduto extends javax.swing.JFrame {
         try {
             int selectedIdx = boxModel.getIndexOf(boxModel.getSelectedItem());
             boxModel.removeAllElements();
-            
-            System.out.println(">>>>" + new RecheioDao().findAll());
             
             boxModel.addAll(new RecheioDao().findAll());
             boxModel.setSelectedItem(boxModel.getElementAt(selectedIdx));
@@ -95,28 +85,16 @@ public class RegistroProduto extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        lblDescricacao = new javax.swing.JLabel();
-        txtDescricacao = new javax.swing.JTextField();
         lblNome = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
         lblPreco = new javax.swing.JLabel();
-        ftfPreco = new javax.swing.JFormattedTextField();
         btnSsalvar = new javax.swing.JButton();
         cboRecheio = new javax.swing.JComboBox<>();
         lblRecheio = new javax.swing.JLabel();
+        ftfPreco = new javax.swing.JFormattedTextField();
+        ckbRecheio = new javax.swing.JCheckBox();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        lblDescricacao.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblDescricacao.setText("Descrição:");
-        lblDescricacao.setToolTipText("");
-
-        txtDescricacao.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txtDescricacao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDescricacaoActionPerformed(evt);
-            }
-        });
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         lblNome.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblNome.setText("Nome:");
@@ -125,12 +103,6 @@ public class RegistroProduto extends javax.swing.JFrame {
         lblPreco.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblPreco.setText("Preco base:");
         lblPreco.setToolTipText("");
-
-        ftfPreco.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ftfPrecoActionPerformed(evt);
-            }
-        });
 
         btnSsalvar.setText("Salvar");
         btnSsalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -150,6 +122,21 @@ public class RegistroProduto extends javax.swing.JFrame {
         lblRecheio.setText("Recheio:");
         lblRecheio.setToolTipText("");
 
+        ftfPreco.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###.00"))));
+        ftfPreco.setText("0,00");
+        ftfPreco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ftfPrecoActionPerformed(evt);
+            }
+        });
+
+        ckbRecheio.setToolTipText("");
+        ckbRecheio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckbRecheioActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -157,51 +144,53 @@ public class RegistroProduto extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(53, 53, 53)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lblDescricacao, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtDescricacao, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lblNome)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(163, 163, 163)
-                            .addComponent(btnSsalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblPreco)
+                        .addComponent(lblNome)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ftfPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(lblRecheio)
-                        .addGap(8, 8, 8)
-                        .addComponent(cboRecheio, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(78, Short.MAX_VALUE))
+                        .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblRecheio)
+                            .addComponent(lblPreco))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(ftfPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(232, 232, 232))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(ckbRecheio)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cboRecheio, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(77, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnSsalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(54, 54, 54))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(ftfPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(cboRecheio, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblRecheio, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(30, 30, 30)
+                .addContainerGap(30, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtDescricacao, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblDescricacao, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ftfPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(17, 17, 17)
+                                .addComponent(lblRecheio, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(31, 31, 31)
+                                .addComponent(ckbRecheio))))
+                    .addComponent(cboRecheio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(83, 83, 83)
                 .addComponent(btnSsalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38))
+                .addGap(43, 43, 43))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -224,23 +213,58 @@ public class RegistroProduto extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtDescricacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescricacaoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDescricacaoActionPerformed
-
     private void btnSsalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSsalvarActionPerformed
         // TODO add your handling code here:
-        
+        try {
+            new ProdutoDao().saveOrUpdate(new Produto(null, txtNome.getText(), new BigDecimal(ftfPreco.getValue().toString()), (Recheio)boxModel.getSelectedItem()));
+        } catch (Exception e) {
+             Logger.getLogger(RegistroRecheio.class.getName()).log(Level.SEVERE, null, e);
+            JOptionPane.showMessageDialog(this, "Record not saved.\nCheck the data or the network connection and try again.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+            
     }//GEN-LAST:event_btnSsalvarActionPerformed
-
-    private void ftfPrecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ftfPrecoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ftfPrecoActionPerformed
 
     private void cboRecheioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboRecheioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cboRecheioActionPerformed
 
+    private void ftfPrecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ftfPrecoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ftfPrecoActionPerformed
+
+    private void ckbRecheioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckbRecheioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ckbRecheioActionPerformed
+    
+    private void clear() {
+        txtNome.setText(null);
+        txtNome.requestFocus();
+        ftfPreco.setValue(null);
+    }
+    
+    private class RecheioRender extends JLabel implements ListCellRenderer<Recheio> {
+        @Override
+        public Component getListCellRendererComponent(
+                JList<? extends Recheio> list, Recheio value, 
+                int index, boolean isSelected, boolean cellHasFocus) {
+            if(value == null) {
+                return this;
+            }
+            
+            setOpaque(true);
+            setForeground(SystemColor.textText);
+            setBackground(SystemColor.text);
+            if(isSelected) {
+                setForeground(SystemColor.textHighlightText);
+                setBackground(SystemColor.textHighlight);
+            }
+            
+            setText(value.getNome());
+            setBorder(BorderFactory.createEmptyBorder(0, 5, 1, 1));
+            return this;
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -280,13 +304,12 @@ public class RegistroProduto extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSsalvar;
     private javax.swing.JComboBox<Recheio> cboRecheio;
+    private javax.swing.JCheckBox ckbRecheio;
     private javax.swing.JFormattedTextField ftfPreco;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel lblDescricacao;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblPreco;
     private javax.swing.JLabel lblRecheio;
-    private javax.swing.JTextField txtDescricacao;
     private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
 }
