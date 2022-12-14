@@ -88,11 +88,18 @@ public class Pedido extends Entity {
     public String toString() {
         return "Pedido{" 
                 + "funcionario=" + funcionario 
+<<<<<<< HEAD
                         + ", itens=" + itens
                         + ", valorTotal=" + valorTotal 
                         + ", delivery=" + delivery 
                         + ", cliente=" + cliente 
                         + '}';
+=======
+                + ", itens=" + itens 
+                + ", valorTotal=" + valorTotal 
+                + ", delivery" + delivery 
+                + ", cliente=" + cliente + '}';
+>>>>>>> 5d15d02e57d9003312958b030edf60ea49ec09a8
     }
     
     
