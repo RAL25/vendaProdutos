@@ -24,7 +24,6 @@ import javax.swing.ListCellRenderer;
 public class CadastroProduto extends javax.swing.JFrame {
     
     private static CadastroProduto instance;
-    
     private static final DefaultComboBoxModel<Recheio> boxModel = new DefaultComboBoxModel<>();
     
     //<editor-fold defaultstate="collapsed" desc="Constructor">
@@ -34,11 +33,6 @@ public class CadastroProduto extends javax.swing.JFrame {
      */
     private CadastroProduto() {
         initComponents();
-        
-        if(ckbRecheio.isSelected()){
-            System.out.println("Esta ativoS");
-        }
-        
         
         recheioReload();
         cboRecheio.setModel(boxModel);
@@ -72,8 +66,6 @@ public class CadastroProduto extends javax.swing.JFrame {
             System.out.println(">> " + ex.getMessage());
         }
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.

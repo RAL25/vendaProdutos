@@ -21,7 +21,7 @@ import java.util.logging.Logger;
  *<pre> cliente | CREATE TABLE `cliente` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `nome` varchar(50) NOT NULL,
-  `excluido` tinyint(1) DEFAULT NULL,
+  `excluido` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 </pre>
