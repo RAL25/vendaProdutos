@@ -38,7 +38,9 @@ public class Credencial extends Entity{
 
     @Override
     public String toString() {
-        return "Credencial{" + "email=" + email + ", senha=" + senha + '}';
+        return "Credencial{"
+                + "email=" + email 
+                + ", senha=" + senha + '}';
     }
     
     
