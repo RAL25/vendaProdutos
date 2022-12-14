@@ -1,21 +1,89 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package io.github.gabrielsizilio.sabordecasa.produto;
+
+import java.awt.Component;
+import java.awt.SystemColor;
+import javax.swing.BorderFactory;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.ListCellRenderer;
 
 /**
  *
  * @author Gabriel Sizilio <Gabriel at IFNMG>
  */
-public class RegistroProdutos extends javax.swing.JPanel {
-
+public class RegistroProduto extends javax.swing.JFrame {
+    
+    private static RegistroProduto instance;
+    
+    private static final DefaultComboBoxModel<Recheio> boxModel = new DefaultComboBoxModel<>();
+    
+    private class RecheioRender extends JLabel implements ListCellRenderer<Recheio> {
+        @Override
+        public Component getListCellRendererComponent(JList<? extends Recheio> list, Recheio value, int index, boolean isSelected, boolean cellHasFocus) {
+            if(value == null) {
+                return this;
+            }
+            
+            setOpaque(true);
+            setForeground(SystemColor.textText);
+            setBackground(SystemColor.text);
+            if(isSelected) {
+                setForeground(SystemColor.textHighlightText);
+                setBackground(SystemColor.textHighlight);
+            }
+            
+            setText(value.getNome());
+            setBorder(BorderFactory.createEmptyBorder(0, 5, 1, 1));
+            return this;
+        }
+        
+    }
+    
     /**
      * Creates new form RegistroProdutos
      */
-    public RegistroProdutos() {
+    private RegistroProduto() {
         initComponents();
+        
+        cboRecheio.setModel(boxModel);
+        cboRecheio.setRenderer(new RecheioRender());
+        
+        try {
+            cboRecheio.setSelectedIndex(0);
+        } catch (Exception ex) {
+            System.out.println(">> " + ex.getMessage());
+        }
     }
+    
+    public static RegistroProduto getInstance() {
+        if(instance == null) {
+            instance = new RegistroProduto();
+        }
+        
+        recheioReload();
+        return instance;
+    }
+    
+    public static void recheioReload() {
+        try {
+            int selectedIdx = boxModel.getIndexOf(boxModel.getSelectedItem());
+            boxModel.removeAllElements();
+            
+            System.out.println(">>>>" + new RecheioDao().findAll());
+            
+            boxModel.addAll(new RecheioDao().findAll());
+            boxModel.setSelectedItem(boxModel.getElementAt(selectedIdx));
+        } catch (Exception ex) {
+            System.out.println(">> " + ex.getMessage());
+        }
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -36,6 +104,8 @@ public class RegistroProdutos extends javax.swing.JPanel {
         btnSsalvar = new javax.swing.JButton();
         cboRecheio = new javax.swing.JComboBox<>();
         lblRecheio = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         lblDescricacao.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblDescricacao.setText("Descrição:");
@@ -108,12 +178,12 @@ public class RegistroProdutos extends javax.swing.JPanel {
                         .addComponent(lblRecheio)
                         .addGap(8, 8, 8)
                         .addComponent(cboRecheio, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(90, Short.MAX_VALUE))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(57, Short.MAX_VALUE)
+                .addContainerGap(21, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -134,8 +204,8 @@ public class RegistroProdutos extends javax.swing.JPanel {
                 .addGap(38, 38, 38))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -150,25 +220,62 @@ public class RegistroProdutos extends javax.swing.JPanel {
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtDescricacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescricacaoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDescricacaoActionPerformed
 
+    private void btnSsalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSsalvarActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnSsalvarActionPerformed
+
     private void ftfPrecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ftfPrecoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ftfPrecoActionPerformed
-
-    private void btnSsalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSsalvarActionPerformed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_btnSsalvarActionPerformed
 
     private void cboRecheioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboRecheioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cboRecheioActionPerformed
 
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(RegistroProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(RegistroProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(RegistroProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(RegistroProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new RegistroProduto().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSsalvar;
