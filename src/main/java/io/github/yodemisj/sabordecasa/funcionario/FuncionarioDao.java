@@ -101,7 +101,7 @@ public class FuncionarioDao extends Dao<Funcionario> {
             funcionario.setCredencial(credencial);
 
             funcionario.setAtivo(resultSet.getBoolean("ativo"));
-            funcionario.setAdministrador(resultSet.getBoolean("ativo"));
+            funcionario.setAdministrador(resultSet.getBoolean("administrador"));
             funcionario.setExcluido(resultSet.getBoolean("excluido"));
 
         } catch (SQLException ex) {

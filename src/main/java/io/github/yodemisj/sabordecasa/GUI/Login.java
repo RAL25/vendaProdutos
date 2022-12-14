@@ -130,15 +130,8 @@ public class Login extends javax.swing.JFrame {
         
         if (funcionarioAutenticado != null) {
             System.out.println(">> Autenticado: " + funcionarioAutenticado);
-            // new Principal(funcionarioAutenticado).setVisible(true);
-            
-            // Apenas para testar o Cadastro do funcionario antes de criar o Painel Principal
-            CadastroFuncionario cadastroFuncionario = new CadastroFuncionario();
-            cadastroFuncionario.setVisible(true);
-            dskLogin.add(cadastroFuncionario);
-            // fim do codigo de teste
-            
-            //dispose();
+            new Principal(funcionarioAutenticado).setVisible(true);            
+            dispose();
         } else {
             System.out.println(">> Não autenticado.");
         }
