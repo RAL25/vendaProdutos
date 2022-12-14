@@ -26,6 +26,7 @@ public class Venda extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem1 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         lblCliente = new javax.swing.JLabel();
         cmbCliente = new javax.swing.JComboBox<>();
@@ -38,6 +39,14 @@ public class Venda extends javax.swing.JFrame {
         lstItem = new javax.swing.JList<>();
         lblTotal = new javax.swing.JLabel();
         bntFinalizar = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        mnuCadastrar = new javax.swing.JMenu();
+        mnuCadastrarCliente = new javax.swing.JMenuItem();
+        mnuCadastrarProduto = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+
+        jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Venda");
@@ -103,7 +112,7 @@ public class Venda extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblItem))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(lblQuantidade)
@@ -122,6 +131,30 @@ public class Venda extends javax.swing.JFrame {
                 .addComponent(bntFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12))
         );
+
+        jMenu1.setText("File");
+
+        mnuCadastrar.setText("Cadastrar");
+
+        mnuCadastrarCliente.setText("Novo cliente");
+        mnuCadastrarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuCadastrarClienteActionPerformed(evt);
+            }
+        });
+        mnuCadastrar.add(mnuCadastrarCliente);
+
+        mnuCadastrarProduto.setText("Novo produto");
+        mnuCadastrar.add(mnuCadastrarProduto);
+
+        jMenu1.add(mnuCadastrar);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Edit");
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -142,6 +175,11 @@ public class Venda extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void mnuCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCadastrarClienteActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_mnuCadastrarClienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -183,6 +221,10 @@ public class Venda extends javax.swing.JFrame {
     private javax.swing.JButton bntFinalizar;
     private javax.swing.JComboBox<String> cmbCliente;
     private javax.swing.JComboBox<String> cmbItem;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCliente;
@@ -190,6 +232,9 @@ public class Venda extends javax.swing.JFrame {
     private javax.swing.JLabel lblQuantidade;
     private javax.swing.JLabel lblTotal;
     private javax.swing.JList<String> lstItem;
+    private javax.swing.JMenu mnuCadastrar;
+    private javax.swing.JMenuItem mnuCadastrarCliente;
+    private javax.swing.JMenuItem mnuCadastrarProduto;
     private javax.swing.JTextField txtQuantidade;
     // End of variables declaration//GEN-END:variables
 }
