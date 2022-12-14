@@ -39,7 +39,7 @@ public class SaborDeCasa {
 
     public static void main(String[] args) throws Exception {
 
-        System.out.println("PRODUTO");
+        /*System.out.println("PRODUTO");
         Recheio r1 = new Recheio(null, "Recheio 1", "Recheio 1 de hortelã", new BigDecimal("2"));
         Long id = new RecheioDao().saveOrUpdate(r1);
         r1.setId(id);
@@ -74,7 +74,18 @@ public class SaborDeCasa {
 
         Pedido p2 = new PedidoDao().findById(pedido1.getId());
         
-        System.out.println(">>"+ p2);
+        System.out.println(">>"+ p2);*/
+        
+        Cliente c = new Cliente(null,"Rian");
+        Telefone t = new Telefone(null, (byte)38, 123456, true, c);
+        t.getId();
+        Endereco e = new Endereco(null, "Dezoito", (short)80, "village", "c", c);
+        e.getId();
+        
+        c.addTelefone(t);
+        c.addEndereco(e);
+        
+        System.out.println(">>" + c);
         
         
         
