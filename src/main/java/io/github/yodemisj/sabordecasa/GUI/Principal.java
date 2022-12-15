@@ -63,7 +63,6 @@ public class Principal extends javax.swing.JFrame {
         });
 
         btnEfetuarVenda.setText("Efetuar Venda");
-        btnEfetuarVenda.setEnabled(false);
         btnEfetuarVenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEfetuarVendaActionPerformed(evt);
@@ -118,6 +117,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void btnCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarClienteActionPerformed
             
+        
     }//GEN-LAST:event_btnCadastrarClienteActionPerformed
 
     private void btnCadastrarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarFuncionarioActionPerformed
@@ -130,7 +130,8 @@ public class Principal extends javax.swing.JFrame {
 
     private void btnEfetuarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEfetuarVendaActionPerformed
         // TODO add your handling code here:
-        new Venda().setVisible(true);
+        Venda venda = new Venda();
+        venda.setVisible(true);
     }//GEN-LAST:event_btnEfetuarVendaActionPerformed
 
 
