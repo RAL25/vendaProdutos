@@ -4,6 +4,7 @@
  */
 package io.github.yodemisj.sabordecasa.GUI;
 
+import io.github.gabrielsizilio.sabordecasa.produto.Venda;
 import io.github.yodemisj.sabordecasa.funcionario.Funcionario;
 
 /**
@@ -63,6 +64,11 @@ public class Principal extends javax.swing.JFrame {
 
         btnEfetuarVenda.setText("Efetuar Venda");
         btnEfetuarVenda.setEnabled(false);
+        btnEfetuarVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEfetuarVendaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout dskPrincipalLayout = new javax.swing.GroupLayout(dskPrincipal);
         dskPrincipal.setLayout(dskPrincipalLayout);
@@ -115,12 +121,17 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastrarClienteActionPerformed
 
     private void btnCadastrarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarFuncionarioActionPerformed
-            CadastroFuncionario cadastroFuncionario = new CadastroFuncionario();
-            cadastroFuncionario.setVisible(true);
-            cadastroFuncionario.setClosable(true);
-            dskPrincipal.add(cadastroFuncionario);         
-            
+//            CadastroFuncionario cadastroFuncionario = new CadastroFuncionario();
+//            cadastroFuncionario.setVisible(true);
+//            cadastroFuncionario.setClosable(true);
+//            dskPrincipal.add(cadastroFuncionario);         
+//            GABRIEL: COMENTEI AUQI PQ TA DANDO ERRO NO CADASTRO DE FUCNIONARIO
     }//GEN-LAST:event_btnCadastrarFuncionarioActionPerformed
+
+    private void btnEfetuarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEfetuarVendaActionPerformed
+        // TODO add your handling code here:
+        new Venda().setVisible(true);
+    }//GEN-LAST:event_btnEfetuarVendaActionPerformed
 
 
 
