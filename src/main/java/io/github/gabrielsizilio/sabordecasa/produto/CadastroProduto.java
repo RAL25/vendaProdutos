@@ -4,6 +4,7 @@
  */
 package io.github.gabrielsizilio.sabordecasa.produto;
 
+import io.github.yodemisj.sabordecasa.funcionario.Funcionario;
 import java.awt.Component;
 import java.awt.SystemColor;
 import java.math.BigDecimal;
@@ -25,14 +26,15 @@ public class CadastroProduto extends javax.swing.JFrame {
     
     private static CadastroProduto instance;
     private static final DefaultComboBoxModel<Recheio> boxModel = new DefaultComboBoxModel<>();
-    
     //<editor-fold defaultstate="collapsed" desc="Constructor">
     
     /**
      * Creates new form RegistroProdutos
      */
-    private CadastroProduto() {
+    public CadastroProduto() {
         initComponents();
+        
+        
         
         recheioReload();
         cboRecheio.setModel(boxModel);
@@ -85,6 +87,7 @@ public class CadastroProduto extends javax.swing.JFrame {
         lblRecheio = new javax.swing.JLabel();
         ftfPreco = new javax.swing.JFormattedTextField();
         ckbRecheio = new javax.swing.JCheckBox();
+        bntCancelar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -133,6 +136,13 @@ public class CadastroProduto extends javax.swing.JFrame {
             }
         });
 
+        bntCancelar.setText("Cancelar");
+        bntCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntCancelarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -140,7 +150,10 @@ public class CadastroProduto extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(97, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnSsalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(bntCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSsalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lblNome)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -182,7 +195,9 @@ public class CadastroProduto extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(cboRecheio, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(25, 25, 25)
-                .addComponent(btnSsalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSsalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bntCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(41, 41, 41))
         );
 
@@ -221,6 +236,7 @@ public class CadastroProduto extends javax.swing.JFrame {
             Recheio recheio = new Recheio();
             
             new ProdutoDao().saveOrUpdate(new Produto(null, txtNome.getText(), new BigDecimal(ftfPreco.getValue().toString()), (Recheio)boxModel.getSelectedItem()));
+           
         } catch (Exception e) {
              Logger.getLogger(CadastroRecheio.class.getName()).log(Level.SEVERE, null, e);
             JOptionPane.showMessageDialog(this, "Record not saved.\nCheck the data or the network connection and try again.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -239,6 +255,13 @@ public class CadastroProduto extends javax.swing.JFrame {
     private void ckbRecheioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckbRecheioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ckbRecheioActionPerformed
+
+    private void bntCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntCancelarActionPerformed
+        // TODO add your handling code here:
+        //        CANCELAR CRIAÇÃO DE PRODUTO
+        dispose();
+
+    }//GEN-LAST:event_bntCancelarActionPerformed
     
     private void clear() {
         txtNome.setText(null);
@@ -308,6 +331,7 @@ public class CadastroProduto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bntCancelar;
     private javax.swing.JButton btnSsalvar;
     private javax.swing.JComboBox<Recheio> cboRecheio;
     private javax.swing.JCheckBox ckbRecheio;

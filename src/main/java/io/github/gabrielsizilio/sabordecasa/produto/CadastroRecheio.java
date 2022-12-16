@@ -41,6 +41,7 @@ public class CadastroRecheio extends javax.swing.JFrame {
         lblDescricacao = new javax.swing.JLabel();
         btnSsalvar = new javax.swing.JButton();
         ftfPreco = new javax.swing.JFormattedTextField();
+        bntCancelar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -82,6 +83,13 @@ public class CadastroRecheio extends javax.swing.JFrame {
             }
         });
 
+        bntCancelar.setText("Cancelar");
+        bntCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntCancelarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -103,8 +111,9 @@ public class CadastroRecheio extends javax.swing.JFrame {
                             .addComponent(lbPreco)
                             .addGap(18, 18, 18)
                             .addComponent(ftfPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(174, 174, 174)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(bntCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(btnSsalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(57, Short.MAX_VALUE))
         );
@@ -124,7 +133,9 @@ public class CadastroRecheio extends javax.swing.JFrame {
                     .addComponent(lblDescricacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtDescricacao, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(btnSsalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSsalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bntCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(38, 38, 38))
         );
 
@@ -182,6 +193,12 @@ public class CadastroRecheio extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ftfPrecoActionPerformed
 
+    private void bntCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntCancelarActionPerformed
+        // TODO add your handling code here:
+        //        CANCELAR CRIACAO DE RECHEIO
+        dispose();
+    }//GEN-LAST:event_bntCancelarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -219,6 +236,7 @@ public class CadastroRecheio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bntCancelar;
     private javax.swing.JButton btnSsalvar;
     private javax.swing.JFormattedTextField ftfPreco;
     private javax.swing.JMenu jMenu1;

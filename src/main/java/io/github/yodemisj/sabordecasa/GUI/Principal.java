@@ -5,7 +5,11 @@
 package io.github.yodemisj.sabordecasa.GUI;
 
 import io.github.gabrielsizilio.sabordecasa.produto.Venda;
+import io.github.gabrielsizilio.sabordecasa.produto.VendaPrincipal;
 import io.github.yodemisj.sabordecasa.funcionario.Funcionario;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JInternalFrame;
 
 /**
  *
@@ -30,7 +34,28 @@ public class Principal extends javax.swing.JFrame {
         // Centralização da janela
         setLocationRelativeTo(null);
     }
-
+    
+    
+    //<editor-fold defaultstate="collapsed" desc="anexarJanela">
+    
+    private void anexarJanela(JInternalFrame janela) {
+        if(!janela.isVisible()) {
+            dskPrincipal.add(janela);
+            janela.setVisible(true);
+        }
+        janela.toFront();
+        try {
+//            RESTAURA SE MINIMIZADA
+            janela.setIcon(false);
+//            MOVE O FOCO
+            janela.setSelected(true);
+        } catch (Exception e) {
+            Logger.getLogger(VendaPrincipal.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+    
+    //</editor-fold>
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -125,13 +150,15 @@ public class Principal extends javax.swing.JFrame {
 //            cadastroFuncionario.setVisible(true);
 //            cadastroFuncionario.setClosable(true);
 //            dskPrincipal.add(cadastroFuncionario);         
-//            GABRIEL: COMENTEI AUQI PQ TA DANDO ERRO NO CADASTRO DE FUCNIONARIO
+//            GABRIEL: COMENTEI AUQI PQ TA DANDO ERRO NO CADASTRO DE FUCNIONARIO QUANDO CORRIGIR SÓ TIRAR DE COMENTARIOS
     }//GEN-LAST:event_btnCadastrarFuncionarioActionPerformed
 
     private void btnEfetuarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEfetuarVendaActionPerformed
         // TODO add your handling code here:
-        Venda venda = new Venda();
+        Venda venda = new Venda(funcionarioSistema);
         venda.setVisible(true);
+//        dskPrincipal.add(venda);
+//        anexarJanela(venda.getInstance());
     }//GEN-LAST:event_btnEfetuarVendaActionPerformed
 
 
