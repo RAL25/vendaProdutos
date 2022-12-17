@@ -93,6 +93,10 @@ public class Produto extends Entity{
     }
     
     public BigDecimal calcularValorProduto() throws Exception {
+        if(recheio==null) {
+            return precoBase;
+        }
+        
         if(precoBase.equals(BigDecimal.ZERO) && recheio.getPreco().equals(BigDecimal.ZERO)) {
             throw new Exception("Valor produto não pode ser 0!");
         }

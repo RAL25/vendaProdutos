@@ -22,7 +22,7 @@ import javax.swing.ListCellRenderer;
  *
  * @author Gabriel Sizilio <Gabriel at IFNMG>
  */
-public class CadastroProduto extends javax.swing.JInternalFrame {
+public class CadastroProduto extends javax.swing.JFrame {
     
     private static CadastroProduto instance;
     private static final DefaultComboBoxModel<Recheio> boxModel = new DefaultComboBoxModel<>();
@@ -92,7 +92,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Registro de Produto");
 
         lblNome.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -111,6 +111,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         });
 
         cboRecheio.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cboRecheio.setEnabled(false);
         cboRecheio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboRecheioActionPerformed(evt);
@@ -235,13 +236,20 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
            
             Recheio recheio = new Recheio();
             
-            new ProdutoDao().saveOrUpdate(new Produto(null, txtNome.getText(), new BigDecimal(ftfPreco.getValue().toString()), (Recheio)boxModel.getSelectedItem()));
+            if(ckbRecheio.isSelected()){
+                recheio = (Recheio)boxModel.getSelectedItem();
+            } else {
+                recheio = null;
+            }
+            
+            new ProdutoDao().saveOrUpdate(new Produto(null, txtNome.getText(), new BigDecimal(ftfPreco.getValue().toString()), recheio));
            
         } catch (Exception e) {
              Logger.getLogger(CadastroRecheio.class.getName()).log(Level.SEVERE, null, e);
             JOptionPane.showMessageDialog(this, "Record not saved.\nCheck the data or the network connection and try again.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-            
+        Venda.produtoReload();
+        dispose();
     }//GEN-LAST:event_btnSsalvarActionPerformed
 
     private void cboRecheioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboRecheioActionPerformed
@@ -254,6 +262,12 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
 
     private void ckbRecheioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckbRecheioActionPerformed
         // TODO add your handling code here:
+        if(ckbRecheio.isSelected()){
+            cboRecheio.setEnabled(true);
+        } else {
+            cboRecheio.setEnabled(false);
+        }
+        
     }//GEN-LAST:event_ckbRecheioActionPerformed
 
     private void bntCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntCancelarActionPerformed

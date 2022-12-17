@@ -183,7 +183,6 @@ public class Venda extends javax.swing.JFrame {
         mnuBar = new javax.swing.JMenuBar();
         mnuFile = new javax.swing.JMenu();
         mnuCadastrar = new javax.swing.JMenu();
-        mnuCadastrarCliente = new javax.swing.JMenuItem();
         mnuCadastrarProduto = new javax.swing.JMenuItem();
         mnuEdit = new javax.swing.JMenu();
 
@@ -335,14 +334,6 @@ public class Venda extends javax.swing.JFrame {
 
         mnuCadastrar.setText("Cadastrar");
 
-        mnuCadastrarCliente.setText("Novo cliente");
-        mnuCadastrarCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuCadastrarClienteActionPerformed(evt);
-            }
-        });
-        mnuCadastrar.add(mnuCadastrarCliente);
-
         mnuCadastrarProduto.setText("Novo produto");
         mnuCadastrarProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -380,11 +371,6 @@ public class Venda extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void mnuCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCadastrarClienteActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_mnuCadastrarClienteActionPerformed
-
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
         // TODO add your handling code here:
         
@@ -416,7 +402,6 @@ public class Venda extends javax.swing.JFrame {
 //        CADASTRA NOVO PRODUTO E FECHA DEPOIS
         CadastroProduto cadastroProduto = new CadastroProduto();
         cadastroProduto.setVisible(true);
-        dispose();
         
     }//GEN-LAST:event_mnuCadastrarProdutoActionPerformed
 
@@ -543,7 +528,6 @@ public class Venda extends javax.swing.JFrame {
     private javax.swing.JList<Item> lstItem;
     private javax.swing.JMenuBar mnuBar;
     private javax.swing.JMenu mnuCadastrar;
-    private javax.swing.JMenuItem mnuCadastrarCliente;
     private javax.swing.JMenuItem mnuCadastrarProduto;
     private javax.swing.JMenu mnuEdit;
     private javax.swing.JMenu mnuFile;
