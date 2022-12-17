@@ -4,6 +4,9 @@
  */
 package io.github.yodemisj.sabordecasa.GUI;
 
+import io.github.gabrielsizilio.sabordecasa.produto.CadastroProduto;
+import io.github.gabrielsizilio.sabordecasa.produto.CadastroRecheio;
+import io.github.gabrielsizilio.sabordecasa.produto.Venda;
 import io.github.yodemisj.sabordecasa.funcionario.Funcionario;
 
 /**
@@ -80,14 +83,29 @@ public class PainelPrincipal extends javax.swing.JFrame {
         jMenu3.add(miCadastrarCliente);
 
         miCadastrarProduto.setText("Produto");
+        miCadastrarProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miCadastrarProdutoActionPerformed(evt);
+            }
+        });
         jMenu3.add(miCadastrarProduto);
 
         miCadastrarRecheio.setText("Recheio");
+        miCadastrarRecheio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miCadastrarRecheioActionPerformed(evt);
+            }
+        });
         jMenu3.add(miCadastrarRecheio);
 
         jMenu1.add(jMenu3);
 
         jMenuItem6.setText("Efetuar Venda");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem6);
 
         jMenuBar1.add(jMenu1);
@@ -123,6 +141,27 @@ public class PainelPrincipal extends javax.swing.JFrame {
         cadastroFuncionario.setClosable(true);
         dskPrincipal.add(cadastroFuncionario);  
     }//GEN-LAST:event_miCadastrarFuncionarioActionPerformed
+
+    private void miCadastrarRecheioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadastrarRecheioActionPerformed
+        CadastroRecheio cadastroRecheio = new CadastroRecheio();
+        cadastroRecheio.setVisible(true);
+        cadastroRecheio.setClosable(true);
+        dskPrincipal.add(cadastroRecheio);
+    }//GEN-LAST:event_miCadastrarRecheioActionPerformed
+
+    private void miCadastrarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadastrarProdutoActionPerformed
+        CadastroProduto cadastroProduto = new CadastroProduto();
+        cadastroProduto.setVisible(true);
+        cadastroProduto.setClosable(true);
+        dskPrincipal.add(cadastroProduto);
+    }//GEN-LAST:event_miCadastrarProdutoActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        Venda venda = new Venda();
+        venda.setVisible(true);
+        venda.setClosable(true);
+        dskPrincipal.add(venda);
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     /**
      * @param args the command line arguments
