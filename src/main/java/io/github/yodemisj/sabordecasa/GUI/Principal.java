@@ -11,7 +11,7 @@ import io.github.yodemisj.sabordecasa.funcionario.Funcionario;
  * @author yodem
  */
 public class Principal extends javax.swing.JFrame {
-    
+                                                                                                       
     private Funcionario funcionarioSistema;
 
     /**
@@ -115,7 +115,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastrarClienteActionPerformed
 
     private void btnCadastrarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarFuncionarioActionPerformed
-            teste cadastroFuncionario = new teste();
+            CadastroFuncionario cadastroFuncionario = new CadastroFuncionario();
             cadastroFuncionario.setVisible(true);
             cadastroFuncionario.setClosable(true);
             dskPrincipal.add(cadastroFuncionario);         

@@ -13,12 +13,12 @@ import io.github.yodemisj.sabordecasa.funcionario.FuncionarioDao;
  *
  * @author yodem
  */
-public class teste extends javax.swing.JInternalFrame {
+public class CadastroFuncionario extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form teste
      */
-    public teste() {
+    public CadastroFuncionario() {
         initComponents();
     }
 
