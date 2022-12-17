@@ -102,7 +102,6 @@ public class Pedido extends Entity {
     }
     
     public BigDecimal calcularTotal() throws Exception {
-        System.out.println("CALCULAR TOTAL EM PEDIDO");
         valorTotal = BigDecimal.ZERO;
         for(Item item:itens) {
             valorTotal = valorTotal.add(item.calcularTotal());
