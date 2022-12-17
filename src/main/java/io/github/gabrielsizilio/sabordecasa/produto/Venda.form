@@ -13,12 +13,12 @@
           <SubComponents>
             <Menu class="javax.swing.JMenu" name="mnuCadastrar">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Cadastrar"/>
+                <Property name="text" type="java.lang.String" value="Cadastrar/Editar"/>
               </Properties>
               <SubComponents>
                 <MenuItem class="javax.swing.JMenuItem" name="mnuCadastrarProduto">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Novo produto"/>
+                    <Property name="text" type="java.lang.String" value="Produto"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuCadastrarProdutoActionPerformed"/>

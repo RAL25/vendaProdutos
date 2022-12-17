@@ -331,9 +331,9 @@ public class Venda extends javax.swing.JFrame {
 
         mnuFile.setText("File");
 
-        mnuCadastrar.setText("Cadastrar");
+        mnuCadastrar.setText("Cadastrar/Editar");
 
-        mnuCadastrarProduto.setText("Novo produto");
+        mnuCadastrarProduto.setText("Produto");
         mnuCadastrarProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuCadastrarProdutoActionPerformed(evt);
@@ -396,9 +396,12 @@ public class Venda extends javax.swing.JFrame {
     private void mnuCadastrarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCadastrarProdutoActionPerformed
         // TODO add your handling code here:
 //        CADASTRA NOVO PRODUTO E FECHA DEPOIS
+//        CadastroProduto cadastroProduto = new CadastroProduto();
+//        cadastroProduto.setVisible(true);
+        dispose();
+        
         CadastroProduto cadastroProduto = new CadastroProduto();
         cadastroProduto.setVisible(true);
-        
     }//GEN-LAST:event_mnuCadastrarProdutoActionPerformed
 
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed

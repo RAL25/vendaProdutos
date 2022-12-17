@@ -5,7 +5,6 @@
 package io.github.yodemisj.sabordecasa.GUI;
 
 import io.github.gabrielsizilio.sabordecasa.produto.Venda;
-import io.github.gabrielsizilio.sabordecasa.produto.VendaPrincipal;
 import io.github.yodemisj.sabordecasa.funcionario.Funcionario;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -50,7 +49,7 @@ public class Principal extends javax.swing.JFrame {
 //            MOVE O FOCO
             janela.setSelected(true);
         } catch (Exception e) {
-            Logger.getLogger(VendaPrincipal.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(Venda.class.getName()).log(Level.SEVERE, null, e);
         }
     }
     
