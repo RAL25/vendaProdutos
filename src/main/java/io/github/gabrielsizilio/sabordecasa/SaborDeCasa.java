@@ -76,17 +76,19 @@ public class SaborDeCasa {
         
         System.out.println(">>"+ p2);*/
         
-        Cliente c = new Cliente(null,"Rian");
-        Telefone t = new Telefone(null, (byte)38, 123456, true, c);
-        t.getId();
-        Endereco e = new Endereco(null, "Dezoito", (short)80, "village", "c", c);
-        e.getId();
+//        Cliente c = new Cliente(null,"Rian");
+//        Telefone t = new Telefone(null, (byte)38, 123456, true, c);
+//        t.getId();
+//        Endereco e = new Endereco(null, "Dezoito", (short)80, "village", "c", c);
+//        e.getId();
+//        
+//        c.addTelefone(t);
+//        c.addEndereco(e);
+//        
+//        System.out.println(">>" + c);
         
-        c.addTelefone(t);
-        c.addEndereco(e);
-        
-        System.out.println(">>" + c);
-        
+        List<Endereco> enderecos = new EnderecoDao().findByClienteId(1L);
+        System.out.println(">" + enderecos);
         
         
         

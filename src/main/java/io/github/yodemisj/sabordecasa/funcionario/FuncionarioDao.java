@@ -7,6 +7,7 @@ package io.github.yodemisj.sabordecasa.funcionario;
 
 
 import io.github.gabrielsizilio.sabordecasa.database.Dao;
+import io.github.gabrielsizilio.sabordecasa.database.DbConnection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -100,7 +101,7 @@ public class FuncionarioDao extends Dao<Funcionario> {
             funcionario.setCredencial(credencial);
 
             funcionario.setAtivo(resultSet.getBoolean("ativo"));
-            funcionario.setAdministrador(resultSet.getBoolean("ativo"));
+            funcionario.setAdministrador(resultSet.getBoolean("administrador"));
             funcionario.setExcluido(resultSet.getBoolean("excluido"));
 
         } catch (SQLException ex) {
@@ -108,5 +109,38 @@ public class FuncionarioDao extends Dao<Funcionario> {
         }
 
         return funcionario;
+    }
+    
+    public Funcionario autenticar(Credencial credencial) {
+        Credencial credencialAutenticada = new CredencialDao().autenticar(credencial);
+        if(credencialAutenticada != null){
+            try (PreparedStatement pstmt
+                = DbConnection.getConnection().prepareStatement(
+                        // Sentença SQL para validação de usuário
+                        "SELECT * "
+                        + "FROM funcionario "
+                        + "WHERE id = ? "
+                        + "AND excluido = 0")) {
+
+            // Prepara a declaração com os dados do objeto passado
+                pstmt.setLong(1, credencialAutenticada.getId());
+
+                // Executa o comando SQL
+                ResultSet resultSet = pstmt.executeQuery();
+
+                // Se há resultado retornado...
+                if (resultSet.next()) {
+                    // ... implica que email e senha estão corretos 
+                    // para o usuário e devolve os dados completos deste
+                    return extractObject(resultSet);
+                }
+
+            } catch (Exception e) {
+            
+            }
+
+        }
+        
+        return null;
     }
 }
