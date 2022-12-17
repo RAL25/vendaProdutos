@@ -184,7 +184,6 @@ public class Venda extends javax.swing.JFrame {
         mnuFile = new javax.swing.JMenu();
         mnuCadastrar = new javax.swing.JMenu();
         mnuCadastrarProduto = new javax.swing.JMenuItem();
-        mnuEdit = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Venda");
@@ -346,9 +345,6 @@ public class Venda extends javax.swing.JFrame {
 
         mnuBar.add(mnuFile);
 
-        mnuEdit.setText("Edit");
-        mnuBar.add(mnuEdit);
-
         setJMenuBar(mnuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -408,17 +404,19 @@ public class Venda extends javax.swing.JFrame {
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
         // TODO add your handling code here:
         Item item = lstItem.getSelectedValue();
-
+        Integer quantidade = new Integer(txtQuantidade.getText());
+        
         for (Item itemLista:pedido.getItens()){
             if(itemLista.getProduto().getNome() == item.getProduto().getNome()) {
-                if(item.getQuantidade() == 1) {
+                
+                if(item.getQuantidade() <= quantidade) {
                     pedido.getItens().remove(itemLista);
                     System.out.println("Elemento excluido da lista");
                     break;
                 } else {
                     try {
-                        item.setQuantidade(item.getQuantidade()-1);
-                        System.out.println("1 unidade removida");
+                        item.setQuantidade(item.getQuantidade() - quantidade);
+                        System.out.println( quantidade + " unidade(s) removida(s)");
                     } catch (Exception ex) {
                         Logger.getLogger(Venda.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -529,7 +527,6 @@ public class Venda extends javax.swing.JFrame {
     private javax.swing.JMenuBar mnuBar;
     private javax.swing.JMenu mnuCadastrar;
     private javax.swing.JMenuItem mnuCadastrarProduto;
-    private javax.swing.JMenu mnuEdit;
     private javax.swing.JMenu mnuFile;
     private javax.swing.JTextField txtQuantidade;
     // End of variables declaration//GEN-END:variables
