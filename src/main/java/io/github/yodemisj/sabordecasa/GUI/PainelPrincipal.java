@@ -80,6 +80,11 @@ public class PainelPrincipal extends javax.swing.JFrame {
         jMenu3.add(miCadastrarFuncionario);
 
         miCadastrarCliente.setText("Cliente");
+        miCadastrarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miCadastrarClienteActionPerformed(evt);
+            }
+        });
         jMenu3.add(miCadastrarCliente);
 
         miCadastrarProduto.setText("Produto");
@@ -162,6 +167,12 @@ public class PainelPrincipal extends javax.swing.JFrame {
         //venda.setClosable(true);
         dskPrincipal.add(venda);
     }//GEN-LAST:event_miEfetuarVendaActionPerformed
+
+    private void miCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadastrarClienteActionPerformed
+       CadastroCliente cadastroCliente = new CadastroCliente();
+       cadastroCliente.setVisible(true);
+       dskPrincipal.add(cadastroCliente);
+    }//GEN-LAST:event_miCadastrarClienteActionPerformed
 
     /**
      * @param args the command line arguments
