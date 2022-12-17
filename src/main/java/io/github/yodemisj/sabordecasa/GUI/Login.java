@@ -4,6 +4,10 @@
  */
 package io.github.yodemisj.sabordecasa.GUI;
 
+import io.github.yodemisj.sabordecasa.funcionario.Credencial;
+import io.github.yodemisj.sabordecasa.funcionario.Funcionario;
+import io.github.yodemisj.sabordecasa.funcionario.FuncionarioDao;
+
 /**
  *
  * @author yodem
@@ -27,28 +31,33 @@ public class Login extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        lblEmail = new javax.swing.JLabel();
+        lblSenha = new javax.swing.JLabel();
+        txtEmail = new javax.swing.JTextField();
+        btnAutenticar = new javax.swing.JButton();
+        pwdSenha = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel1.setText("Usuário:");
+        lblEmail.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblEmail.setText("Usuário:");
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel2.setText("Senha:");
+        lblSenha.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblSenha.setText("Senha:");
 
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTextField1.setText("gerente@mail.com");
+        txtEmail.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtEmail.setText("gerente@mail.com");
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jButton1.setText("Autenticar");
+        btnAutenticar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnAutenticar.setText("Autenticar");
+        btnAutenticar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAutenticarActionPerformed(evt);
+            }
+        });
 
-        jPasswordField1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jPasswordField1.setText("123451234");
+        pwdSenha.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        pwdSenha.setText("123451234");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -57,16 +66,16 @@ public class Login extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(54, 54, 54)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1))
+                    .addComponent(lblSenha)
+                    .addComponent(lblEmail))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
-                    .addComponent(jPasswordField1))
+                    .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
+                    .addComponent(pwdSenha))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(172, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(btnAutenticar)
                 .addGap(166, 166, 166))
         );
         jPanel1Layout.setVerticalGroup(
@@ -74,14 +83,14 @@ public class Login extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(53, 53, 53)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblEmail)
+                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblSenha)
+                    .addComponent(pwdSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(btnAutenticar)
                 .addContainerGap(46, Short.MAX_VALUE))
         );
 
@@ -104,6 +113,29 @@ public class Login extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAutenticarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAutenticarActionPerformed
+        System.out.println(">> Autenticando");
+        Funcionario funcionarioAutenticado = new Funcionario();
+        Credencial credencial = new Credencial();
+        
+        credencial.setEmail(txtEmail.getText());
+        credencial.setSenha(String.valueOf(pwdSenha.getPassword()));
+        
+        funcionarioAutenticado = new FuncionarioDao().autenticar(credencial);
+        
+        if (funcionarioAutenticado != null) {
+            System.out.println(">> Autenticado: " + funcionarioAutenticado);
+            new Principal(funcionarioAutenticado).setVisible(true);            
+            dispose();
+        } else {
+            System.out.println(">> Não autenticado.");
+        }
+
+        pwdSenha.setText(null);
+        txtEmail.requestFocus();
+        txtEmail.selectAll();
+    }//GEN-LAST:event_btnAutenticarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -141,11 +173,11 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton btnAutenticar;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel lblEmail;
+    private javax.swing.JLabel lblSenha;
+    private javax.swing.JPasswordField pwdSenha;
+    private javax.swing.JTextField txtEmail;
     // End of variables declaration//GEN-END:variables
 }
