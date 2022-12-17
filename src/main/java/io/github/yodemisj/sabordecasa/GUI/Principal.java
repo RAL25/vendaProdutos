@@ -10,7 +10,7 @@ import io.github.yodemisj.sabordecasa.funcionario.Funcionario;
  *
  * @author yodem
  */
-public class Principal extends javax.swing.JFrame {
+public class Principal extends javax.swing.JDesktopPane {
                                                                                                        
     private Funcionario funcionarioSistema;
 
