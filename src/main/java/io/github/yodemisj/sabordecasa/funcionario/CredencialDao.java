@@ -6,6 +6,7 @@
 package io.github.yodemisj.sabordecasa.funcionario;
 
 import io.github.gabrielsizilio.sabordecasa.database.Dao;
+import io.github.gabrielsizilio.sabordecasa.database.DbConnection;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -97,6 +98,36 @@ public class CredencialDao extends Dao<Credencial>{
         }
 
         return credencial;
+    }
+    
+    public Credencial autenticar(Credencial credencial) {
+        
+        try (PreparedStatement pstmt
+                = DbConnection.getConnection().prepareStatement(
+                        // Sentença SQL para validação de usuário
+                        "SELECT * "
+                        + "FROM credencial "
+                        + "WHERE email = ? "
+                        + "AND senha = ?")) {
+
+            // Prepara a declaração com os dados do objeto passado
+            pstmt.setString(1, credencial.getEmail());
+            pstmt.setString(2, credencial.getSenha());
+
+            // Executa o comando SQL
+            ResultSet resultSet = pstmt.executeQuery();
+
+            // Se há resultado retornado...
+            if (resultSet.next()) {
+                // ... implica que email e senha estão corretos 
+                // para o usuário e devolve os dados completos deste
+                return extractObject(resultSet);
+            }
+
+        } catch (Exception e) {
+        }
+
+        return null;
     }
 
     
