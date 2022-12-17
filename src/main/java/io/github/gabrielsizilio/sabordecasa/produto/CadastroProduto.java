@@ -23,7 +23,7 @@ import javax.swing.ListCellRenderer;
  *
  * @author Gabriel Sizilio <Gabriel at IFNMG>
  */
-public class CadastroProduto extends javax.swing.JFrame {
+public class CadastroProduto extends javax.swing.JInternalFrame {
     
     private static CadastroProduto instance;
     private static final DefaultComboBoxModel<Recheio> boxModel = new DefaultComboBoxModel<>();

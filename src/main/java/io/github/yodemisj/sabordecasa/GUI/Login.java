@@ -31,22 +31,22 @@ public class Login extends javax.swing.JFrame {
     private void initComponents() {
 
         dskLogin = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lblEmail = new javax.swing.JLabel();
+        lblSenha = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
         btnAutenticar = new javax.swing.JButton();
         pwdSenha = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel1.setText("Email:");
+        lblEmail.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblEmail.setText("Email:");
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel2.setText("Senha:");
-
+        lblSenha.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblSenha.setText("Senha:");
 
         txtEmail.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtEmail.setText("gerente@mail.com");
         txtEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtEmailActionPerformed(evt);
@@ -62,6 +62,7 @@ public class Login extends javax.swing.JFrame {
         });
 
         pwdSenha.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        pwdSenha.setText("123451234");
 
         javax.swing.GroupLayout dskLoginLayout = new javax.swing.GroupLayout(dskLogin);
         dskLogin.setLayout(dskLoginLayout);
@@ -72,14 +73,14 @@ public class Login extends javax.swing.JFrame {
                     .addGroup(dskLoginLayout.createSequentialGroup()
                         .addGap(54, 54, 54)
                         .addGroup(dskLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1))
+                            .addComponent(lblSenha)
+                            .addComponent(lblEmail))
                         .addGap(18, 18, 18)
                         .addGroup(dskLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
                             .addComponent(pwdSenha)))
                     .addGroup(dskLoginLayout.createSequentialGroup()
-                        .addGap(158, 158, 158)
+                        .addGap(156, 156, 156)
                         .addComponent(btnAutenticar)))
                 .addContainerGap(145, Short.MAX_VALUE))
         );
@@ -88,11 +89,11 @@ public class Login extends javax.swing.JFrame {
             .addGroup(dskLoginLayout.createSequentialGroup()
                 .addGap(53, 53, 53)
                 .addGroup(dskLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                    .addComponent(lblEmail)
                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(dskLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(lblSenha)
                     .addComponent(pwdSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnAutenticar)
@@ -131,7 +132,7 @@ public class Login extends javax.swing.JFrame {
         
         if (funcionarioAutenticado != null) {
             System.out.println(">> Autenticado: " + funcionarioAutenticado);
-            new Principal(funcionarioAutenticado).setVisible(true);            
+            new PainelPrincipal(funcionarioAutenticado).setVisible(true);            
 //            new PainelPrincipal(funcionarioAutenticado).setVisible(true);            
             dispose();
         } else {
@@ -185,8 +186,8 @@ public class Login extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAutenticar;
     private javax.swing.JPanel dskLogin;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel lblEmail;
+    private javax.swing.JLabel lblSenha;
     private javax.swing.JPasswordField pwdSenha;
     private javax.swing.JTextField txtEmail;
     // End of variables declaration//GEN-END:variables

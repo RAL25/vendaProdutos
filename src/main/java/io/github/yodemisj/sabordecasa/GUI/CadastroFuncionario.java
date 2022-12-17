@@ -65,14 +65,44 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
         chkAdministrador.setText("Administrador");
 
         txtNome.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNomeKeyReleased(evt);
+            }
+        });
 
         txtMatricula.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtMatricula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtMatriculaKeyReleased(evt);
+            }
+        });
 
         txtEmail.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtEmail.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtEmailKeyReleased(evt);
+            }
+        });
 
         pwdConfirmarSenha.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        pwdConfirmarSenha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pwdConfirmarSenhaActionPerformed(evt);
+            }
+        });
+        pwdConfirmarSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                pwdConfirmarSenhaKeyReleased(evt);
+            }
+        });
 
         pwdSenha.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        pwdSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                pwdSenhaKeyReleased(evt);
+            }
+        });
 
         btnCancelar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnCancelar.setText("Cancelar");
@@ -84,6 +114,7 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
 
         btnCadastrar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnCadastrar.setText("Cadastrar");
+        btnCadastrar.setEnabled(false);
         btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCadastrarActionPerformed(evt);
@@ -195,15 +226,80 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void pwdConfirmarSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pwdConfirmarSenhaActionPerformed
         if (String.valueOf(pwdSenha.getPassword())
             .equals(String.valueOf(pwdConfirmarSenha.getPassword()))
             && !txtNome.getText().trim().isEmpty()
-            && !txtEmail.getText().trim().isEmpty() ) {
+            && !txtEmail.getText().trim().isEmpty()
+            && !txtMatricula.getText().trim().isEmpty()) {
             btnCadastrar.setEnabled(true);
         } else {
             btnCadastrar.setEnabled(false);
         }
-    }//GEN-LAST:event_btnCancelarActionPerformed
+    }//GEN-LAST:event_pwdConfirmarSenhaActionPerformed
+
+    private void pwdConfirmarSenhaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pwdConfirmarSenhaKeyReleased
+        if (String.valueOf(pwdSenha.getPassword())
+            .equals(String.valueOf(pwdConfirmarSenha.getPassword()))
+            && !txtNome.getText().trim().isEmpty()
+            && !txtEmail.getText().trim().isEmpty()
+            && !txtMatricula.getText().trim().isEmpty()) {
+            btnCadastrar.setEnabled(true);
+        } else {
+            btnCadastrar.setEnabled(false);
+        }
+    }//GEN-LAST:event_pwdConfirmarSenhaKeyReleased
+
+    private void pwdSenhaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pwdSenhaKeyReleased
+        if (String.valueOf(pwdSenha.getPassword())
+            .equals(String.valueOf(pwdConfirmarSenha.getPassword()))
+            && !txtNome.getText().trim().isEmpty()
+            && !txtEmail.getText().trim().isEmpty()
+            && !txtMatricula.getText().trim().isEmpty()) {
+            btnCadastrar.setEnabled(true);
+        } else {
+            btnCadastrar.setEnabled(false);
+        }
+    }//GEN-LAST:event_pwdSenhaKeyReleased
+
+    private void txtNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyReleased
+        if (String.valueOf(pwdSenha.getPassword())
+            .equals(String.valueOf(pwdConfirmarSenha.getPassword()))
+            && !txtNome.getText().trim().isEmpty()
+            && !txtEmail.getText().trim().isEmpty()
+            && !txtMatricula.getText().trim().isEmpty()) {
+            btnCadastrar.setEnabled(true);
+        } else {
+            btnCadastrar.setEnabled(false);
+        }
+    }//GEN-LAST:event_txtNomeKeyReleased
+
+    private void txtEmailKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmailKeyReleased
+        if (String.valueOf(pwdSenha.getPassword())
+            .equals(String.valueOf(pwdConfirmarSenha.getPassword()))
+            && !txtNome.getText().trim().isEmpty()
+            && !txtEmail.getText().trim().isEmpty()
+            && !txtMatricula.getText().trim().isEmpty()) {
+            btnCadastrar.setEnabled(true);
+        } else {
+            btnCadastrar.setEnabled(false);
+        }
+    }//GEN-LAST:event_txtEmailKeyReleased
+
+    private void txtMatriculaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMatriculaKeyReleased
+        if (String.valueOf(pwdSenha.getPassword())
+            .equals(String.valueOf(pwdConfirmarSenha.getPassword()))
+            && !txtNome.getText().trim().isEmpty()
+            && !txtEmail.getText().trim().isEmpty()
+            && !txtMatricula.getText().trim().isEmpty()) {
+            btnCadastrar.setEnabled(true);
+        } else {
+            btnCadastrar.setEnabled(false);
+        }
+    }//GEN-LAST:event_txtMatriculaKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

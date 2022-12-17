@@ -6,7 +6,7 @@ package io.github.gabrielsizilio.sabordecasa.produto;
 
 import io.github.rianal25.sabordecasa.cliente.Cliente;
 import io.github.rianal25.sabordecasa.cliente.ClienteDao;
-import io.github.yodemisj.sabordecasa.GUI.Principal;
+import io.github.yodemisj.sabordecasa.GUI.PainelPrincipal;
 import io.github.yodemisj.sabordecasa.funcionario.Funcionario;
 import io.github.yodemisj.sabordecasa.funcionario.Pedido;
 import io.github.yodemisj.sabordecasa.funcionario.PedidoDao;
@@ -28,7 +28,7 @@ import javax.swing.ListCellRenderer;
  *
  * @author Gabriel Sizilio <Gabriel at IFNMG>
  */
-public class Venda extends javax.swing.JFrame {
+public class Venda extends javax.swing.JInternalFrame {
     
     private static Venda instance;
     private static final DefaultComboBoxModel<Produto> boxModelProduto = new DefaultComboBoxModel<>();
@@ -453,7 +453,7 @@ public class Venda extends javax.swing.JFrame {
             window.setSelected(true);
             window.setIcon(false);
         } catch (PropertyVetoException ex) {
-            Logger.getLogger(Principal.class.getName())
+            Logger.getLogger(PainelPrincipal.class.getName())
                     .log(Level.INFO, null, ex);
         }
     }
@@ -470,7 +470,7 @@ public class Venda extends javax.swing.JFrame {
             // Move o foco
             janela.setSelected(true);
         } catch (PropertyVetoException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PainelPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         // Traz para o primeiro plano

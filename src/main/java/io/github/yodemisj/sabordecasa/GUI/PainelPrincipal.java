@@ -48,7 +48,7 @@ public class PainelPrincipal extends javax.swing.JFrame {
         miCadastrarCliente = new javax.swing.JMenuItem();
         miCadastrarProduto = new javax.swing.JMenuItem();
         miCadastrarRecheio = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        miEfetuarVenda = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         jMenuItem1.setText("jMenuItem1");
@@ -100,17 +100,17 @@ public class PainelPrincipal extends javax.swing.JFrame {
 
         jMenu1.add(jMenu3);
 
-        jMenuItem6.setText("Efetuar Venda");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+        miEfetuarVenda.setText("Efetuar Venda");
+        miEfetuarVenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
+                miEfetuarVendaActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem6);
+        jMenu1.add(miEfetuarVenda);
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Edit");
+        jMenu2.setText("Editar");
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -145,23 +145,23 @@ public class PainelPrincipal extends javax.swing.JFrame {
     private void miCadastrarRecheioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadastrarRecheioActionPerformed
         CadastroRecheio cadastroRecheio = new CadastroRecheio();
         cadastroRecheio.setVisible(true);
-        cadastroRecheio.setClosable(true);
+        //cadastroRecheio.setClosable(true);
         dskPrincipal.add(cadastroRecheio);
     }//GEN-LAST:event_miCadastrarRecheioActionPerformed
 
     private void miCadastrarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadastrarProdutoActionPerformed
         CadastroProduto cadastroProduto = new CadastroProduto();
         cadastroProduto.setVisible(true);
-        cadastroProduto.setClosable(true);
+        //cadastroProduto.setClosable(true);
         dskPrincipal.add(cadastroProduto);
     }//GEN-LAST:event_miCadastrarProdutoActionPerformed
 
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+    private void miEfetuarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miEfetuarVendaActionPerformed
         Venda venda = new Venda(funcionarioSistema);
         venda.setVisible(true);
-        venda.setClosable(true);
+        //venda.setClosable(true);
         dskPrincipal.add(venda);
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
+    }//GEN-LAST:event_miEfetuarVendaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -174,10 +174,10 @@ public class PainelPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem miCadastrarCliente;
     private javax.swing.JMenuItem miCadastrarFuncionario;
     private javax.swing.JMenuItem miCadastrarProduto;
     private javax.swing.JMenuItem miCadastrarRecheio;
+    private javax.swing.JMenuItem miEfetuarVenda;
     // End of variables declaration//GEN-END:variables
 }
