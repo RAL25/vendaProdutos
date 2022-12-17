@@ -30,42 +30,28 @@ public class Login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-<<<<<<< HEAD
         dskLogin = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-=======
-        jPanel1 = new javax.swing.JPanel();
-        lblEmail = new javax.swing.JLabel();
-        lblSenha = new javax.swing.JLabel();
->>>>>>> 705c1bac9b87b7b866311f8ab59646c3845fd302
         txtEmail = new javax.swing.JTextField();
         btnAutenticar = new javax.swing.JButton();
         pwdSenha = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-<<<<<<< HEAD
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Email:");
-=======
-        lblEmail.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lblEmail.setText("Usuário:");
->>>>>>> 705c1bac9b87b7b866311f8ab59646c3845fd302
 
-        lblSenha.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lblSenha.setText("Senha:");
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel2.setText("Senha:");
+
 
         txtEmail.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-<<<<<<< HEAD
         txtEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtEmailActionPerformed(evt);
             }
         });
-=======
-        txtEmail.setText("gerente@mail.com");
->>>>>>> 705c1bac9b87b7b866311f8ab59646c3845fd302
 
         btnAutenticar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnAutenticar.setText("Autenticar");
@@ -76,7 +62,6 @@ public class Login extends javax.swing.JFrame {
         });
 
         pwdSenha.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-<<<<<<< HEAD
 
         javax.swing.GroupLayout dskLoginLayout = new javax.swing.GroupLayout(dskLogin);
         dskLogin.setLayout(dskLoginLayout);
@@ -97,48 +82,17 @@ public class Login extends javax.swing.JFrame {
                         .addGap(158, 158, 158)
                         .addComponent(btnAutenticar)))
                 .addContainerGap(145, Short.MAX_VALUE))
-=======
-        pwdSenha.setText("123451234");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblSenha)
-                    .addComponent(lblEmail))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
-                    .addComponent(pwdSenha))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(172, Short.MAX_VALUE)
-                .addComponent(btnAutenticar)
-                .addGap(166, 166, 166))
->>>>>>> 705c1bac9b87b7b866311f8ab59646c3845fd302
         );
         dskLoginLayout.setVerticalGroup(
             dskLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dskLoginLayout.createSequentialGroup()
                 .addGap(53, 53, 53)
-<<<<<<< HEAD
                 .addGroup(dskLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(dskLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-=======
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblEmail)
-                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblSenha)
->>>>>>> 705c1bac9b87b7b866311f8ab59646c3845fd302
                     .addComponent(pwdSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnAutenticar)
@@ -177,11 +131,8 @@ public class Login extends javax.swing.JFrame {
         
         if (funcionarioAutenticado != null) {
             System.out.println(">> Autenticado: " + funcionarioAutenticado);
-<<<<<<< HEAD
             new Principal(funcionarioAutenticado).setVisible(true);            
-=======
-            new PainelPrincipal(funcionarioAutenticado).setVisible(true);            
->>>>>>> 705c1bac9b87b7b866311f8ab59646c3845fd302
+//            new PainelPrincipal(funcionarioAutenticado).setVisible(true);            
             dispose();
         } else {
             System.out.println(">> Não autenticado.");
@@ -192,13 +143,10 @@ public class Login extends javax.swing.JFrame {
         txtEmail.selectAll();
     }//GEN-LAST:event_btnAutenticarActionPerformed
 
-<<<<<<< HEAD
     private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtEmailActionPerformed
 
-=======
->>>>>>> 705c1bac9b87b7b866311f8ab59646c3845fd302
     /**
      * @param args the command line arguments
      */
@@ -236,15 +184,9 @@ public class Login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAutenticar;
-<<<<<<< HEAD
     private javax.swing.JPanel dskLogin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-=======
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel lblEmail;
-    private javax.swing.JLabel lblSenha;
->>>>>>> 705c1bac9b87b7b866311f8ab59646c3845fd302
     private javax.swing.JPasswordField pwdSenha;
     private javax.swing.JTextField txtEmail;
     // End of variables declaration//GEN-END:variables
