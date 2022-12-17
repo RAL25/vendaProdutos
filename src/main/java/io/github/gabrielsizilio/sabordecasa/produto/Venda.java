@@ -28,7 +28,7 @@ import javax.swing.ListCellRenderer;
  *
  * @author Gabriel Sizilio <Gabriel at IFNMG>
  */
-public class Venda extends javax.swing.JInternalFrame {
+public class Venda extends javax.swing.JFrame {
     
     private static Venda instance;
     private static final DefaultComboBoxModel<Produto> boxModelProduto = new DefaultComboBoxModel<>();
