@@ -59,8 +59,11 @@ public class ProdutoDao extends Dao<Produto>{
             pstmt.setString(1, e.getNome());
             
             pstmt.setObject(2, e.getPrecoBase(), java.sql.Types.DECIMAL);
-            
-            pstmt.setObject(3, e.getRecheio().getId(), java.sql.Types.BIGINT);
+            if(e.getRecheio() == null) {
+                pstmt.setString(3, null);
+            } else {
+                pstmt.setObject(3, e.getRecheio().getId(), java.sql.Types.BIGINT);
+            }
             
             pstmt.setObject(4, e.calcularValorProduto(), java.sql.Types.DECIMAL);
 
