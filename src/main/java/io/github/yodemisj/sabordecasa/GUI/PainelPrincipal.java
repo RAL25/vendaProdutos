@@ -48,6 +48,9 @@ public class PainelPrincipal extends javax.swing.JFrame {
         miCadastrarCliente = new javax.swing.JMenuItem();
         miCadastrarProduto = new javax.swing.JMenuItem();
         miCadastrarRecheio = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        miEditarFuncionario = new javax.swing.JMenuItem();
+        miEditarCliente = new javax.swing.JMenuItem();
         miEfetuarVenda = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
@@ -104,6 +107,21 @@ public class PainelPrincipal extends javax.swing.JFrame {
         jMenu3.add(miCadastrarRecheio);
 
         jMenu1.add(jMenu3);
+
+        jMenu4.setText("Editar");
+
+        miEditarFuncionario.setText("Funcionario");
+        miEditarFuncionario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miEditarFuncionarioActionPerformed(evt);
+            }
+        });
+        jMenu4.add(miEditarFuncionario);
+
+        miEditarCliente.setText("Cliente");
+        jMenu4.add(miEditarCliente);
+
+        jMenu1.add(jMenu4);
 
         miEfetuarVenda.setText("Efetuar Venda");
         miEfetuarVenda.addActionListener(new java.awt.event.ActionListener() {
@@ -174,6 +192,14 @@ public class PainelPrincipal extends javax.swing.JFrame {
        dskPrincipal.add(cadastroCliente);
     }//GEN-LAST:event_miCadastrarClienteActionPerformed
 
+    private void miEditarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miEditarFuncionarioActionPerformed
+        EditaFuncionario editaFuncionario = new EditaFuncionario();
+        editaFuncionario.setVisible(true);
+        editaFuncionario.setClosable(true);
+        dskPrincipal.add(editaFuncionario);
+
+    }//GEN-LAST:event_miEditarFuncionarioActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -183,12 +209,15 @@ public class PainelPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem miCadastrarCliente;
     private javax.swing.JMenuItem miCadastrarFuncionario;
     private javax.swing.JMenuItem miCadastrarProduto;
     private javax.swing.JMenuItem miCadastrarRecheio;
+    private javax.swing.JMenuItem miEditarCliente;
+    private javax.swing.JMenuItem miEditarFuncionario;
     private javax.swing.JMenuItem miEfetuarVenda;
     // End of variables declaration//GEN-END:variables
 }
