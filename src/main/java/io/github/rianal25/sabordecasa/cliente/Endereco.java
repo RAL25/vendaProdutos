@@ -82,6 +82,10 @@ public class Endereco extends Entity{
                 + ", bairro=" + bairro
                 + ", complemento=" + complemento + '}';
     }
+
+    public void setLogradouro(String text) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
     
     

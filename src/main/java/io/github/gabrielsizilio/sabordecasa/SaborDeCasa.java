@@ -46,17 +46,17 @@ public class SaborDeCasa {
         
         Produto p1 = new Produto(null, "Produto 1", new BigDecimal("5"), r1);
         id = new ProdutoDao().saveOrUpdate(p1);
-        p1.setId(id);
+        p1.setId(id);*/
         
         Credencial credencial1 = new Credencial(null, "gerente@mail.com","123451234");
         Funcionario funcionario1 = new Funcionario(null, 1L, "Gerente", credencial1, Boolean.TRUE, Boolean.TRUE);
-        id = new FuncionarioDao().saveOrUpdate(funcionario1);
+        Long id = new FuncionarioDao().saveOrUpdate(funcionario1);
         funcionario1.setId(id);
         id = new CredencialDao().saveOrUpdate(credencial1);
         System.out.println(">>>" + id);
         credencial1.setId(id);
         
-        Cliente cliente1 = new Cliente(null, "Cliente");
+        /*Cliente cliente1 = new Cliente(null, "Cliente");
         id = new ClienteDao().saveOrUpdate(cliente1);
         cliente1.setId(id);
         
@@ -87,8 +87,8 @@ public class SaborDeCasa {
 //        
 //        System.out.println(">>" + c);
         
-        List<Endereco> enderecos = new EnderecoDao().findByClienteId(1L);
-        System.out.println(">" + enderecos);
+//        List<Endereco> enderecos = new EnderecoDao().findByClienteId(1L);
+//        System.out.println(">" + enderecos);
         
         
         
