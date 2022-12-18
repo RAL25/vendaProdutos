@@ -9,6 +9,7 @@ import io.github.rianal25.sabordecasa.cliente.Cliente;
 import io.github.rianal25.sabordecasa.cliente.ClienteDao;
 import io.github.rianal25.sabordecasa.cliente.Endereco;
 import io.github.rianal25.sabordecasa.cliente.EnderecoDao;
+import io.github.yodemisj.sabordecasa.GUI.PainelPrincipal;
 import io.github.yodemisj.sabordecasa.funcionario.Pedido;
 import io.github.yodemisj.sabordecasa.funcionario.PedidoDao;
 import java.awt.Component;
@@ -30,14 +31,16 @@ public class FinalizaPedido extends javax.swing.JFrame {
     
     public static Pedido pedido;
     public static Cliente cliente;
+    public static Venda venda;
     
     /**
      * Creates new form FinalizaPedidos
      */
     
-    public FinalizaPedido(Pedido pedidoCriado) {
+    public FinalizaPedido(Pedido pedidoCriado, Venda venda) {
         initComponents();
         
+        this.venda = venda;
         pedido = pedidoCriado;
         pedido.setDelivery(ckbDelivery.isSelected());
 
@@ -53,7 +56,7 @@ public class FinalizaPedido extends javax.swing.JFrame {
     
     public static FinalizaPedido getInstance() {
         if(instance == null) {
-        instance = new FinalizaPedido(pedido);
+        instance = new FinalizaPedido(pedido, venda);
         }
         return instance;
     }
@@ -286,6 +289,8 @@ public class FinalizaPedido extends javax.swing.JFrame {
             new ItemDao().SaveOrUpdateItem(item, idPedido);
         }
         
+        dispose();
+        new Venda(pedido.getFuncionario()).setVisible(true);
     }//GEN-LAST:event_bntFinalizarActionPerformed
 
     private void bntCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntCancelarActionPerformed
@@ -349,7 +354,7 @@ public class FinalizaPedido extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FinalizaPedido(pedido).setVisible(true);
+                new FinalizaPedido(pedido, venda).setVisible(true);
             }
         });
     }

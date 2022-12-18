@@ -73,9 +73,6 @@ public class Produto extends Entity{
     }
 
     public void setValorProduto(BigDecimal valorProduto) throws Exception {
-        if(precoBase.equals(BigDecimal.ZERO) && recheio.getPreco().equals(BigDecimal.ZERO)) {
-            throw new Exception("Valor produto não pode ser 0!");
-        }
         this.valorProduto = valorProduto;
     }
 //</editor-fold>
