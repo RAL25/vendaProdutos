@@ -39,7 +39,7 @@ public class TelefoneDao extends Dao<Telefone> {
 
     @Override
     public String getUpdateStatement() {
-        return "update "+ TABLE +" set ddd = ?, numero = ?, mensageiro = ?, cliente_id = ?, where id = ?";
+        return "update "+ TABLE +" set ddd = ?, numero = ?, mensageiro = ?, cliente_id = ? where id = ?";
     }
 
     @Override

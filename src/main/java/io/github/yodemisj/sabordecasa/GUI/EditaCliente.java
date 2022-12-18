@@ -47,7 +47,7 @@ public class EditaCliente extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         lstCliente = new javax.swing.JList<>();
         btnCancelar = new javax.swing.JButton();
-        btnSalvar = new javax.swing.JButton();
+        btnAtualizar = new javax.swing.JButton();
         txtComplemento2 = new javax.swing.JFormattedTextField();
         txtNumero2 = new javax.swing.JFormattedTextField();
         jLabel14 = new javax.swing.JLabel();
@@ -93,11 +93,11 @@ public class EditaCliente extends javax.swing.JInternalFrame {
             }
         });
 
-        btnSalvar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btnSalvar.setText("Atualizar");
-        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+        btnAtualizar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnAtualizar.setText("Atualizar");
+        btnAtualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalvarActionPerformed(evt);
+                btnAtualizarActionPerformed(evt);
             }
         });
 
@@ -250,7 +250,7 @@ public class EditaCliente extends javax.swing.JInternalFrame {
                                         .addGap(18, 18, 18)
                                         .addComponent(btnExcluir)
                                         .addGap(18, 18, 18)
-                                        .addComponent(btnSalvar)
+                                        .addComponent(btnAtualizar)
                                         .addGap(0, 0, Short.MAX_VALUE))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(53, 53, 53)
@@ -361,7 +361,7 @@ public class EditaCliente extends javax.swing.JInternalFrame {
                     .addComponent(txtComplemento2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSalvar)
+                    .addComponent(btnAtualizar)
                     .addComponent(btnCancelar)
                     .addComponent(btnExcluir))
                 .addGap(0, 21, Short.MAX_VALUE))
@@ -391,79 +391,69 @@ public class EditaCliente extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        // TODO add your handling code here:
-        Cliente cliente = clienteSelecionado;
-        Telefone telefone = clienteSelecionado.getTelefone1();
-        Telefone telefone1 = clienteSelecionado.getTelefone2();
-        Endereco endereco = clienteSelecionado.getEndereco1();
-        Endereco endereco1 = clienteSelecionado.getEndereco2();
+    private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
 
+        ArrayList<Endereco> enderecos = (ArrayList<Endereco>) new EnderecoDao().findByClienteId(clienteSelecionado.getId());
+        ArrayList<Telefone> telefones = (ArrayList<Telefone>) new TelefoneDao().findByClienteId(clienteSelecionado.getId());
+        clienteSelecionado.setEnderecos(enderecos);
+        clienteSelecionado.setTelefones(telefones);
+           
         try {
-            cliente.setNome(txtNome.getText());
+            clienteSelecionado.setNome(txtNome.getText());
+            clienteSelecionado.getEndereco1().setRua(txtLogradouro1.getText());
+            clienteSelecionado.getEndereco1().setNumero(Short.valueOf(txtNumero1.getText()));
+            clienteSelecionado.getEndereco1().setBairro(txtBairro1.getText());
+            clienteSelecionado.getEndereco1().setComplemento(txtComplemento1.getText());
 
-            endereco.setRua(txtLogradouro1.getText());
-            endereco.setNumero(Short.valueOf(txtNumero1.getText()));
-            endereco.setBairro(txtBairro1.getText());
-            endereco.setComplemento(txtComplemento1.getText());
-
-            telefone.setDdd(Byte.valueOf(txtTelefone1.getText()
+            clienteSelecionado.getTelefone1().setDdd(Byte.valueOf(txtTelefone1.getText()
                 .replace("(", "")
                 .replace(")", "")
                 .replace(" ", "")
                 .replace("-", "")
                 .substring(0, 2)));
-        telefone.setNumero(Integer.valueOf(txtTelefone1.getText()
-            .replace("(", "")
-            .replace(")", "")
-            .replace(" ", "")
-            .replace("-", "")
-            .substring(2, 11)));
-    telefone.setMensageiro(ckbMensageiro1.isSelected());
+            clienteSelecionado.getTelefone1().setNumero(Integer.valueOf(txtTelefone1.getText()
+                .replace("(", "")
+                .replace(")", "")
+                .replace(" ", "")
+                .replace("-", "")
+                .substring(2, 11)));
+            clienteSelecionado.getTelefone1().setMensageiro(ckbMensageiro1.isSelected());
 
-    cliente.addEndereco(endereco);
-    cliente.addTelefone(telefone);
+            new ClienteDao().saveOrUpdate(clienteSelecionado);
+            
+            clienteSelecionado.getTelefone1().setCliente(clienteSelecionado);
+            clienteSelecionado.getEndereco1().setCliente(clienteSelecionado);
+            System.out.println("Cliente id " + clienteSelecionado.getEndereco1().getCliente().getId());
+            System.out.println("Cliente id " + clienteSelecionado.getTelefone1().getCliente().getId());
 
-    Long id = new ClienteDao().saveOrUpdate(cliente);
-    cliente.setId(id);
-    telefone.setCliente(cliente);
-    endereco.setCliente(cliente);
-    id = new TelefoneDao().saveOrUpdate(telefone);
-    telefone.setId(id);
-    id = new EnderecoDao().saveOrUpdate(endereco);
-    endereco.setId(id);
+            new TelefoneDao().saveOrUpdate(clienteSelecionado.getTelefone1());
+            new EnderecoDao().saveOrUpdate(clienteSelecionado.getEndereco1());
 
-    if(ckbDados2.isSelected()){
+            if(ckbDados2.isSelected()){
+                clienteSelecionado.getEndereco2().setRua(txtLogradouro2.getText());
+                clienteSelecionado.getEndereco2().setNumero(Short.valueOf(txtNumero2.getText()));
+                clienteSelecionado.getEndereco2().setBairro(txtBairro2.getText());
+                clienteSelecionado.getEndereco2().setComplemento(txtComplemento2.getText());
+                clienteSelecionado.getTelefone2().setDdd(Byte.valueOf(txtTelefone2.getText()
+                    .replace("(", "")
+                    .replace(")", "")
+                    .replace(" ", "")
+                    .replace("-", "")
+                    .substring(0, 2)));
+                clienteSelecionado.getTelefone2().setNumero(Integer.valueOf(txtTelefone2.getText()
+                    .replace("(", "")
+                    .replace(")", "")
+                    .replace(" ", "")
+                    .replace("-", "")
+                    .substring(2, 11)));
+                clienteSelecionado.getTelefone2().setMensageiro(ckbMensageiro2.isSelected());
 
-        endereco1.setRua(txtLogradouro2.getText());
-        endereco1.setNumero(Short.valueOf(txtNumero2.getText()));
-        endereco1.setBairro(txtBairro2.getText());
-        endereco1.setComplemento(txtComplemento2.getText());
+                clienteSelecionado.getTelefone2().setCliente(clienteSelecionado);
+                clienteSelecionado.getEndereco2().setCliente(clienteSelecionado);
+                new TelefoneDao().saveOrUpdate(clienteSelecionado.getTelefone2());
+                new EnderecoDao().saveOrUpdate(clienteSelecionado.getEndereco2());
 
-        telefone1.setDdd(Byte.valueOf(txtTelefone2.getText()
-            .replace("(", "")
-            .replace(")", "")
-            .replace(" ", "")
-            .replace("-", "")
-            .substring(0, 2)));
-    telefone1.setNumero(Integer.valueOf(txtTelefone2.getText()
-        .replace("(", "")
-        .replace(")", "")
-        .replace(" ", "")
-        .replace("-", "")
-        .substring(2, 11)));
-        telefone1.setMensageiro(ckbMensageiro2.isSelected());
-
-        cliente.addEndereco(endereco1);
-        cliente.addTelefone(telefone1);
-
-        telefone1.setCliente(cliente);
-        endereco1.setCliente(cliente);
-        id = new TelefoneDao().saveOrUpdate(telefone1);
-        telefone1.setId(id);
-        id = new EnderecoDao().saveOrUpdate(endereco1);
-        endereco1.setId(id);
-        }
+            }
 
         txtNome.setText(null);
         txtTelefone1.setText(null);
@@ -484,8 +474,8 @@ public class EditaCliente extends javax.swing.JInternalFrame {
         } catch (Exception ex) {
             Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println(">>" + cliente);
-    }//GEN-LAST:event_btnSalvarActionPerformed
+        System.out.println(">> "+ clienteSelecionado);
+    }//GEN-LAST:event_btnAtualizarActionPerformed
 
     private void txtLogradouro2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLogradouro2ActionPerformed
         // TODO add your handling code here:
@@ -500,13 +490,6 @@ public class EditaCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtLogradouro1ActionPerformed
 
     private void lstClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstClienteMouseClicked
-        clienteSelecionado = lstCliente.getSelectedValue();
-        clienteSelecionado.setEnderecos((ArrayList<Endereco>) new EnderecoDao().findByClienteId(clienteSelecionado.getId()));
-        clienteSelecionado.setTelefones((ArrayList<Telefone>) new TelefoneDao().findByClienteId(clienteSelecionado.getId()));
-        String Telefone1,Telefone2;
-        Telefone1 = String.valueOf(clienteSelecionado.getTelefone1().getDdd()) + String.valueOf(clienteSelecionado.getTelefone1().getNumero());
-        Telefone2 = String.valueOf(clienteSelecionado.getTelefone2().getDdd()) + String.valueOf(clienteSelecionado.getTelefone2().getNumero());
-
         txtNome.setText(null);
         txtTelefone1.setText(null);
         ckbMensageiro1.setSelected(false);
@@ -521,19 +504,38 @@ public class EditaCliente extends javax.swing.JInternalFrame {
         txtBairro2.setText(null);
         txtNumero2.setText(null);
         
+        clienteSelecionado = lstCliente.getSelectedValue();
+        ArrayList<Endereco> enderecos = (ArrayList<Endereco>) new EnderecoDao().findByClienteId(clienteSelecionado.getId());
+        ArrayList<Telefone> telefones = (ArrayList<Telefone>) new TelefoneDao().findByClienteId(clienteSelecionado.getId());
+        clienteSelecionado.setEnderecos(enderecos);
+        clienteSelecionado.setTelefones(telefones);
+        String Telefone1,Telefone2;
+        
         txtNome.setText(clienteSelecionado.getNome());
-        txtTelefone1.setText(Telefone1);
-        ckbMensageiro1.setSelected(clienteSelecionado.getTelefone1().getMensageiro());
-        txtLogradouro1.setText(clienteSelecionado.getEndereco1().getRua());
-        txtComplemento1.setText(clienteSelecionado.getEndereco1().getComplemento());
-        txtBairro1.setText(clienteSelecionado.getEndereco1().getBairro());
-        txtNumero1.setText(String.valueOf(clienteSelecionado.getEndereco1().getNumero()));
-        txtTelefone2.setText(Telefone2);
-        ckbMensageiro2.setSelected(clienteSelecionado.getTelefone2().getMensageiro());
-        txtLogradouro2.setText(clienteSelecionado.getEndereco2().getRua());
-        txtComplemento2.setText(clienteSelecionado.getEndereco2().getComplemento());
-        txtBairro2.setText(clienteSelecionado.getEndereco2().getBairro());
-        txtNumero2.setText(String.valueOf(clienteSelecionado.getEndereco2().getNumero()));
+        if(!telefones.isEmpty()){
+            Telefone1 = String.valueOf(clienteSelecionado.getTelefone1().getDdd()) + String.valueOf(clienteSelecionado.getTelefone1().getNumero());
+            txtTelefone1.setText(Telefone1);
+            ckbMensageiro1.setSelected(clienteSelecionado.getTelefone1().getMensageiro());
+        }
+        if(telefones.size() > 1) {
+            Telefone2 = String.valueOf(clienteSelecionado.getTelefone2().getDdd()) + String.valueOf(clienteSelecionado.getTelefone2().getNumero());
+            txtTelefone2.setText(Telefone2);
+            ckbMensageiro2.setSelected(clienteSelecionado.getTelefone2().getMensageiro());
+        }   
+        
+        if(!enderecos.isEmpty()){
+            txtLogradouro1.setText(clienteSelecionado.getEndereco1().getRua());
+            txtComplemento1.setText(clienteSelecionado.getEndereco1().getComplemento());
+            txtBairro1.setText(clienteSelecionado.getEndereco1().getBairro());
+            txtNumero1.setText(String.valueOf(clienteSelecionado.getEndereco1().getNumero())); 
+        }
+        if(enderecos.size() > 1) {
+            txtLogradouro2.setText(clienteSelecionado.getEndereco2().getRua());
+            txtComplemento2.setText(clienteSelecionado.getEndereco2().getComplemento());
+            txtBairro2.setText(clienteSelecionado.getEndereco2().getBairro());
+            txtNumero2.setText(String.valueOf(clienteSelecionado.getEndereco2().getNumero()));
+        }    
+        
 
     }//GEN-LAST:event_lstClienteMouseClicked
 
@@ -606,9 +608,9 @@ public class EditaCliente extends javax.swing.JInternalFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAtualizar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnExcluir;
-    private javax.swing.JButton btnSalvar;
     private javax.swing.JCheckBox ckbDados2;
     private javax.swing.JCheckBox ckbMensageiro1;
     private javax.swing.JCheckBox ckbMensageiro2;

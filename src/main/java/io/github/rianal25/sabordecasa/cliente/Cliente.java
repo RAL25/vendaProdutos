@@ -63,7 +63,6 @@ public class Cliente extends Entity{
         this.enderecos = enderecos;
     }
     
-    
     public Telefone getTelefone1(){
         return telefones.get(0);
     }

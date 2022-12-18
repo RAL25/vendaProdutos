@@ -40,7 +40,7 @@ public class EnderecoDao extends Dao<Endereco> {
 
     @Override
     public String getUpdateStatement() {
-        return "update "+ TABLE +" set rua = ?, numero = ?, bairro = ?, complemento = ?, cliente_id = ?, where id = ?";
+        return "update "+ TABLE +" set rua = ?, numero = ?, bairro = ?, complemento = ?, cliente_id = ? where id = ?";
     }
 
     @Override
