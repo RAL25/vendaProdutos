@@ -10,8 +10,6 @@ import io.github.yodemisj.sabordecasa.funcionario.Funcionario;
 import io.github.yodemisj.sabordecasa.funcionario.FuncionarioDao;
 import java.awt.Component;
 import java.awt.SystemColor;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
@@ -263,7 +261,9 @@ public class EditaFuncionario extends javax.swing.JInternalFrame {
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         funcionarioSelecionado.setExcluido(true);
+        funcionarioSelecionado.getCredencial().setExcluido(true);
         new FuncionarioDao().moveToTrash(funcionarioSelecionado);
+        new CredencialDao().moveToTrash(funcionarioSelecionado.getCredencial());
         allFunc.clear();
         allFunc.addAll(new FuncionarioDao().findAll());
         

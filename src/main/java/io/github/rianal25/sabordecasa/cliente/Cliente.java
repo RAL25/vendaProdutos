@@ -46,6 +46,37 @@ public class Cliente extends Entity{
         }
         this.nome = nome;
     }
+
+    public ArrayList<Telefone> getTelefones() {
+        return telefones;
+    }
+
+    public void setTelefones(ArrayList<Telefone> telefones) {
+        this.telefones = telefones;
+    }
+
+    public ArrayList<Endereco> getEnderecos() {
+        return enderecos;
+    }
+
+    public void setEnderecos(ArrayList<Endereco> enderecos) {
+        this.enderecos = enderecos;
+    }
+    
+    
+    public Telefone getTelefone1(){
+        return telefones.get(0);
+    }
+    public Telefone getTelefone2(){
+        return telefones.get(1);
+    }
+    
+    public Endereco getEndereco1(){
+        return enderecos.get(0);
+    }
+    public Endereco getEndereco2(){
+        return enderecos.get(1);
+    }
     //</editor-fold>
     
     public void addTelefone(Telefone telefone) {    //cada cliente tem no máximo 2 telefones

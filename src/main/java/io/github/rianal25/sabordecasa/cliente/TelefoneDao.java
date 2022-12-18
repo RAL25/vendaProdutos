@@ -5,9 +5,12 @@
 package io.github.rianal25.sabordecasa.cliente;
 
 import io.github.gabrielsizilio.sabordecasa.database.Dao;
+import io.github.gabrielsizilio.sabordecasa.database.DbConnection;
+import static io.github.rianal25.sabordecasa.cliente.EnderecoDao.TABLE;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -81,7 +84,30 @@ public class TelefoneDao extends Dao<Telefone> {
     public String getFindAllOnTrashStatement() {
         return "select * from "+ TABLE + " where excluido = 1";
     }
+    public List<Telefone> findByClienteId(Long id) {
+        
+        final String SQL = "SELECT * FROM " +TABLE+ " WHERE cliente_id=?";
+        
+        try ( PreparedStatement preparedStatement
+                = DbConnection.getConnection().prepareStatement(SQL)) {
+            
+            preparedStatement.setLong(1, id);
+            
+            // Show the full sentence
+            System.out.println(">>FINDBYCLIENTEID SQL: " + preparedStatement);
 
+            // Performs the query on the database
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            // Returns the respective object
+            return extractObjects(resultSet);
+
+        } catch (Exception ex) {
+            System.out.println("Exception: " + ex);
+        }
+
+        return null;
+    }
     @Override
     public Telefone extractObject(ResultSet resultSet) {
         Telefone telefone = null;

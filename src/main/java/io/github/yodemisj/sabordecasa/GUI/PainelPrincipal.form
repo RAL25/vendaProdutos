@@ -62,6 +62,7 @@
                 <MenuItem class="javax.swing.JMenuItem" name="miEditarFuncionario">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Funcionario"/>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miEditarFuncionarioActionPerformed"/>
@@ -71,6 +72,9 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Cliente"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miEditarClienteActionPerformed"/>
+                  </Events>
                 </MenuItem>
               </SubComponents>
             </Menu>

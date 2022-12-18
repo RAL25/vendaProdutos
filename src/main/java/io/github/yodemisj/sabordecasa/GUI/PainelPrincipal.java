@@ -15,7 +15,7 @@ import io.github.yodemisj.sabordecasa.funcionario.Funcionario;
  */
 public class PainelPrincipal extends javax.swing.JFrame {
 
-        private Funcionario funcionarioSistema;
+        private final Funcionario funcionarioSistema;
                 
     public PainelPrincipal(Funcionario funcionarioSistema) {
         this.funcionarioSistema = funcionarioSistema;
@@ -24,6 +24,7 @@ public class PainelPrincipal extends javax.swing.JFrame {
         
         if(funcionarioSistema.getAdministrador()) {
             miCadastrarFuncionario.setEnabled(funcionarioSistema.getAdministrador());
+            miEditarFuncionario.setEnabled(funcionarioSistema.getAdministrador());
         }
         
         // Centralização da janela
@@ -111,6 +112,7 @@ public class PainelPrincipal extends javax.swing.JFrame {
         jMenu4.setText("Editar");
 
         miEditarFuncionario.setText("Funcionario");
+        miEditarFuncionario.setEnabled(false);
         miEditarFuncionario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 miEditarFuncionarioActionPerformed(evt);
@@ -119,6 +121,11 @@ public class PainelPrincipal extends javax.swing.JFrame {
         jMenu4.add(miEditarFuncionario);
 
         miEditarCliente.setText("Cliente");
+        miEditarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miEditarClienteActionPerformed(evt);
+            }
+        });
         jMenu4.add(miEditarCliente);
 
         jMenu1.add(jMenu4);
@@ -199,6 +206,13 @@ public class PainelPrincipal extends javax.swing.JFrame {
         dskPrincipal.add(editaFuncionario);
 
     }//GEN-LAST:event_miEditarFuncionarioActionPerformed
+
+    private void miEditarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miEditarClienteActionPerformed
+        EditaCliente editaCliente = new EditaCliente();
+        editaCliente.setVisible(true);
+        editaCliente.setClosable(true);
+        dskPrincipal.add(editaCliente);
+    }//GEN-LAST:event_miEditarClienteActionPerformed
 
     /**
      * @param args the command line arguments

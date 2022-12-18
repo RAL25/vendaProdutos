@@ -436,6 +436,7 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
             telefone1.setId(id);
             id = new EnderecoDao().saveOrUpdate(endereco1);
             endereco1.setId(id);
+            System.out.println(">> " + cliente);
         }
         
         txtNome.setText(null);

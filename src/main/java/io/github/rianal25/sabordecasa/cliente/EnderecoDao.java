@@ -64,7 +64,7 @@ public class EnderecoDao extends Dao<Endereco> {
 
     @Override
     public String getFindByIdStatement() {
-        return "select * from "+ TABLE + " where id = ?";
+        return "select * from "+ TABLE + " where id = ? and excluido = 0";
     }
 
     @Override
