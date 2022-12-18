@@ -37,7 +37,7 @@ public class ClienteDao extends Dao<Cliente> {
 
     @Override
     public String getUpdateStatement() {
-        return "update "+ TABLE +" set nome = ?, where id = ?";
+        return "update "+ TABLE +" set nome = ? where id = ?";
     }
 
     @Override

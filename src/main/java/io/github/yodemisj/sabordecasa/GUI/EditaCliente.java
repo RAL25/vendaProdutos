@@ -423,13 +423,42 @@ public class EditaCliente extends javax.swing.JInternalFrame {
             
             clienteSelecionado.getTelefone1().setCliente(clienteSelecionado);
             clienteSelecionado.getEndereco1().setCliente(clienteSelecionado);
-            System.out.println("Cliente id " + clienteSelecionado.getEndereco1().getCliente().getId());
-            System.out.println("Cliente id " + clienteSelecionado.getTelefone1().getCliente().getId());
 
             new TelefoneDao().saveOrUpdate(clienteSelecionado.getTelefone1());
             new EnderecoDao().saveOrUpdate(clienteSelecionado.getEndereco1());
 
             if(ckbDados2.isSelected()){
+                
+                if(telefones.size() < 2) {
+                    Telefone telefone = new Telefone();
+//                    telefone.setCliente(clienteSelecionado);
+//                    telefone.setDdd(Byte.valueOf(txtTelefone2.getText()
+//                    .replace("(", "")
+//                    .replace(")", "")
+//                    .replace(" ", "")
+//                    .replace("-", "")
+//                    .substring(0, 2)));
+//                    telefone.setNumero(Integer.valueOf(txtTelefone2.getText()
+//                    .replace("(", "")
+//                    .replace(")", "")
+//                    .replace(" ", "")
+//                    .replace("-", "")
+//                    .substring(2, 11)));
+//                    telefone.setMensageiro(ckbMensageiro2.isSelected());
+                    telefones.add(telefone);
+                }   
+                
+                if(enderecos.size() < 2) {
+                        Endereco endereco = new Endereco();
+//                        endereco.setCliente(clienteSelecionado);
+//                        endereco.setBairro(txtBairro2.getText());
+//                        endereco.setComplemento(txtComplemento2.getText());
+//                        endereco.setRua(txtLogradouro2.getText());
+//                        endereco.setNumero(Short.valueOf(txtNumero2.getText()));
+                        enderecos.add(endereco);
+                }
+                
+                
                 clienteSelecionado.getEndereco2().setRua(txtLogradouro2.getText());
                 clienteSelecionado.getEndereco2().setNumero(Short.valueOf(txtNumero2.getText()));
                 clienteSelecionado.getEndereco2().setBairro(txtBairro2.getText());
