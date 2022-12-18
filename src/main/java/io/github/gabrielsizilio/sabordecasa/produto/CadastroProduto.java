@@ -8,7 +8,6 @@ import java.awt.Component;
 import java.awt.SystemColor;
 import java.beans.PropertyVetoException;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
@@ -28,6 +27,8 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
     private static CadastroProduto instance;
     private static final DefaultComboBoxModel<Recheio> boxModel = new DefaultComboBoxModel<>();
     private static final DefaultComboBoxModel<Produto> boxModelProdutos = new DefaultComboBoxModel<>();
+    private static Produto produto;
+    
     //<editor-fold defaultstate="collapsed" desc="Constructor">
     
     /**
@@ -35,6 +36,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
      */
     public CadastroProduto() {
         initComponents();
+        produto = new Produto();
 
         recheioReload();
         cboRecheio.setModel(boxModel);
@@ -78,7 +80,6 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
             boxModelProdutos.removeAllElements();
             
             boxModelProdutos.addAll(new ProdutoDao().findAll());
-            boxModelProdutos.addAll(new ProdutoDao().findAllOnTrashStatement());
             boxModelProdutos.setSelectedItem(boxModelProdutos.getElementAt(selectedIdx));
         } catch (Exception ex) {
             System.out.println(">> " + ex.getMessage());
@@ -105,14 +106,23 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         ftfPreco = new javax.swing.JFormattedTextField();
         ckbRecheio = new javax.swing.JCheckBox();
         jSeparator1 = new javax.swing.JSeparator();
-        bntEditar = new javax.swing.JButton();
         bntCancelar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         lstProduto = new javax.swing.JList<>();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        btnAtualizar = new javax.swing.JButton();
+        txtNome1 = new javax.swing.JTextField();
+        ftfPreco1 = new javax.swing.JFormattedTextField();
+        lblPreco1 = new javax.swing.JLabel();
+        lblNome1 = new javax.swing.JLabel();
+        lblRecheio1 = new javax.swing.JLabel();
+        ckbRecheio1 = new javax.swing.JCheckBox();
+        cboRecheio1 = new javax.swing.JComboBox<>();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Registro de Produto");
 
         lblNome.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -157,14 +167,6 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
             }
         });
 
-        bntEditar.setText("Editar");
-        bntEditar.setEnabled(false);
-        bntEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bntEditarActionPerformed(evt);
-            }
-        });
-
         bntCancelar.setText("Cancelar");
         bntCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -174,51 +176,127 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
 
         jScrollPane1.setViewportView(lstProduto);
 
+        jLabel1.setText("CRIAR");
+
+        jLabel2.setText("EDITAR");
+
+        btnAtualizar.setText("Atualizar");
+        btnAtualizar.setToolTipText("");
+        btnAtualizar.setEnabled(false);
+        btnAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtualizarActionPerformed(evt);
+            }
+        });
+
+        txtNome1.setEnabled(false);
+
+        ftfPreco1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###.00"))));
+        ftfPreco1.setText("0,00");
+        ftfPreco1.setEnabled(false);
+        ftfPreco1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ftfPreco1ActionPerformed(evt);
+            }
+        });
+
+        lblPreco1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblPreco1.setText("Preco base:");
+        lblPreco1.setToolTipText("");
+
+        lblNome1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblNome1.setText("Nome:");
+        lblNome1.setToolTipText("");
+
+        lblRecheio1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblRecheio1.setText("Recheio:");
+        lblRecheio1.setToolTipText("");
+
+        ckbRecheio1.setToolTipText("");
+        ckbRecheio1.setEnabled(false);
+        ckbRecheio1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckbRecheio1ActionPerformed(evt);
+            }
+        });
+
+        cboRecheio1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cboRecheio1.setEnabled(false);
+        cboRecheio1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboRecheio1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout dskPrincipalLayout = new javax.swing.GroupLayout(dskPrincipal);
         dskPrincipal.setLayout(dskPrincipalLayout);
         dskPrincipalLayout.setHorizontalGroup(
             dskPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dskPrincipalLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(lblNome)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(dskPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(dskPrincipalLayout.createSequentialGroup()
-                        .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(dskPrincipalLayout.createSequentialGroup()
+                        .addGap(14, 14, 14)
                         .addGroup(dskPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
                             .addGroup(dskPrincipalLayout.createSequentialGroup()
-                                .addComponent(lblPreco)
+                                .addComponent(lblNome)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(ftfPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(dskPrincipalLayout.createSequentialGroup()
-                                .addComponent(lblRecheio)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(ckbRecheio)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cboRecheio, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(35, 35, 35)
-                                .addComponent(btnCriar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addComponent(jSeparator1)
+                                .addGroup(dskPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(dskPrincipalLayout.createSequentialGroup()
+                                        .addComponent(lblPreco)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(ftfPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(75, 75, 75))
+                    .addGroup(dskPrincipalLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel2)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(dskPrincipalLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 671, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(dskPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(dskPrincipalLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
-                        .addComponent(bntCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(45, 45, 45))
+                        .addComponent(jSeparator1)
+                        .addContainerGap())
                     .addGroup(dskPrincipalLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(bntEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(49, 49, 49)
+                        .addGroup(dskPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(bntCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(dskPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(dskPrincipalLayout.createSequentialGroup()
+                                    .addComponent(lblPreco1)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(ftfPreco1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(dskPrincipalLayout.createSequentialGroup()
+                                    .addComponent(lblNome1)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtNome1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(dskPrincipalLayout.createSequentialGroup()
+                                    .addComponent(lblRecheio1)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(ckbRecheio1)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(dskPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(cboRecheio1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(0, 51, Short.MAX_VALUE))))
+            .addGroup(dskPrincipalLayout.createSequentialGroup()
+                .addGap(46, 46, 46)
+                .addComponent(lblRecheio)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ckbRecheio)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cboRecheio, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
+                .addComponent(btnCriar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         dskPrincipalLayout.setVerticalGroup(
             dskPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dskPrincipalLayout.createSequentialGroup()
-                .addGap(40, 40, 40)
+                .addComponent(jLabel1)
+                .addGap(24, 24, 24)
                 .addGroup(dskPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -226,7 +304,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
                 .addGroup(dskPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ftfPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(dskPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblRecheio, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(dskPrincipalLayout.createSequentialGroup()
@@ -237,16 +315,38 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
                         .addGroup(dskPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cboRecheio, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnCriar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(29, 29, 29)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
-                .addGroup(dskPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(dskPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(dskPrincipalLayout.createSequentialGroup()
-                        .addComponent(bntEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(124, 124, 124)
-                        .addComponent(bntCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(20, Short.MAX_VALUE))
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(dskPrincipalLayout.createSequentialGroup()
+                        .addGap(81, 81, 81)
+                        .addGroup(dskPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblNome1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNome1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(dskPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblPreco1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ftfPreco1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(dskPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblRecheio1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(dskPrincipalLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cboRecheio1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(dskPrincipalLayout.createSequentialGroup()
+                                .addGap(14, 14, 14)
+                                .addComponent(ckbRecheio1)))
+                        .addGap(30, 30, 30)
+                        .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                        .addComponent(bntCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(57, 57, 57))))
         );
 
         jMenu1.setText("File");
@@ -320,12 +420,40 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_bntCancelarActionPerformed
 
-    private void bntEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntEditarActionPerformed
+    private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
         // TODO add your handling code here:
-        EditaProduto editaProduto = new EditaProduto(lstProduto.getSelectedValue());
-        editaProduto.setVisible(true);
+
+        try {
+            produto.setId(lstProduto.getSelectedValue().getId());
+            produto.setNome(txtNome1.getText());
+            produto.setPrecoBase(new BigDecimal(ftfPreco1.getValue().toString()));
+            produto.setRecheio((Recheio)cboRecheio1.getSelectedItem());
+            produto.setValorProduto(lstProduto.getSelectedValue().calcularValorProduto());
+            System.out.println(">>>"+produto);
+        } catch (Exception ex) {
+            Logger.getLogger(EditaProduto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        new ProdutoDao().saveOrUpdate(produto);
         
-    }//GEN-LAST:event_bntEditarActionPerformed
+        produtoReload();
+    }//GEN-LAST:event_btnAtualizarActionPerformed
+
+    private void ftfPreco1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ftfPreco1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ftfPreco1ActionPerformed
+
+    private void ckbRecheio1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckbRecheio1ActionPerformed
+        // TODO add your handling code here:
+        if(ckbRecheio1.isSelected()){
+            cboRecheio1.setEnabled(true);
+        } else {
+            cboRecheio1.setEnabled(false);
+        }
+    }//GEN-LAST:event_ckbRecheio1ActionPerformed
+
+    private void cboRecheio1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboRecheio1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboRecheio1ActionPerformed
     
     private void attachInternalFrame(JInternalFrame window) {
         // Attach internal window to desktop pane
@@ -349,6 +477,22 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         txtNome.setText(null);
         txtNome.requestFocus();
         ftfPreco.setValue(null);
+    }
+    
+    private void reloadCampoAtualiar() {
+        btnAtualizar.setEnabled(true);
+        txtNome1.setEnabled(true);
+        txtNome1.setText(lstProduto.getSelectedValue().getNome());
+
+        ftfPreco1.setEnabled(true);
+        ftfPreco1.setValue(lstProduto.getSelectedValue().getPrecoBase());
+
+        recheioReload();
+        ckbRecheio1.setEnabled(true);
+        
+        cboRecheio1.setModel(boxModel);
+        cboRecheio1.setRenderer(new RecheioRender());
+        cboRecheio1.setSelectedItem(lstProduto.getSelectedValue().getRecheio());
     }
     
     private class RecheioRender extends JLabel implements ListCellRenderer<Recheio> {
@@ -386,9 +530,9 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
             setForeground(SystemColor.textText);
             setBackground(SystemColor.text);
             if(isSelected) {
+                reloadCampoAtualiar();
                 setForeground(SystemColor.textHighlightText);
                 setBackground(SystemColor.textHighlight);
-                bntEditar.setEnabled(true);
             }
             
             setText(value.getNome() 
@@ -404,20 +548,29 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bntCancelar;
-    private javax.swing.JButton bntEditar;
+    private javax.swing.JButton btnAtualizar;
     private javax.swing.JButton btnCriar;
     private javax.swing.JComboBox<Recheio> cboRecheio;
+    private javax.swing.JComboBox<Recheio> cboRecheio1;
     private javax.swing.JCheckBox ckbRecheio;
+    private javax.swing.JCheckBox ckbRecheio1;
     private javax.swing.JPanel dskPrincipal;
     private javax.swing.JFormattedTextField ftfPreco;
+    private javax.swing.JFormattedTextField ftfPreco1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblNome;
+    private javax.swing.JLabel lblNome1;
     private javax.swing.JLabel lblPreco;
+    private javax.swing.JLabel lblPreco1;
     private javax.swing.JLabel lblRecheio;
+    private javax.swing.JLabel lblRecheio1;
     private javax.swing.JList<Produto> lstProduto;
     private javax.swing.JTextField txtNome;
+    private javax.swing.JTextField txtNome1;
     // End of variables declaration//GEN-END:variables
 }

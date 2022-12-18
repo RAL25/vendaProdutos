@@ -92,9 +92,12 @@ public class Venda extends javax.swing.JInternalFrame {
         
     }
     
-    private void clear() {
-        txtQuantidade.setText("0");
-    }
+//    public void clear() {
+//        pedido.getItens().clear();
+//        txtQuantidade.setText("");
+//        resumoPedidoReload();
+//        produtoReload();
+//    }
     
     private class ProdutoRender extends JLabel implements ListCellRenderer<Produto> {
         
@@ -437,7 +440,7 @@ public class Venda extends javax.swing.JInternalFrame {
 
     private void bntFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntFinalizarActionPerformed
         // TODO add your handling code here:
-        FinalizaPedido finalizaPedido = new FinalizaPedido(pedido);
+        FinalizaPedido finalizaPedido = new FinalizaPedido(pedido, this);
         finalizaPedido.setVisible(true); 
     }//GEN-LAST:event_bntFinalizarActionPerformed
     
